@@ -5,13 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 
- * @author DoanhNV
- * Jul 7, 2018 10:33:20 AM
+ * @author DoanhNV Jul 7, 2018 10:33:20 AM
  */
 @RestController
-public class HomeController {
-	
-	@RequestMapping(value = "/")
+public class HomeBackendController {
+
+	@RequestMapping(value = "/b")
 	public String loadRoot() {
 		return "Nihongo";
 	}

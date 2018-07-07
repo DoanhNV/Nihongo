@@ -10,20 +10,20 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 
- * @author DoanhNV
- * Jul 7, 2018 10:35:17 AM
+ * @author DoanhNV Jul 7, 2018 10:35:17 AM
  */
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"com"})
+@ComponentScan(basePackages = { "com" })
 public class Application {
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
-	
+
 	@Bean
 	ServletWebServerFactory servletWebServerFactory() {
 		return new TomcatServletWebServerFactory();
 	}
+
 }
