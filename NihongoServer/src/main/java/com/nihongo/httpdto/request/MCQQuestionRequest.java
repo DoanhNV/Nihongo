@@ -1,26 +1,20 @@
-package com.nihongo.data.entity.question;
+package com.nihongo.httpdto.request;
 
 import java.util.List;
 
-/**
- * 
- * @author DoanhNV Jul 7, 2018 2:55:05 PM
- */
-public class MCQQuestion extends Question {
+import com.nihongo.data.entity.question.Answer;
+
+public class MCQQuestionRequest extends AbstractRequest {
 	private String title;
 	private List<Answer> answers;
 	private int topic;
 	private int level;
 
-	public MCQQuestion() {
+	public MCQQuestionRequest() {
 
 	}
 
-	public MCQQuestion(String id) {
-		this.id = id;
-	}
-
-	public MCQQuestion(String title, List<Answer> answers, int topic, int level) {
+	public MCQQuestionRequest(String title, List<Answer> answers, int topic, int level) {
 		this.title = title;
 		this.answers = answers;
 		this.topic = topic;

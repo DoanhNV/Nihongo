@@ -1,12 +1,10 @@
 package com.nihongo.data.entity.question;
 
-import com.nihongo.data.entity.AbstractEntity;
-
 /**
  * 
  * @author DoanhNV Jul 7, 2018 3:01:10 PM
  */
-public class Answer extends AbstractEntity {
+public class Answer {
 	private String content;
 	private boolean isCorrect;
 
@@ -27,11 +25,11 @@ public class Answer extends AbstractEntity {
 		this.content = content;
 	}
 
-	public boolean isCorrect() {
+	public boolean isIsCorrect() {
 		return isCorrect;
 	}
 
-	public void setCorrect(boolean isCorrect) {
+	public void setIsCorrect(boolean isCorrect) {
 		this.isCorrect = isCorrect;
 	}
 

@@ -2,7 +2,7 @@ package com.nihongo.config.mongo;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
-import static com.nihongo.support.constant.mongo.MongoConfig.*;
+import static com.nihongo.support.constant.mongo.MongoConfigInfo.*;
 
 /**
  * 
