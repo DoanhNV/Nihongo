@@ -8,18 +8,18 @@ public class AbstractNihongoException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	private int code;
+	private float code;
 	private String message;
 
 	public AbstractNihongoException() {
 
 	}
 
-	public AbstractNihongoException(String message, int code) {
+	public AbstractNihongoException(String message, float code) {
 		this.code = code;
 	}
 
-	public AbstractNihongoException(int code, String message) {
+	public AbstractNihongoException(float code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -41,14 +41,15 @@ public class AbstractNihongoException extends RuntimeException {
 		super(cause);
 	}
 
-	public int getCode() {
+	public float getCode() {
 		return code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(float code) {
 		this.code = code;
 	}
 
+	@Override
 	public String getMessage() {
 		return message;
 	}

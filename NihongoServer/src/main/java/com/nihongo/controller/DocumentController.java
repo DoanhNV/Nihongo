@@ -9,32 +9,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nihongo.data.entity.question.MCQQuestion;
+import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.exception.AbstractNihongoException;
-import com.nihongo.httpdto.request.InsertMCQQuestionRequest;
-import com.nihongo.httpdto.response.InsertMCQQuestionResponse;
-import com.nihongo.service.MCQQuestionService;
+import com.nihongo.httpdto.request.InsertDocumentRequest;
+import com.nihongo.httpdto.response.InsertDocumentResponse;
+import com.nihongo.service.DocumentService;
 import com.nihongo.support.constant.ResponseCode;
 
 /**
  * 
- * @author DoanhNV Jul 7, 2018 9:49:57 PM
+ * @author DoanhNV Jul 8, 2018 11:04:21 AM
  */
 @RestController
-@RequestMapping(value = "/mvcquestion")
-public class MCQQuestionController {
+@RequestMapping(value = "/document")
+public class DocumentController {
 	
 	@Autowired
-	private MCQQuestionService mCQQuestionService;
+	private DocumentService documentService;
 	
 	@PostMapping(value = "/create")
 	@ResponseBody
-	public InsertMCQQuestionResponse create(@RequestBody InsertMCQQuestionRequest request) {
-		InsertMCQQuestionResponse response = new InsertMCQQuestionResponse();
+	public InsertDocumentResponse create(@RequestBody InsertDocumentRequest request) {
+		InsertDocumentResponse response = new InsertDocumentResponse();
 		try {
-			MCQQuestion mcqQuestion = new MCQQuestion();
-			transferObjectTo(request, mcqQuestion);
-			mCQQuestionService.insert(mcqQuestion);
+			Document document = new Document();
+			transferObjectTo(request, document);
+			documentService.insert(document);
 			response.setCode(ResponseCode.SUCCESS);
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());

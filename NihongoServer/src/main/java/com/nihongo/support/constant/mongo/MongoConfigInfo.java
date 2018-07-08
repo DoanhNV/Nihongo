@@ -12,6 +12,8 @@ public class MongoConfigInfo {
 	public static final String EXAM_DB = "exam";
 	
 	public class EXAM_DB {
+		
 		public static final String MCQ_QUESTION_COLLECTION = "mcq_question";
+		public static final String DOCUMENT_COLLECTION = "question_document";
 	}
 }

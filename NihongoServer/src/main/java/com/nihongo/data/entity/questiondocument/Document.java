@@ -13,16 +13,26 @@ public class Document extends AbstractEntity {
 	private int topic;
 	private List<String> questionIds;
 	private int level;
+	private int type;
 
 	public Document() {
 
 	}
 
-	public Document(String content, int topic, List<String> questionIds, int level) {
+	public Document(String content, int topic, List<String> questionIds, int level, int type) {
 		this.content = content;
 		this.topic = topic;
 		this.questionIds = questionIds;
 		this.level = level;
+		this.type = type;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	public List<String> getQuestionIds() {

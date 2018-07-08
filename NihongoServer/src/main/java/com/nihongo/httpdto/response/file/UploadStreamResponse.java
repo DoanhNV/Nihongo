@@ -1,0 +1,38 @@
+package com.nihongo.httpdto.response.file;
+
+import com.nihongo.httpdto.response.AbstractResponse;
+
+/**
+ * 
+ * @author DoanhNV Jul 8, 2018 2:05:17 PM
+ */
+public class UploadStreamResponse extends AbstractResponse {
+	
+	private String filePath;
+
+	public UploadStreamResponse() {
+
+	}
+
+	public UploadStreamResponse(float code) {
+		this.code = code;
+	}
+
+	public UploadStreamResponse(float code, String message) {
+		this.code = code;
+		this.message = message;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	
+	public void setResponseInfo (float code, String filePath) {
+		this.code = code;
+		this.filePath = filePath;
+	}
+}

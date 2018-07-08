@@ -6,6 +6,7 @@ package com.nihongo.support.constant;
  * Jul 7, 2018 10:33:47 AM
  */
 public class Constant {
+	
 	public class TOPIC {
 		public static final int HIRAGRANA_TO_KANJI = 0;
 		public static final int KANJI_TO_HIRAGANA = 1;
@@ -23,5 +24,14 @@ public class Constant {
 		public static final int N3 = 1;
 		public static final int N4 = 1;
 		public static final int N5 = 1;
+	}
+	
+	public class FILE {
+		public static final String DEFAULT_IMAGE_DIRECTORY = "d:/";
+		public static final String DEFAULT_IMAGE_EXTENTION = ".png";
+		public static final String DEFAULT_VIDEO_DIRECTORY = "d:/";
+		public static final String DEFAULT_VIDEO_EXTENTION = ".mp4";
+		public static final int IMAGE_TYPE = 0;
+		public static final int VIDEO_TYPE = 1;
 	}
 }

@@ -7,7 +7,7 @@ package com.nihongo.httpdto.response;
 public abstract class AbstractResponse {
 	protected float code;
 	protected String message;
-
+	
 	public float getCode() {
 		return code;
 	}
@@ -23,5 +23,10 @@ public abstract class AbstractResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
+	
+	public void setCodeAndMessage(float code, String message) {
+		this.code = code;
+		this.message = message;
+	}
+	
 }

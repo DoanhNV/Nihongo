@@ -4,17 +4,17 @@ import java.util.List;
 
 import com.nihongo.data.entity.question.Answer;
 
-public class MCQQuestionRequest extends AbstractRequest {
+public class InsertMCQQuestionRequest extends AbstractRequest {
 	private String title;
 	private List<Answer> answers;
 	private int topic;
 	private int level;
 
-	public MCQQuestionRequest() {
+	public InsertMCQQuestionRequest() {
 
 	}
 
-	public MCQQuestionRequest(String title, List<Answer> answers, int topic, int level) {
+	public InsertMCQQuestionRequest(String title, List<Answer> answers, int topic, int level) {
 		this.title = title;
 		this.answers = answers;
 		this.topic = topic;
