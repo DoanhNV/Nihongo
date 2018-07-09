@@ -1,17 +1,19 @@
 package com.nihongo.data.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.nihongo.data.converter.MCQQuestionConverter;
 import com.nihongo.data.dao.MCQQuestionDAO;
 import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.data.entity.question.Question;
-import com.nihongo.support.constant.mongo.MongoConfigInfo.*;
+import com.nihongo.support.constant.mongo.MongoConfigInfo.EXAM_DB;
 
 /**
  * 
@@ -45,7 +47,14 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 
 	@Override
 	public List<Question> listAll() {
-		return null;
+		List<Question> questions = new ArrayList<>();
+		DBCursor cursor = mCQQuestionCollection.find();
+		while(cursor.hasNext()) {
+			DBObject dbObject = cursor.next();
+			MCQQuestion mCQQuestion = MCQQuestionConverter.toMCQQuestion(dbObject);
+			questions.add(mCQQuestion);
+		}
+		return questions;
 	}
 
 	@Override

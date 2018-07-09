@@ -34,7 +34,7 @@ public class MCQQuestionServiceImpl implements MCQQuestionService {
 
 	@Override
 	public List<Question> listAll() {
-		return null;
+		return mCQQuestionDAO.listAll();
 	}
 
 	@Override

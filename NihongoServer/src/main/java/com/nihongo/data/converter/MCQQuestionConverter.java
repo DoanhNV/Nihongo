@@ -1,12 +1,14 @@
 package com.nihongo.data.converter;
 
+import static com.nihongo.support.constant.mongo.MongoDBKey.CONTENT;
+import static com.nihongo.support.constant.mongo.MongoDBKey.ID;
 import static com.nihongo.support.constant.mongo.MongoDBKey.LEVEL;
 import static com.nihongo.support.constant.mongo.MongoDBKey.TOPIC;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.ANSWERS;
-import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.CONTENT;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.IS_CORRECT;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.TITLE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.BasicDBList;
@@ -36,5 +38,29 @@ public class MCQQuestionConverter {
 		desObject.append(TOPIC, question.getTopic());
 		desObject.append(LEVEL, question.getLevel());
 		return desObject;
+	}
+
+	public static MCQQuestion toMCQQuestion(DBObject dbObject) {
+		MCQQuestion question = new MCQQuestion();
+		String id = dbObject.get(ID).toString();
+		question.setId(id);
+		String title = (String) dbObject.get(TITLE);
+		System.out.println(id + " - " + title);
+		question.setTitle(title);
+		int topic = (Integer) dbObject.get(TOPIC);
+		question.setTopic(topic);
+		int level = (Integer) dbObject.get(LEVEL);
+		question.setLevel(level);
+		BasicDBList answerList = (BasicDBList) dbObject.get(ANSWERS);
+		List<Answer> answers = new ArrayList<>();
+		for (Object answerObj : answerList) {
+			BasicDBObject bAnswerObj = (BasicDBObject) answerObj;
+			boolean isCorrect  = bAnswerObj.getBoolean(IS_CORRECT, false);
+			String content = bAnswerObj.getString(CONTENT);
+			Answer answer = new Answer(content, isCorrect);
+			answers.add(answer);
+		}
+		question.setAnswers(answers);
+		return question;
 	}
 }
