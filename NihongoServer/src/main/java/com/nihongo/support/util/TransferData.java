@@ -17,10 +17,10 @@ public class TransferData {
 
 		private Map<Integer, List<Question>> topicMap = new HashMap<>();
 
-		public RandomExamTransfer(int initNumber) {
-			for (int topic = 0; topic < initNumber; topic++) {
+		public RandomExamTransfer(List<Integer> topics) {
+			for (int i = 0; i < topics.size(); i++) {
 				List<Question> questions = new ArrayList<>();
-				topicMap.put(topic, questions);
+				topicMap.put(topics.get(i), questions);
 			}
 		}
 

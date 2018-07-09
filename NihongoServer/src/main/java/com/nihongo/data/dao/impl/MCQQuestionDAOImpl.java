@@ -69,7 +69,7 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 
 	@Override
 	public Map<Integer, List<Question>> getRandomExam(int level, List<Integer> topics) {
-		RandomExamTransfer transfer = new RandomExamTransfer(topics.size());
+		RandomExamTransfer transfer = new RandomExamTransfer(topics);
 		Map<Integer, List<Question>> topicMap = transfer.getTopicMap();
 		
 		BasicDBObject findObject = new BasicDBObject();
