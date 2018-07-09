@@ -8,6 +8,7 @@ package com.nihongo.support.constant;
 public class Constant {
 	public static final int TOPIC_NUMBER = 7;
 	public static final int MAX_TOPIC_PER_EXAM = 4;
+	public static final int MAX_TOPIC_NUMBER = 7;
 	
 	public class TOPIC {
 		public static final int HIRAGRANA_TO_KANJI = 0;

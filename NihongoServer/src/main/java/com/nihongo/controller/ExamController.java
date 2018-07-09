@@ -1,6 +1,7 @@
 package com.nihongo.controller;
 
 import static com.nihongo.support.constant.Constant.MAX_TOPIC_PER_EXAM;
+import static com.nihongo.support.constant.Constant.MAX_TOPIC_NUMBER;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class ExamController {
 	public RandomExamResponse getRandomExam(@PathVariable int level) {
 		RandomExamResponse response = new RandomExamResponse();
 		try {
-			List<Integer> topics = NihongoUtil.randomNumberList(0, MAX_TOPIC_PER_EXAM, MAX_TOPIC_PER_EXAM);
+			List<Integer> topics = NihongoUtil.randomNumberList(0, MAX_TOPIC_NUMBER, MAX_TOPIC_PER_EXAM);
 			List<RandomExamDTO> exams = examService.getRandomExam(level, topics);
 			response.setExams(exams);
 			response.setCode(ResponseCode.SUCCESS);
