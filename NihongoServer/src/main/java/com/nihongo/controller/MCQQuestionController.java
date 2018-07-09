@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.data.entity.question.Question;
+import com.nihongo.dto.httpdto.request.InsertMCQQuestionRequest;
+import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
+import com.nihongo.dto.httpdto.response.InsertMCQQuestionResponse;
+import com.nihongo.dto.httpdto.response.MCQQuestionSearchResponse;
 import com.nihongo.exception.AbstractNihongoException;
-import com.nihongo.httpdto.request.InsertMCQQuestionRequest;
-import com.nihongo.httpdto.request.MCQQuestionSearchRequest;
-import com.nihongo.httpdto.response.InsertMCQQuestionResponse;
-import com.nihongo.httpdto.response.MCQQuestionSearchResponse;
 import com.nihongo.service.MCQQuestionService;
 import com.nihongo.support.constant.ResponseCode;
 

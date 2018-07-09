@@ -1,6 +1,6 @@
-package com.nihongo.httpdto.request.file;
+package com.nihongo.dto.httpdto.request.file;
 
-import com.nihongo.httpdto.request.AbstractRequest;
+import com.nihongo.dto.httpdto.request.AbstractRequest;
 
 /**
  * 

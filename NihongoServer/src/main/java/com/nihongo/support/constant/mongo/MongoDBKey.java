@@ -21,4 +21,8 @@ public class MongoDBKey {
 		public static final String QUESTION_IDS = "question_ids";
 	}
 	
+	public class ExamKey extends MongoDBKey {
+		public static final String EXAM_NAME = "exam_name";
+	}
+	
 }

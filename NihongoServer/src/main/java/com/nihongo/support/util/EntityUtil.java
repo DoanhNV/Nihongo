@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 
 import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.AbstractSingleEntity;
-import com.nihongo.httpdto.request.AbstractRequest;
+import com.nihongo.dto.httpdto.request.AbstractRequest;
 
 public class EntityUtil {
 	

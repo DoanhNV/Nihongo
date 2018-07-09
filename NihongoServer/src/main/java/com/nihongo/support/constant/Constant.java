@@ -6,6 +6,8 @@ package com.nihongo.support.constant;
  * Jul 7, 2018 10:33:47 AM
  */
 public class Constant {
+	public static final int TOPIC_NUMBER = 7;
+	public static final int MAX_TOPIC_PER_EXAM = 4;
 	
 	public class TOPIC {
 		public static final int HIRAGRANA_TO_KANJI = 0;

@@ -1,4 +1,4 @@
-package com.nihongo.httpdto.request;
+package com.nihongo.dto.httpdto.request;
 
 /**
  * 

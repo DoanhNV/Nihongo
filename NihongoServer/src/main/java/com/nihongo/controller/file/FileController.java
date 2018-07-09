@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.data.entity.file.DataFile;
+import com.nihongo.dto.httpdto.request.file.UploadStreamRequest;
+import com.nihongo.dto.httpdto.response.file.UploadStreamResponse;
 import com.nihongo.exception.AbstractNihongoException;
-import com.nihongo.httpdto.request.file.UploadStreamRequest;
-import com.nihongo.httpdto.response.file.UploadStreamResponse;
 import com.nihongo.service.FileService;
 import com.nihongo.support.constant.ResponseCode;
 

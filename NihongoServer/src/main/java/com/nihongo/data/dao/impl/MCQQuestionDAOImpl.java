@@ -2,9 +2,11 @@ package com.nihongo.data.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -14,6 +16,9 @@ import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.data.entity.question.Question;
 import com.nihongo.support.constant.mongo.MongoConfigInfo.EXAM_DB;
+import com.nihongo.support.constant.mongo.MongoDBKey.ExamKey;
+import com.nihongo.support.constant.mongo.MongoOperator;
+import com.nihongo.support.util.TransferData.RandomExamTransfer;
 
 /**
  * 
@@ -60,6 +65,25 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 	@Override
 	public boolean delete(String id) {
 		return false;
+	}
+
+	@Override
+	public Map<Integer, List<Question>> getRandomExam(int level, List<Integer> topics) {
+		RandomExamTransfer transfer = new RandomExamTransfer(topics.size());
+		Map<Integer, List<Question>> topicMap = transfer.getTopicMap();
+		
+		BasicDBObject findObject = new BasicDBObject();
+		BasicDBObject insTopicObjet = new BasicDBObject(MongoOperator.$IN, topics);
+		findObject.append(ExamKey.LEVEL, level);
+		findObject.append(ExamKey.TOPIC, insTopicObjet);
+		
+		DBCursor cursor = mCQQuestionCollection.find(findObject);
+		while(cursor.hasNext()) {
+			MCQQuestion mcqQuestion = MCQQuestionConverter.toMCQQuestion(cursor.next());
+			topicMap.get(mcqQuestion.getTopic()).add(mcqQuestion);
+		}
+		cursor.close();
+		return topicMap;
 	}
 
 }

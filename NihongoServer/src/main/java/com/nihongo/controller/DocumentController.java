@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.data.entity.questiondocument.Document;
+import com.nihongo.dto.httpdto.request.InsertDocumentRequest;
+import com.nihongo.dto.httpdto.response.InsertDocumentResponse;
 import com.nihongo.exception.AbstractNihongoException;
-import com.nihongo.httpdto.request.InsertDocumentRequest;
-import com.nihongo.httpdto.response.InsertDocumentResponse;
 import com.nihongo.service.DocumentService;
 import com.nihongo.support.constant.ResponseCode;
 

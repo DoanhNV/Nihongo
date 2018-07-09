@@ -1,6 +1,6 @@
-package com.nihongo.httpdto.response.file;
+package com.nihongo.dto.httpdto.response.file;
 
-import com.nihongo.httpdto.response.AbstractResponse;
+import com.nihongo.dto.httpdto.response.AbstractResponse;
 
 /**
  * 

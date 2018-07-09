@@ -6,5 +6,6 @@ package com.nihongo.support.constant.mongo;
  * Jul 7, 2018 10:33:43 AM
  */
 public class MongoOperator {
-
+	
+	public static final String $IN = "$in";
 }

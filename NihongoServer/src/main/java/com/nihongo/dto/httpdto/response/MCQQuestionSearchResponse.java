@@ -1,4 +1,4 @@
-package com.nihongo.httpdto.response;
+package com.nihongo.dto.httpdto.response;
 
 import java.util.List;
 
