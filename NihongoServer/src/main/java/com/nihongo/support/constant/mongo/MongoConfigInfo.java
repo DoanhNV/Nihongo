@@ -16,4 +16,10 @@ public class MongoConfigInfo {
 		public static final String DOCUMENT_COLLECTION = "question_document";
 		public static final String EXAM_COLLECTION = "exam";
 	}
+	
+	public static final String SETTING_DB = "setting";
+	
+	public class SETTING_DB {
+		public static final String EXAM_SETTING_COLLECTION = "exam_setting";
+	}
 }
