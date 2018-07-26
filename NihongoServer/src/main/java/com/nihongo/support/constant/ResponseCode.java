@@ -1,5 +1,10 @@
 package com.nihongo.support.constant;
 
+/**
+ * 
+ * @author DoanhNV Jul 26, 2018 4:35:21 PM
+ *
+ */
 public class ResponseCode {
 	
 	/**

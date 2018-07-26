@@ -8,9 +8,11 @@ import java.util.List;
  */
 public class MCQQuestion extends Question {
 	private String title;
+	private String document;
 	private List<Answer> answers;
 	private int topic;
 	private int level;
+	private String titleSub;
 
 	public MCQQuestion() {
 
@@ -59,4 +61,19 @@ public class MCQQuestion extends Question {
 		this.level = level;
 	}
 
+	public String getTitleSub() {
+		return titleSub;
+	}
+
+	public void setTitleSub(String titleSub) {
+		this.titleSub = titleSub;
+	}
+
+	public String getDocument() {
+		return document;
+	}
+
+	public void setDocument(String document) {
+		this.document = document;
+	}
 }

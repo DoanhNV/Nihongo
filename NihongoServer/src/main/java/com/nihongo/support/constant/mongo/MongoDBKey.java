@@ -10,6 +10,8 @@ public class MongoDBKey {
 	public static final String LEVEL = "level";
 	public static final String CONTENT = "content";
 	public static final String TYPE = "type";
+	public static final String SUB_TITLE = "sub_title";
+	public static final String DOCUMENT = "document";
 	
 	public class MCQQuestionKey extends MongoDBKey {
 		public static final String TITLE = "title";

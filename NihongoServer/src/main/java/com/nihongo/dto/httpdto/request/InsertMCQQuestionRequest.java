@@ -4,11 +4,18 @@ import java.util.List;
 
 import com.nihongo.data.entity.question.Answer;
 
+/**
+ * 
+ * @author DoanhNV Jul 26, 2018 4:05:27 PM
+ *
+ */
 public class InsertMCQQuestionRequest extends AbstractRequest {
 	private String title;
+	private String document;
 	private List<Answer> answers;
 	private int topic;
 	private int level;
+	private String titleSub;
 
 	public InsertMCQQuestionRequest() {
 
@@ -53,4 +60,19 @@ public class InsertMCQQuestionRequest extends AbstractRequest {
 		this.level = level;
 	}
 
+	public String getDocument() {
+		return document;
+	}
+
+	public void setDocument(String document) {
+		this.document = document;
+	}
+
+	public String getTitleSub() {
+		return titleSub;
+	}
+
+	public void setTitleSub(String titleSub) {
+		this.titleSub = titleSub;
+	}
 }
