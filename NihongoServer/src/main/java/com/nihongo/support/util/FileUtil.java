@@ -24,6 +24,12 @@ public class FileUtil {
 			throw new DataFileException(ResponseCode.UPLOAD_FAIL);
 		}
 	}
+	
+	public static void mkdirCaseNotExist(File desFile) {
+		if(!desFile.getParentFile().exists()) {
+			desFile.getParentFile().mkdirs();
+		} 
+	}
 }
 
 

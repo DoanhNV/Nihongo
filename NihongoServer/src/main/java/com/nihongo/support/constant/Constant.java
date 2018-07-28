@@ -31,9 +31,9 @@ public class Constant {
 	}
 	
 	public class FILE {
-		public static final String DEFAULT_IMAGE_DIRECTORY = "d:/";
+		public static final String DEFAULT_IMAGE_DIRECTORY = "/opt/image/";
 		public static final String DEFAULT_IMAGE_EXTENTION = ".png";
-		public static final String DEFAULT_VIDEO_DIRECTORY = "d:/";
+		public static final String DEFAULT_VIDEO_DIRECTORY = "/opt/image/";
 		public static final String DEFAULT_VIDEO_EXTENTION = ".mp4";
 		public static final int IMAGE_TYPE = 0;
 		public static final int VIDEO_TYPE = 1;
