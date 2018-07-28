@@ -3,6 +3,7 @@ package com.nihongo.controller.file;
 import static com.nihongo.support.util.EntityUtil.transferSingleObjectTo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.nihongo.support.constant.ResponseCode;
  */
 @RestController
 @RequestMapping(value = "/file")
+@CrossOrigin
 public class FileController {
 	
 	@Autowired

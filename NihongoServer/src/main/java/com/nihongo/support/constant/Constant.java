@@ -18,6 +18,7 @@ public class Constant {
 		public static final int FILL_INTO_BRACES = 4;
 		public static final int REPLACE_START = 5;
 		public static final int READING_UNDERSTANDING = 6;
+		public static final int LISTEN_AND_ANSWER = 7;
 	}
 	
 	public class LEVEL {
