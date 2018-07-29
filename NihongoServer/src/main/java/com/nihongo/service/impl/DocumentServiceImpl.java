@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.nihongo.data.dao.DocumentDAO;
 import com.nihongo.data.entity.AbstractEntity;
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
+import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.service.DocumentService;
 
 /**
@@ -37,7 +39,8 @@ public class DocumentServiceImpl implements DocumentService {
 	}
 
 	@Override
-	public List<Question> listAll() {
+	public List<AbstractEntity> listAll() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -46,4 +49,9 @@ public class DocumentServiceImpl implements DocumentService {
 		return false;
 	}
 
+	@Override
+	public SearchData search(AbstractSearchRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -3,7 +3,8 @@ package com.nihongo.service;
 import java.util.List;
 
 import com.nihongo.data.entity.AbstractEntity;
-import com.nihongo.data.entity.question.Question;
+import com.nihongo.data.entity.other.transfer.SearchData;
+import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 
 /**
  * 
@@ -15,9 +16,11 @@ public interface IService {
 
 	public boolean update(AbstractEntity entity);
 
-	public Question getById(String id);
+	public AbstractEntity getById(String id);
 
-	public List<Question> listAll();
-
+	public List<AbstractEntity> listAll();
+	
+	public SearchData search(AbstractSearchRequest request);
+	
 	public boolean delete(String id);
 }

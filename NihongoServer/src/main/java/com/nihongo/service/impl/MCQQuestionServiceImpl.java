@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.nihongo.data.dao.MCQQuestionDAO;
 import com.nihongo.data.entity.AbstractEntity;
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
+import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.service.MCQQuestionService;
 
 @Service
@@ -33,13 +35,18 @@ public class MCQQuestionServiceImpl implements MCQQuestionService {
 	}
 
 	@Override
-	public List<Question> listAll() {
-		return mCQQuestionDAO.listAll();
-	}
-
-	@Override
 	public boolean delete(String id) {
 		return false;
 	}
 
+	@Override
+	public SearchData search(AbstractSearchRequest request) {
+		SearchData searchData = mCQQuestionDAO.search(request);
+		return searchData;
+	}
+
+	@Override
+	public List<AbstractEntity> listAll() {
+		return null;
+	}
 }

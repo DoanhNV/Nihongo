@@ -13,8 +13,11 @@ import com.mongodb.DBObject;
 import com.nihongo.data.converter.MCQQuestionConverter;
 import com.nihongo.data.dao.MCQQuestionDAO;
 import com.nihongo.data.entity.AbstractEntity;
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.data.entity.question.Question;
+import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
+import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
 import com.nihongo.support.constant.mongo.MongoConfigInfo.EXAM_DB;
 import com.nihongo.support.constant.mongo.MongoDBKey.ExamKey;
 import com.nihongo.support.constant.mongo.MongoOperator;
@@ -51,23 +54,6 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 	}
 
 	@Override
-	public List<Question> listAll() {
-		List<Question> questions = new ArrayList<>();
-		DBCursor cursor = mCQQuestionCollection.find();
-		while(cursor.hasNext()) {
-			DBObject dbObject = cursor.next();
-			MCQQuestion mCQQuestion = MCQQuestionConverter.toMCQQuestion(dbObject);
-			questions.add(mCQQuestion);
-		}
-		return questions;
-	}
-
-	@Override
-	public boolean delete(String id) {
-		return false;
-	}
-
-	@Override
 	public Map<Integer, List<Question>> getRandomExam(int level, List<Integer> topics) {
 		RandomExamTransfer transfer = new RandomExamTransfer(topics);
 		Map<Integer, List<Question>> topicMap = transfer.getTopicMap();
@@ -86,4 +72,43 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 		return topicMap;
 	}
 
+	@Override
+	public List<AbstractEntity> listAll() {
+		List<AbstractEntity> questions = new ArrayList<>();
+		DBCursor cursor = mCQQuestionCollection.find();
+		while(cursor.hasNext()) {
+			DBObject dbObject = cursor.next();
+			MCQQuestion mCQQuestion = MCQQuestionConverter.toMCQQuestion(dbObject);
+			questions.add(mCQQuestion);
+		}
+		return questions;
+	}
+	
+	@Override
+	public SearchData search(AbstractSearchRequest request) {
+		SearchData searchData = new SearchData();
+		List<AbstractEntity> questions = new ArrayList<>();
+		int total = 0;
+		MCQQuestionSearchRequest searchRequest = (MCQQuestionSearchRequest) request;
+		DBObject sortOjbect = MCQQuestionConverter.toSortOjbect(searchRequest.getSort());
+		DBObject searchObject = MCQQuestionConverter.toSearchObject(request);
+		
+		DBCursor cursor = mCQQuestionCollection.find(searchObject);
+		total = cursor.size();
+		cursor = cursor.skip(searchRequest.getSkip()).limit(searchRequest.getTake());
+		cursor = cursor.sort(sortOjbect);
+		while(cursor.hasNext()) {
+			DBObject dbObject = cursor.next();
+			MCQQuestion mCQQuestion = MCQQuestionConverter.toMCQQuestion(dbObject);
+			questions.add(mCQQuestion);
+		}
+		searchData.setDatas(questions);
+		searchData.setTotal(total);
+		return searchData;
+	}
+	
+	@Override
+	public boolean delete(String id) {
+		return false;
+	}
 }

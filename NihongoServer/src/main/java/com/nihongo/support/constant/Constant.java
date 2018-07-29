@@ -38,4 +38,10 @@ public class Constant {
 		public static final int IMAGE_TYPE = 0;
 		public static final int VIDEO_TYPE = 1;
 	}
+	
+	public class PROPERTIES {
+		public static final int QUERY_ALL = -1;
+		public static final int DEFAULT_SORT_VALUE = -1;
+		public static final String DEFAULT_SORT_FIELD = "_id";
+	}
 }

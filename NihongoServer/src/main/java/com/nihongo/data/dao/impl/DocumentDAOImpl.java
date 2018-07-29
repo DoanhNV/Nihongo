@@ -11,8 +11,10 @@ import com.mongodb.DBObject;
 import com.nihongo.data.converter.DocumentConverter;
 import com.nihongo.data.dao.DocumentDAO;
 import com.nihongo.data.entity.AbstractEntity;
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
 import com.nihongo.data.entity.questiondocument.Document;
+import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 
 
 /**
@@ -46,7 +48,7 @@ public class DocumentDAOImpl implements DocumentDAO {
 	}
 
 	@Override
-	public List<Question> listAll() {
+	public List<AbstractEntity> listAll() {
 		return null;
 	}
 
@@ -55,4 +57,8 @@ public class DocumentDAOImpl implements DocumentDAO {
 		return false;
 	}
 
+	@Override
+	public SearchData search(AbstractSearchRequest request) {
+		return null;
+	}
 }

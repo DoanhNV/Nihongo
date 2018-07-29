@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.nihongo.data.dao.MCQQuestionDAO;
 import com.nihongo.data.entity.AbstractEntity;
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
 import com.nihongo.dto.httpdto.RandomExamDTO;
+import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.service.ExamService;
 
 /**
@@ -20,10 +22,10 @@ import com.nihongo.service.ExamService;
  */
 @Service
 public class ExamServiceImpl implements ExamService {
-	
+
 	@Autowired
 	private MCQQuestionDAO mcqQuestionDAO;
-	
+
 	@Override
 	public boolean insert(AbstractEntity entity) {
 		return false;
@@ -40,7 +42,12 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public List<Question> listAll() {
+	public List<AbstractEntity> listAll() {
+		return null;
+	}
+
+	@Override
+	public SearchData search(AbstractSearchRequest request) {
 		return null;
 	}
 

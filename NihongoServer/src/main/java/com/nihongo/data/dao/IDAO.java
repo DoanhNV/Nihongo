@@ -5,7 +5,8 @@ import java.util.List;
 import com.mongodb.DB;
 import com.nihongo.config.mongo.MongoDBConnection;
 import com.nihongo.data.entity.AbstractEntity;
-import com.nihongo.data.entity.question.Question;
+import com.nihongo.data.entity.other.transfer.SearchData;
+import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.support.constant.mongo.MongoConfigInfo;
 
 /**
@@ -20,10 +21,11 @@ public interface IDAO {
 
 	public boolean update(AbstractEntity entity);
 
-	public Question getById(String id);
+	public AbstractEntity getById(String id);
 
-	public List<Question> listAll();
+	public List<AbstractEntity> listAll();
+	
+	public SearchData search(AbstractSearchRequest request);
 
 	public boolean delete(String id);
-	
 }

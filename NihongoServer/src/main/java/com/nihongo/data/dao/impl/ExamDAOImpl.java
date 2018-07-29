@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.mongodb.DBCollection;
 import com.nihongo.data.dao.ExamDAO;
 import com.nihongo.data.entity.AbstractEntity;
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
+import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 
 /**
  * 
@@ -39,12 +41,17 @@ public class ExamDAOImpl implements ExamDAO {
 	}
 
 	@Override
-	public List<Question> listAll() {
+	public boolean delete(String id) {
+		return false;
+	}
+
+	@Override
+	public List<AbstractEntity> listAll() {
 		return null;
 	}
 
 	@Override
-	public boolean delete(String id) {
-		return false;
+	public SearchData search(AbstractSearchRequest request) {
+		return null;
 	}
 }

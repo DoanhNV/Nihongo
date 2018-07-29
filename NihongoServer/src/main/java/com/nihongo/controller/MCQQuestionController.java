@@ -1,5 +1,6 @@
 package com.nihongo.controller;
 
+import static com.nihongo.support.util.EntityUtil.castToMCQQuestionObject;
 import static com.nihongo.support.util.EntityUtil.transferObjectTo;
 
 import java.util.List;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.MCQQuestion;
-import com.nihongo.data.entity.question.Question;
 import com.nihongo.dto.httpdto.request.InsertMCQQuestionRequest;
 import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
 import com.nihongo.dto.httpdto.response.InsertMCQQuestionResponse;
@@ -51,14 +52,14 @@ public class MCQQuestionController {
 		return response;
 	}
 
-	@PostMapping(value = "/listAll")
+	@PostMapping(value = "/search")
 	@ResponseBody
 	public MCQQuestionSearchResponse listAll(@RequestBody MCQQuestionSearchRequest request) {
 		MCQQuestionSearchResponse response = new MCQQuestionSearchResponse(ResponseCode.SYSTEM_ERROR);
 		try {
-			List<Question> questions = mCQQuestionService.listAll();
-			response.setQuestions(questions);
-			response.setCode(ResponseCode.SUCCESS);
+			 SearchData searchData = mCQQuestionService.search(request);
+			 List<MCQQuestion> questions = castToMCQQuestionObject(searchData.getDatas());
+			 response.setResponseData(ResponseCode.SUCCESS, questions, searchData.getTotal());
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
