@@ -10,6 +10,7 @@ public class Constant {
 	public static final int MAX_TOPIC_PER_EXAM = 4;
 	public static final int MAX_TOPIC_NUMBER = 7;
 	
+	
 	public class TOPIC {
 		public static final int HIRAGRANA_TO_KANJI = 0;
 		public static final int KANJI_TO_HIRAGANA = 1;
@@ -37,11 +38,16 @@ public class Constant {
 		public static final String DEFAULT_VIDEO_EXTENTION = ".mp4";
 		public static final int IMAGE_TYPE = 0;
 		public static final int VIDEO_TYPE = 1;
+		public static final String BASE64_PREFIX = "data:image/png;base64,";
 	}
 	
 	public class PROPERTIES {
 		public static final int QUERY_ALL = -1;
 		public static final int DEFAULT_SORT_VALUE = -1;
 		public static final String DEFAULT_SORT_FIELD = "_id";
+	}
+	
+	public class ENCODING {
+		public static final String UTF_8 = "UTF-8";
 	}
 }

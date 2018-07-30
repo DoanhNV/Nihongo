@@ -23,5 +23,6 @@ public class ResponseCode {
 	 * File code
 	 */
 	public static final float UPLOAD_FAIL = 3.1f;
+	public static final float FILE_NOT_EXIST = 3.2f;
 	
 }

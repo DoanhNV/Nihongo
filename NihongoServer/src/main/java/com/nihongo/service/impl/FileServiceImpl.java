@@ -28,7 +28,7 @@ public class FileServiceImpl implements FileService {
 		String filePath = defaultFileDir +  file.getFileName() + defaultFileExtention;
 		File desFile = new File(filePath);
 		FileUtil.mkdirCaseNotExist(desFile);
-		FileUtil.writeFile(desFile, file.getBase64Stream());
+		FileUtil.writeBase64ToFile(desFile, file.getBase64Stream());
 		return filePath;
 	}
 
