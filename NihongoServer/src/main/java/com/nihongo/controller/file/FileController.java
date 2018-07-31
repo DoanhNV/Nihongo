@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.data.entity.file.DataFile;
+import com.nihongo.dto.httpdto.request.file.LoadFileBase64Request;
 import com.nihongo.dto.httpdto.request.file.UploadStreamRequest;
+import com.nihongo.dto.httpdto.response.file.LoadBase64Response;
 import com.nihongo.dto.httpdto.response.file.UploadStreamResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.FileService;
@@ -38,6 +40,21 @@ public class FileController {
 			transferSingleObjectTo(request, file);
 			String filePath = fileService.upload(file);
 			response.setResponseInfo(ResponseCode.SUCCESS, filePath);
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@PostMapping(value = "/load/base64")
+	@ResponseBody
+	public LoadBase64Response loadFile(@RequestBody LoadFileBase64Request request) {
+		LoadBase64Response response = new LoadBase64Response();
+		try {
+			String base64Str = fileService.loadFile(request.getFilePath());
+			response.setResponseData(ResponseCode.SUCCESS, base64Str);
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {

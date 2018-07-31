@@ -32,4 +32,8 @@ public class FileServiceImpl implements FileService {
 		return filePath;
 	}
 
+	@Override
+	public String loadFile(String filePath) {
+		return FileUtil.convertToBase64Str(filePath);
+	}
 }

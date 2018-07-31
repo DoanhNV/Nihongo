@@ -9,4 +9,6 @@ import com.nihongo.data.entity.file.DataFile;
 public interface FileService {
 	
 	public String upload(DataFile file);
+	
+	public String loadFile(String filePath);
 }
