@@ -6,6 +6,7 @@ package com.nihongo.support.constant;
  * Jul 7, 2018 10:33:47 AM
  */
 public class Constant {
+
 	public static final int TOPIC_NUMBER = 7;
 	public static final int MAX_TOPIC_PER_EXAM = 4;
 	public static final int MAX_TOPIC_NUMBER = 7;
@@ -14,12 +15,14 @@ public class Constant {
 	public class TOPIC {
 		public static final int HIRAGRANA_TO_KANJI = 0;
 		public static final int KANJI_TO_HIRAGANA = 1;
-		public static final int VOCABULARY = 2;
+		public static final int FILL_INTO_BRACES_1_VACABULARY = 2;
 		public static final int SYNONNYM = 3;
-		public static final int FILL_INTO_BRACES = 4;
-		public static final int REPLACE_START = 5;
+		public static final int FILL_INTO_BRACES_2_STREAM_PARAGRAPH = 4;
+		public static final int REPLACE_STAR = 5;
 		public static final int READING_UNDERSTANDING = 6;
 		public static final int LISTEN_AND_ANSWER = 7;
+		public static final int FILL_INTO_BRACES_3_GRAMMAR = 8;
+		public static final int WORDING = 9;
 	}
 	
 	public class LEVEL {
@@ -49,5 +52,10 @@ public class Constant {
 	
 	public class ENCODING {
 		public static final String UTF_8 = "UTF-8";
+	}
+	
+	public class DOCUMENT_TYPE {
+		public static final int READING_UNDERSTANDING_PARAGRAPH = 0;
+		public static final int FILL_INTO_PARAGRAPH = 1;
 	}
 }

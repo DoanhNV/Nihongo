@@ -53,5 +53,4 @@ public class InsertDocumentRequest extends AbstractRequest {
 	public void setQuestionIds(List<String> questionIds) {
 		this.questionIds = questionIds;
 	}
-
 }
