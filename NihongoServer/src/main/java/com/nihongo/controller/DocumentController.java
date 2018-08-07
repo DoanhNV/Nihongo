@@ -3,6 +3,7 @@ package com.nihongo.controller;
 import static com.nihongo.support.util.EntityUtil.transferObjectTo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.nihongo.support.constant.ResponseCode;
  * @author DoanhNV Jul 8, 2018 11:04:21 AM
  */
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/document")
 public class DocumentController {
 	

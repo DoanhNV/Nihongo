@@ -11,7 +11,6 @@ public class InsertDocumentRequest extends AbstractRequest {
 	private String content;
 	private int topic;
 	private int level;
-	private int type;
 	private List<String> questionIds;
 
 	public String getContent() {
@@ -36,14 +35,6 @@ public class InsertDocumentRequest extends AbstractRequest {
 
 	public void setLevel(int level) {
 		this.level = level;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
 	}
 
 	public List<String> getQuestionIds() {

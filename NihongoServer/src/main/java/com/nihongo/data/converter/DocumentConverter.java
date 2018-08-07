@@ -25,7 +25,6 @@ public class DocumentConverter {
 			questionIdList.add(questionId);
 		}
 		desObject.append(QUESTION_IDS, questionIdList);
-		desObject.append(TYPE, document.getType());
 		return desObject;
 	}
 }

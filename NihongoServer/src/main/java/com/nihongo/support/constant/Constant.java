@@ -23,6 +23,8 @@ public class Constant {
 		public static final int LISTEN_AND_ANSWER = 7;
 		public static final int FILL_INTO_BRACES_3_GRAMMAR = 8;
 		public static final int WORDING = 9;
+		public static final int READING_UNDERSTANDING_PARAGRAPH = 10;
+		public static final int FILL_INTO_PARAGRAPH = 11;
 	}
 	
 	public class LEVEL {
@@ -52,10 +54,5 @@ public class Constant {
 	
 	public class ENCODING {
 		public static final String UTF_8 = "UTF-8";
-	}
-	
-	public class DOCUMENT_TYPE {
-		public static final int READING_UNDERSTANDING_PARAGRAPH = 0;
-		public static final int FILL_INTO_PARAGRAPH = 1;
 	}
 }
