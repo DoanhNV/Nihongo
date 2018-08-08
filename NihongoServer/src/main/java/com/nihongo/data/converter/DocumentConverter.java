@@ -3,10 +3,14 @@ package com.nihongo.data.converter;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.nihongo.data.entity.Sort;
 import com.nihongo.data.entity.questiondocument.Document;
+import com.nihongo.dto.httpdto.request.DocumentSearchRequest;
+import com.nihongo.support.RequestValidator;
 import com.nihongo.support.constant.mongo.MongoOperator;
 
 import static com.nihongo.support.constant.mongo.MongoDBKey.DocumentKey.*;
+import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +47,7 @@ public class DocumentConverter {
 		return new BasicDBObject(ID, new ObjectId(id));
 	}
 	
-	public static Document toGetDocument(DBObject documentObject) {
+	public static Document toDocument(DBObject documentObject) {
 		String documentId = documentObject.get(ID).toString();
 		String content = (String) documentObject.get(CONTENT);
 		Integer topic = (Integer) documentObject.get(TOPIC);
@@ -83,5 +87,31 @@ public class DocumentConverter {
 		dbobjectList.add(queryObject);
 		dbobjectList.add(setObject);
 		return dbobjectList;
+	}
+	
+	
+	/*
+	 * SEARCH 
+	 */
+	
+	public static BasicDBObject prepareSearchobject(DocumentSearchRequest request) {
+		BasicDBObject searchObject = new BasicDBObject();
+		
+		if(request.getTopic() != QUERY_ALL) {
+			searchObject.append(TOPIC, request.getTopic());
+		}
+		if(request.getLevel() != QUERY_ALL) {
+			searchObject.append(LEVEL, request.getLevel());
+		}
+		return searchObject;
+	}
+	
+	
+	public static BasicDBObject toSortObject(Sort sort) {
+		BasicDBObject sortObject = new BasicDBObject(DEFAULT_SORT_FIELD, DEFAULT_SORT_VALUE);
+		if(RequestValidator.isValidSortRequest(sort)) {
+			sortObject.append(sort.getFieldName(), sort.getOrder());
+		}
+		return sortObject;
 	}
 }

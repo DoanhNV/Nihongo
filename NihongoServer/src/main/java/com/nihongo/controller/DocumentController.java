@@ -2,6 +2,8 @@ package com.nihongo.controller;
 
 import static com.nihongo.support.util.EntityUtil.transferObjectTo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.questiondocument.Document;
+import com.nihongo.dto.httpdto.request.DocumentSearchRequest;
 import com.nihongo.dto.httpdto.request.InsertDocumentRequest;
 import com.nihongo.dto.httpdto.request.UpdateDocumentRequest;
 import com.nihongo.dto.httpdto.response.GetDocumentResponse;
@@ -22,6 +26,7 @@ import com.nihongo.dto.httpdto.response.UpdateDocumentResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.DocumentService;
 import com.nihongo.support.constant.ResponseCode;
+import static com.nihongo.support.util.EntityUtil.castToDocumentObject;
 
 /**
  * 
@@ -62,6 +67,23 @@ public class DocumentController {
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@PostMapping(value = "/search")
+	@ResponseBody
+	public DocumentSearchResponse search(@RequestBody DocumentSearchRequest request) {
+		DocumentSearchResponse response = new DocumentSearchResponse();
+		try {
+			SearchData documentData = documentService.search(request);
+			List<Document> documents = castToDocumentObject(documentData.getDatas());
+			response.setResponseData(ResponseCode.SUCCESS, documentData.getTotal(), documents);
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
 		}
 		return response;

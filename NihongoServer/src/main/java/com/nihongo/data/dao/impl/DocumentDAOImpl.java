@@ -2,12 +2,14 @@ package com.nihongo.data.dao.impl;
 
 import static com.nihongo.support.constant.mongo.MongoConfigInfo.EXAM_DB.DOCUMENT_COLLECTION;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.nihongo.data.converter.DocumentConverter;
 import com.nihongo.data.dao.DocumentDAO;
@@ -15,6 +17,7 @@ import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
+import com.nihongo.dto.httpdto.request.DocumentSearchRequest;
 import com.nihongo.support.constant.mongo.MongoDBKey.DocumentKey;
 
 
@@ -24,6 +27,7 @@ import com.nihongo.support.constant.mongo.MongoDBKey.DocumentKey;
  */
 @Repository
 public class DocumentDAOImpl implements DocumentDAO {
+	
 	private static DBCollection docCollection = null;
 	
 	static {
@@ -52,7 +56,7 @@ public class DocumentDAOImpl implements DocumentDAO {
 		DBObject queryObject = DocumentConverter.prepareGetDBObject(id);
 		DBObject documentObject = docCollection.findOne(queryObject);
 		if(documentObject != null) {
-			document = DocumentConverter.toGetDocument(documentObject);
+			document = DocumentConverter.toDocument(documentObject);
 		}
 		return document;
 	}
@@ -69,6 +73,23 @@ public class DocumentDAOImpl implements DocumentDAO {
 
 	@Override
 	public SearchData search(AbstractSearchRequest request) {
-		return null;
+		SearchData searchData = new SearchData();
+		int total = 0;
+		List<AbstractEntity> documents = new ArrayList<>();
+		DocumentSearchRequest searchRequest = (DocumentSearchRequest) request;
+		BasicDBObject searchobject = DocumentConverter.prepareSearchobject(searchRequest);
+		BasicDBObject sortObject = DocumentConverter.toSortObject(searchRequest.getSort());
+		
+		DBCursor cursor = docCollection.find(searchobject);
+		total = cursor.size();
+		cursor = cursor.sort(sortObject);
+	  cursor = cursor.skip(searchRequest.getSkip()).limit(searchRequest.getTake());
+	  while(cursor.hasNext()) {
+	  	DBObject documentObject = cursor.next();
+	  	Document document = DocumentConverter.toDocument(documentObject);
+	  	documents.add(document);
+	  }
+	  searchData.setTotal(total);
+		return searchData;
 	}
 }

@@ -1,8 +1,8 @@
 package com.nihongo.data.converter;
 
-import static com.nihongo.support.constant.Constant.PROPERTIES.DEFAULT_SORT_FIELD;
-import static com.nihongo.support.constant.Constant.PROPERTIES.DEFAULT_SORT_VALUE;
-import static com.nihongo.support.constant.Constant.PROPERTIES.QUERY_ALL;
+import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.DEFAULT_SORT_FIELD;
+import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.DEFAULT_SORT_VALUE;
+import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.QUERY_ALL;
 import static com.nihongo.support.constant.mongo.MongoDBKey.CONTENT;
 import static com.nihongo.support.constant.mongo.MongoDBKey.DOCUMENT;
 import static com.nihongo.support.constant.mongo.MongoDBKey.ID;

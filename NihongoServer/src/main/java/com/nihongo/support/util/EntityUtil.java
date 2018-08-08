@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.AbstractSingleEntity;
 import com.nihongo.data.entity.question.MCQQuestion;
+import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.dto.httpdto.request.AbstractRequest;
 
 public class EntityUtil {
@@ -31,5 +32,16 @@ public class EntityUtil {
 			}
  		}
 		return questions;
+	}
+	
+	public static List<Document> castToDocumentObject(List<AbstractEntity> entitys) {
+		List<Document> documents = new ArrayList<>();
+		if(entitys != null && !entitys.isEmpty()) {
+			for (AbstractEntity entity : entitys) {
+				Document document = (Document) entity;
+				documents.add(document);
+			}
+		}
+		return documents;
 	}
 }

@@ -51,8 +51,6 @@ public class DocumentServiceImpl implements DocumentService {
 
 	@Override
 	public SearchData search(AbstractSearchRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		return documentDAO.search(request);
 	}
-
 }

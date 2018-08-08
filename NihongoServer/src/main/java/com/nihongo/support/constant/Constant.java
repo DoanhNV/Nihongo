@@ -46,7 +46,7 @@ public class Constant {
 		public static final String BASE64_PREFIX = "data:image/png;base64,";
 	}
 	
-	public class PROPERTIES {
+	public class QUERY_PROPERTIES {
 		public static final int QUERY_ALL = -1;
 		public static final int DEFAULT_SORT_VALUE = -1;
 		public static final String DEFAULT_SORT_FIELD = "_id";

@@ -96,8 +96,8 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 		
 		DBCursor cursor = mCQQuestionCollection.find(searchObject);
 		total = cursor.size();
-		cursor = cursor.skip(searchRequest.getSkip()).limit(searchRequest.getTake());
 		cursor = cursor.sort(sortOjbect);
+		cursor = cursor.skip(searchRequest.getSkip()).limit(searchRequest.getTake());
 		while(cursor.hasNext()) {
 			DBObject dbObject = cursor.next();
 			MCQQuestion mCQQuestion = MCQQuestionConverter.toMCQQuestion(dbObject);
