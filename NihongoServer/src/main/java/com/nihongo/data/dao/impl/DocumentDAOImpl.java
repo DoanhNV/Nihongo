@@ -20,20 +20,19 @@ import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.dto.httpdto.request.DocumentSearchRequest;
 import com.nihongo.support.constant.mongo.MongoDBKey.DocumentKey;
 
-
 /**
  * 
  * @author DoanhNV Jul 8, 2018 11:04:25 AM
  */
 @Repository
 public class DocumentDAOImpl implements DocumentDAO {
-	
+
 	private static DBCollection docCollection = null;
-	
+
 	static {
 		docCollection = EXAM_DATABASE.getCollection(DOCUMENT_COLLECTION);
 	}
-	
+
 	@Override
 	public String insert(AbstractEntity entity) {
 		Document document = (Document) entity;
@@ -55,7 +54,7 @@ public class DocumentDAOImpl implements DocumentDAO {
 		Document document = new Document();
 		DBObject queryObject = DocumentConverter.prepareGetDBObject(id);
 		DBObject documentObject = docCollection.findOne(queryObject);
-		if(documentObject != null) {
+		if (documentObject != null) {
 			document = DocumentConverter.toDocument(documentObject);
 		}
 		return document;
@@ -79,17 +78,18 @@ public class DocumentDAOImpl implements DocumentDAO {
 		DocumentSearchRequest searchRequest = (DocumentSearchRequest) request;
 		BasicDBObject searchobject = DocumentConverter.prepareSearchobject(searchRequest);
 		BasicDBObject sortObject = DocumentConverter.toSortObject(searchRequest.getSort());
-		
+
 		DBCursor cursor = docCollection.find(searchobject);
 		total = cursor.size();
 		cursor = cursor.sort(sortObject);
-	  cursor = cursor.skip(searchRequest.getSkip()).limit(searchRequest.getTake());
-	  while(cursor.hasNext()) {
-	  	DBObject documentObject = cursor.next();
-	  	Document document = DocumentConverter.toDocument(documentObject);
-	  	documents.add(document);
-	  }
-	  searchData.setTotal(total);
+		cursor = cursor.skip(searchRequest.getSkip()).limit(searchRequest.getTake());
+		while (cursor.hasNext()) {
+			DBObject documentObject = cursor.next();
+			Document document = DocumentConverter.toDocument(documentObject);
+			documents.add(document);
+		}
+		searchData.setTotal(total);
+		searchData.setDatas(documents);
 		return searchData;
 	}
 }
