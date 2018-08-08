@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.nihongo.data.dao.DocumentDAO;
 import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.other.transfer.SearchData;
-import com.nihongo.data.entity.question.Question;
+import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.service.DocumentService;
 
@@ -23,19 +23,19 @@ public class DocumentServiceImpl implements DocumentService {
 	private DocumentDAO documentDAO;
 
 	@Override
-	public boolean insert(AbstractEntity entity) {
-		documentDAO.insert(entity);
-		return true;
+	public String insert(AbstractEntity entity) {
+		return documentDAO.insert(entity);
 	}
 
 	@Override
 	public boolean update(AbstractEntity entity) {
-		return true;
+		return documentDAO.update(entity);
 	}
 
 	@Override
-	public Question getById(String id) {
-		return null;
+	public Document getById(String id) {
+		Document document =  (Document) documentDAO.getById(id);
+		return document;
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class DocumentServiceImpl implements DocumentService {
 	}
 
 	@Override
-	public boolean delete(String id) {
-		return false;
+	public String delete(String id) {
+		return null;
 	}
 
 	@Override
@@ -54,4 +54,5 @@ public class DocumentServiceImpl implements DocumentService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

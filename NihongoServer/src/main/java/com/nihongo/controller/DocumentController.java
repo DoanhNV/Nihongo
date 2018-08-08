@@ -4,7 +4,10 @@ import static com.nihongo.support.util.EntityUtil.transferObjectTo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.dto.httpdto.request.InsertDocumentRequest;
+import com.nihongo.dto.httpdto.request.UpdateDocumentRequest;
+import com.nihongo.dto.httpdto.response.GetDocumentResponse;
 import com.nihongo.dto.httpdto.response.InsertDocumentResponse;
+import com.nihongo.dto.httpdto.response.UpdateDocumentResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.DocumentService;
 import com.nihongo.support.constant.ResponseCode;
@@ -36,7 +42,40 @@ public class DocumentController {
 		try {
 			Document document = new Document();
 			transferObjectTo(request, document);
-			documentService.insert(document);
+			String documentId = documentService.insert(document);
+			response.setInsertDocumentResponse(ResponseCode.SUCCESS, documentId);
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@GetMapping(value = "/get/{id}")
+	@ResponseBody
+	public GetDocumentResponse get(@PathVariable String id) {
+		GetDocumentResponse response =  new GetDocumentResponse();
+		try {
+			Document document = (Document) documentService.getById(id);
+			response.setResponseData(ResponseCode.SUCCESS, document);
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+
+	@PutMapping(value = "/update")
+	@ResponseBody
+	public UpdateDocumentResponse update(@RequestBody UpdateDocumentRequest request) {
+		UpdateDocumentResponse response = new UpdateDocumentResponse();
+		try {
+			Document document = new Document();
+			transferObjectTo(request, document);
+			documentService.update(document);
 			response.setCode(ResponseCode.SUCCESS);
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());

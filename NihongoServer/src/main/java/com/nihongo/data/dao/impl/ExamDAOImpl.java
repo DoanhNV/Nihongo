@@ -26,8 +26,8 @@ public class ExamDAOImpl implements ExamDAO {
 	}
 
 	@Override
-	public boolean insert(AbstractEntity entity) {
-		return false;
+	public String insert(AbstractEntity entity) {
+		return null;
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class ExamDAOImpl implements ExamDAO {
 	}
 
 	@Override
-	public boolean delete(String id) {
-		return false;
+	public String delete(String id) {
+		return null;
 	}
 
 	@Override

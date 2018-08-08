@@ -20,6 +20,7 @@ import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
 import com.nihongo.support.constant.mongo.MongoConfigInfo.EXAM_DB;
 import com.nihongo.support.constant.mongo.MongoDBKey.ExamKey;
+import com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey;
 import com.nihongo.support.constant.mongo.MongoOperator;
 import com.nihongo.support.util.TransferData.RandomExamTransfer;
 
@@ -36,11 +37,11 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 	}
 
 	@Override
-	public boolean insert(AbstractEntity entity) {
+	public String insert(AbstractEntity entity) {
 		MCQQuestion question = (MCQQuestion) entity;
 		DBObject insertDBObject = MCQQuestionConverter.toInsertDBObject(question);
 		mCQQuestionCollection.insert(insertDBObject);
-		return true;
+		return insertDBObject.get(MCQQuestionKey.ID).toString();
 	}
 
 	@Override
@@ -108,7 +109,7 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 	}
 	
 	@Override
-	public boolean delete(String id) {
-		return false;
+	public String delete(String id) {
+		return null;
 	}
 }

@@ -9,6 +9,7 @@ import com.nihongo.data.entity.AbstractEntity;
  * @author DoanhNV Jul 7, 2018 2:53:23 PM
  */
 public class Document extends AbstractEntity {
+	
 	private String content;
 	private int topic;
 	private List<String> questionIds;
@@ -18,11 +19,12 @@ public class Document extends AbstractEntity {
 
 	}
 
-	public Document(String content, int topic, List<String> questionIds, int level) {
+	public Document(String id, String content, int topic, int level, List<String> questionIds) {
+		this.id = id;
 		this.content = content;
 		this.topic = topic;
-		this.questionIds = questionIds;
 		this.level = level;
+		this.questionIds = questionIds;
 	}
 
 	public List<String> getQuestionIds() {

@@ -8,4 +8,5 @@ package com.nihongo.support.constant.mongo;
 public class MongoOperator {
 	
 	public static final String $IN = "$in";
+	public static final String $SET = "$set";
 }

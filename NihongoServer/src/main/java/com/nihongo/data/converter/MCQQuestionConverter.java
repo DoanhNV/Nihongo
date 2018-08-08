@@ -12,6 +12,7 @@ import static com.nihongo.support.constant.mongo.MongoDBKey.TOPIC;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.ANSWERS;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.IS_CORRECT;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.TITLE;
+import static com.nihongo.support.constant.Constant.STRING_PROPERTIES.EMPTY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +36,20 @@ public class MCQQuestionConverter {
 	public static DBObject toInsertDBObject(MCQQuestion question) {
 		BasicDBObject desObject = new BasicDBObject();
 		desObject.append(TITLE, question.getTitle());
-		desObject.append(DOCUMENT, question.getDocument());
+		String document = question.getDocument() == null ? EMPTY : question.getDocument();
+		desObject.append(DOCUMENT, document);
 		desObject.append(TOPIC, question.getTopic());
 		desObject.append(LEVEL, question.getLevel());
 		desObject.append(SUB_TITLE, question.getTitleSub());
 		List<Answer> answers = question.getAnswers();
 		BasicDBList answerList = new BasicDBList();
-		for (Answer answer : answers) {
-			BasicDBObject answerObject = new BasicDBObject();
-			answerObject.append(CONTENT, answer.getContent());
-			answerObject.append(IS_CORRECT, answer.isIsCorrect());
-			answerList.add(answerObject);
+		if(answers != null) {
+			for (Answer answer : answers) {
+				BasicDBObject answerObject = new BasicDBObject();
+				answerObject.append(CONTENT, answer.getContent());
+				answerObject.append(IS_CORRECT, answer.isIsCorrect());
+				answerList.add(answerObject);
+			}
 		}
 		desObject.append(ANSWERS, answerList);
 		return desObject;

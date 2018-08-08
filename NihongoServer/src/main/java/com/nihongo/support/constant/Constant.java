@@ -55,4 +55,8 @@ public class Constant {
 	public class ENCODING {
 		public static final String UTF_8 = "UTF-8";
 	}
+	
+	public class STRING_PROPERTIES {
+		public static final String EMPTY = "";
+	}
 }

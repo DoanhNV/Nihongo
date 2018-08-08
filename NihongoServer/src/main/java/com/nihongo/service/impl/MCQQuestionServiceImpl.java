@@ -19,14 +19,13 @@ public class MCQQuestionServiceImpl implements MCQQuestionService {
 	private MCQQuestionDAO mCQQuestionDAO;
 	
 	@Override
-	public boolean insert(AbstractEntity entity) {
-		mCQQuestionDAO.insert(entity);
-		return true;
+	public String insert(AbstractEntity entity) {
+		return mCQQuestionDAO.insert(entity);
 	}
 
 	@Override
 	public boolean update(AbstractEntity entity) {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -35,8 +34,8 @@ public class MCQQuestionServiceImpl implements MCQQuestionService {
 	}
 
 	@Override
-	public boolean delete(String id) {
-		return false;
+	public String delete(String id) {
+		return null;
 	}
 
 	@Override

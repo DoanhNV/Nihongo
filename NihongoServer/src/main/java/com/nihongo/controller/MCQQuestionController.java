@@ -42,8 +42,8 @@ public class MCQQuestionController {
 		try {
 			MCQQuestion mcqQuestion = new MCQQuestion();
 			transferObjectTo(request, mcqQuestion);
-			mCQQuestionService.insert(mcqQuestion);
-			response.setCode(ResponseCode.SUCCESS);
+			String mcqQuestionId = mCQQuestionService.insert(mcqQuestion);
+			response.setInsertMCQQuestionResponse(ResponseCode.SUCCESS, mcqQuestionId);
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {

@@ -12,7 +12,7 @@ import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
  */
 public interface IService {
 	
-	public boolean insert(AbstractEntity entity);
+	public String insert(AbstractEntity entity);
 
 	public boolean update(AbstractEntity entity);
 
@@ -22,5 +22,5 @@ public interface IService {
 	
 	public SearchData search(AbstractSearchRequest request);
 	
-	public boolean delete(String id);
+	public String delete(String id);
 }

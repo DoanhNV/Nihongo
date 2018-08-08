@@ -6,15 +6,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.nihongo.data.converter.DocumentConverter;
 import com.nihongo.data.dao.DocumentDAO;
 import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.other.transfer.SearchData;
-import com.nihongo.data.entity.question.Question;
 import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
+import com.nihongo.support.constant.mongo.MongoDBKey.DocumentKey;
 
 
 /**
@@ -30,21 +31,30 @@ public class DocumentDAOImpl implements DocumentDAO {
 	}
 	
 	@Override
-	public boolean insert(AbstractEntity entity) {
+	public String insert(AbstractEntity entity) {
 		Document document = (Document) entity;
 		DBObject insertDBObject = DocumentConverter.toInsertDBObject(document);
 		docCollection.insert(insertDBObject);
-		return true;
+		return insertDBObject.get(DocumentKey.ID).toString();
 	}
 
 	@Override
 	public boolean update(AbstractEntity entity) {
+		Document document = (Document) entity;
+		List<BasicDBObject> prepareUpdateObjects = DocumentConverter.prepareUpdateObject(document);
+		docCollection.update(prepareUpdateObjects.get(0), prepareUpdateObjects.get(1));
 		return true;
 	}
 
 	@Override
-	public Question getById(String id) {
-		return null;
+	public Document getById(String id) {
+		Document document = new Document();
+		DBObject queryObject = DocumentConverter.prepareGetDBObject(id);
+		DBObject documentObject = docCollection.findOne(queryObject);
+		if(documentObject != null) {
+			document = DocumentConverter.toGetDocument(documentObject);
+		}
+		return document;
 	}
 
 	@Override
@@ -53,8 +63,8 @@ public class DocumentDAOImpl implements DocumentDAO {
 	}
 
 	@Override
-	public boolean delete(String id) {
-		return false;
+	public String delete(String id) {
+		return null;
 	}
 
 	@Override
