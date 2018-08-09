@@ -110,7 +110,7 @@ public class DocumentConverter {
 	public static BasicDBObject toSortObject(Sort sort) {
 		BasicDBObject sortObject = new BasicDBObject(DEFAULT_SORT_FIELD, DEFAULT_SORT_VALUE);
 		if(RequestValidator.isValidSortRequest(sort)) {
-			sortObject.append(sort.getFieldName(), sort.getOrder());
+			sortObject = new BasicDBObject(sort.getFieldName(), sort.getOrder());
 		}
 		return sortObject;
 	}
