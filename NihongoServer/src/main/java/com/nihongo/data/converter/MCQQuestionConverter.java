@@ -3,6 +3,7 @@ package com.nihongo.data.converter;
 import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.DEFAULT_SORT_FIELD;
 import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.DEFAULT_SORT_VALUE;
 import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.QUERY_ALL;
+import static com.nihongo.support.constant.Constant.STRING_PROPERTIES.EMPTY;
 import static com.nihongo.support.constant.mongo.MongoDBKey.CONTENT;
 import static com.nihongo.support.constant.mongo.MongoDBKey.DOCUMENT;
 import static com.nihongo.support.constant.mongo.MongoDBKey.ID;
@@ -12,10 +13,11 @@ import static com.nihongo.support.constant.mongo.MongoDBKey.TOPIC;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.ANSWERS;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.IS_CORRECT;
 import static com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey.TITLE;
-import static com.nihongo.support.constant.Constant.STRING_PROPERTIES.EMPTY;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -26,6 +28,7 @@ import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
 import com.nihongo.support.RequestValidator;
+import com.nihongo.support.constant.mongo.MongoOperator;
 
 /**
  * 
@@ -85,6 +88,10 @@ public class MCQQuestionConverter {
 		return question;
 	}
 	
+	/*
+	 * SEARCH
+	 */
+	
 	public static DBObject toSearchObject(AbstractSearchRequest request) {
 		MCQQuestionSearchRequest searchRequest = (MCQQuestionSearchRequest) request;
 		BasicDBObject searchObject = new BasicDBObject();
@@ -105,5 +112,18 @@ public class MCQQuestionConverter {
 		return sortObject;
 	}
 	
+	/*
+	 * LIST BY IDS
+	 */
+	
+	public static DBObject toListByIdsObject(List<String> questionIds) {
+		BasicDBList questionIdList = new BasicDBList();
+		BasicDBObject inOjbect = new BasicDBObject(MongoOperator.$IN, questionIdList);
+		BasicDBObject queryObject = new BasicDBObject(ID, inOjbect);
+		for (String questionId : questionIds) {
+			questionIdList.add(new ObjectId(questionId));
+		}
+		return queryObject;
+	}
 	
 }

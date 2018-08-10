@@ -76,7 +76,7 @@ public class MCQQuestionController {
 	public MCQQuestionListByIdsResponse listByIds(@RequestBody MCQQuestionListByIdsRequest request) {
 		MCQQuestionListByIdsResponse response = new MCQQuestionListByIdsResponse(ResponseCode.SYSTEM_ERROR);
 		try {
-			 SearchData searchData = mCQQuestionService.search(request);
+			 SearchData searchData = mCQQuestionService.listByIds(request.getQuestionIds());
 			 List<MCQQuestion> questions = castToMCQQuestionObject(searchData.getDatas());
 			 response.setResponseData(ResponseCode.SUCCESS, questions, searchData.getTotal());
 		} catch (AbstractNihongoException e) {

@@ -116,6 +116,16 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 
 	@Override
 	public SearchData listByIds(List<String> questionIds) {
-		return null;
+		SearchData searchData = new SearchData();
+		List<AbstractEntity> questionIdList = new ArrayList<>();
+		DBObject queryObject = MCQQuestionConverter.toListByIdsObject(questionIds);
+		DBCursor cursor = mCQQuestionCollection.find(queryObject);
+		while (cursor.hasNext()) {
+			DBObject questionObject = cursor.next();
+			MCQQuestion mcqQuestion = MCQQuestionConverter.toMCQQuestion(questionObject);
+			questionIdList.add(mcqQuestion);
+		}
+		searchData.setDatas(questionIdList);
+		return searchData;
 	}
 }
