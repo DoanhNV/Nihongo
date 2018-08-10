@@ -48,4 +48,9 @@ public class MCQQuestionServiceImpl implements MCQQuestionService {
 	public List<AbstractEntity> listAll() {
 		return null;
 	}
+
+	@Override
+	public SearchData listByIds(List<String> questionIds) {
+		return mCQQuestionDAO.listByIds(questionIds);
+	}
 }

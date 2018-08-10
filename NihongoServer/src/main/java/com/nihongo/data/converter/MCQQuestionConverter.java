@@ -32,7 +32,10 @@ import com.nihongo.support.RequestValidator;
  * @author DoanhNV Jul 8, 2018 11:10:21 AM
  */
 public class MCQQuestionConverter {
-
+	
+	/*
+	 * INSERT
+	 */
 	public static DBObject toInsertDBObject(MCQQuestion question) {
 		BasicDBObject desObject = new BasicDBObject();
 		desObject.append(TITLE, question.getTitle());
@@ -101,4 +104,6 @@ public class MCQQuestionConverter {
 		}
 		return sortObject;
 	}
+	
+	
 }

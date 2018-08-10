@@ -30,6 +30,7 @@ import com.nihongo.support.util.TransferData.RandomExamTransfer;
  */
 @Repository
 public class MCQQuestionDAOImpl implements MCQQuestionDAO {
+	
 	private static DBCollection mCQQuestionCollection = null;
 
 	static {
@@ -110,6 +111,11 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 	
 	@Override
 	public String delete(String id) {
+		return null;
+	}
+
+	@Override
+	public SearchData listByIds(List<String> questionIds) {
 		return null;
 	}
 }

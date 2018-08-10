@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.dto.httpdto.request.InsertMCQQuestionRequest;
+import com.nihongo.dto.httpdto.request.MCQQuestionListByIdsRequest;
 import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
 import com.nihongo.dto.httpdto.response.InsertMCQQuestionResponse;
+import com.nihongo.dto.httpdto.response.MCQQuestionListByIdsResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionSearchResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.MCQQuestionService;
@@ -56,6 +58,23 @@ public class MCQQuestionController {
 	@ResponseBody
 	public MCQQuestionSearchResponse listAll(@RequestBody MCQQuestionSearchRequest request) {
 		MCQQuestionSearchResponse response = new MCQQuestionSearchResponse(ResponseCode.SYSTEM_ERROR);
+		try {
+			 SearchData searchData = mCQQuestionService.search(request);
+			 List<MCQQuestion> questions = castToMCQQuestionObject(searchData.getDatas());
+			 response.setResponseData(ResponseCode.SUCCESS, questions, searchData.getTotal());
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@PostMapping(value = "/list")
+	@ResponseBody
+	public MCQQuestionListByIdsResponse listByIds(@RequestBody MCQQuestionListByIdsRequest request) {
+		MCQQuestionListByIdsResponse response = new MCQQuestionListByIdsResponse(ResponseCode.SYSTEM_ERROR);
 		try {
 			 SearchData searchData = mCQQuestionService.search(request);
 			 List<MCQQuestion> questions = castToMCQQuestionObject(searchData.getDatas());

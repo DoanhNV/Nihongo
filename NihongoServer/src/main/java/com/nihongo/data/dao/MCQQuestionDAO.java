@@ -3,6 +3,7 @@ package com.nihongo.data.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
 
 /**
@@ -12,4 +13,6 @@ import com.nihongo.data.entity.question.Question;
 public interface MCQQuestionDAO extends IDAO {
 	
 	public Map<Integer, List<Question>> getRandomExam(int level, List<Integer> topics);
+	
+	public SearchData listByIds(List<String> questionIds);
 }
