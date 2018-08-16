@@ -1,13 +1,13 @@
 package com.nihongo.dto.httpdto.response.file;
 
-import com.nihongo.dto.httpdto.response.AbstractResponse;
+import com.nihongo.dto.httpdto.response.NihongoResponse;
 
 /**
  * 
  * @author DoanhNV Jul 31, 2018 2:16:42 PM
  *
  */
-public class LoadBase64Response extends AbstractResponse {
+public class LoadBase64Response extends NihongoResponse {
 
 	private String base64Str;
 

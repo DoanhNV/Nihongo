@@ -36,21 +36,6 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
 		IOUtils.copy(super.getInputStream(), cachedBytes);
 	}
 	
-	@Override
-	public String getRequestURI() {
-		return "/document/create";
-	}
-	
-	@Override
-	public StringBuffer getRequestURL() {
-		return new StringBuffer("http://localhost:6868/document/create");
-	}
-
-	@Override
-	public String getServletPath() {
-		return "http://localhost:6868/document/create";
-	}
-	
 	public String getBody() throws IOException {
 		String body = "";
 		InputStreamReader reader = new InputStreamReader(getInputStream());

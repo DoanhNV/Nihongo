@@ -7,7 +7,7 @@ import com.nihongo.data.entity.questiondocument.Document;
  * @author DoanhNV Aug 8, 2018 2:07:58 PM
  *
  */
-public class GetDocumentResponse extends AbstractResponse {
+public class GetDocumentResponse extends NihongoResponse {
 	
 	private Document document;
 

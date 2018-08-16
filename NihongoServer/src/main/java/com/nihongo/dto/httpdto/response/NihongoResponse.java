@@ -4,7 +4,7 @@ package com.nihongo.dto.httpdto.response;
  * 
  * @author DoanhNV Jul 7, 2018 10:34:57 AM
  */
-public abstract class AbstractResponse {
+public class NihongoResponse {
 	
 	protected float code;
 	protected String message;

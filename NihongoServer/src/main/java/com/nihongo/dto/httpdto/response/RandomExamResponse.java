@@ -8,7 +8,7 @@ import com.nihongo.dto.httpdto.RandomExamDTO;
  * 
  * @author DoanhNV Jul 9, 2018 11:25:58 AM
  */
-public class RandomExamResponse extends AbstractResponse {
+public class RandomExamResponse extends NihongoResponse {
 	private List<RandomExamDTO> exams;
 
 	public RandomExamResponse() {
