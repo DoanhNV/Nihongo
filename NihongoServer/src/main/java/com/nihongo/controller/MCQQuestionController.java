@@ -23,6 +23,7 @@ import com.nihongo.dto.httpdto.response.MCQQuestionListByIdsResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionSearchResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.MCQQuestionService;
+import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
 
 /**
@@ -30,14 +31,14 @@ import com.nihongo.support.constant.ResponseCode;
  * @author DoanhNV Jul 7, 2018 9:49:57 PM
  */
 @RestController
-@RequestMapping(value = "/mvcquestion")
+@RequestMapping(value = API.MCQ_QUESTION.ROOT)
 @CrossOrigin
 public class MCQQuestionController {
 
 	@Autowired
 	private MCQQuestionService mCQQuestionService;
 
-	@PostMapping(value = "/create")
+	@PostMapping(value = API.MCQ_QUESTION.CREATE)
 	@ResponseBody
 	public InsertMCQQuestionResponse create(@RequestBody InsertMCQQuestionRequest request) {
 		InsertMCQQuestionResponse response = new InsertMCQQuestionResponse();
@@ -54,7 +55,7 @@ public class MCQQuestionController {
 		return response;
 	}
 
-	@PostMapping(value = "/search")
+	@PostMapping(value = API.MCQ_QUESTION.SEARCH)
 	@ResponseBody
 	public MCQQuestionSearchResponse listAll(@RequestBody MCQQuestionSearchRequest request) {
 		MCQQuestionSearchResponse response = new MCQQuestionSearchResponse(ResponseCode.SYSTEM_ERROR);
@@ -71,7 +72,7 @@ public class MCQQuestionController {
 		return response;
 	}
 	
-	@PostMapping(value = "/list")
+	@PostMapping(value = API.MCQ_QUESTION.LIST)
 	@ResponseBody
 	public MCQQuestionListByIdsResponse listByIds(@RequestBody MCQQuestionListByIdsRequest request) {
 		MCQQuestionListByIdsResponse response = new MCQQuestionListByIdsResponse(ResponseCode.SYSTEM_ERROR);

@@ -4,6 +4,7 @@ import static com.nihongo.support.util.EntityUtil.transferObjectTo;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import com.nihongo.dto.httpdto.response.InsertDocumentResponse;
 import com.nihongo.dto.httpdto.response.UpdateDocumentResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.DocumentService;
+import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
 import static com.nihongo.support.util.EntityUtil.castToDocumentObject;
 
@@ -34,13 +36,13 @@ import static com.nihongo.support.util.EntityUtil.castToDocumentObject;
  */
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/document")
+@RequestMapping(value = API.DOCUMENT.ROOT)
 public class DocumentController {
 	
 	@Autowired
 	private DocumentService documentService;
-	
-	@PostMapping(value = "/create")
+
+	@PostMapping(value = API.DOCUMENT.CREATE)
 	@ResponseBody
 	public InsertDocumentResponse create(@RequestBody InsertDocumentRequest request) {
 		InsertDocumentResponse response = new InsertDocumentResponse();
@@ -57,7 +59,7 @@ public class DocumentController {
 		return response;
 	}
 	
-	@GetMapping(value = "/get/{id}")
+	@GetMapping(value = API.DOCUMENT.GET_BY_ID)
 	@ResponseBody
 	public GetDocumentResponse get(@PathVariable String id) {
 		GetDocumentResponse response =  new GetDocumentResponse();
@@ -72,7 +74,7 @@ public class DocumentController {
 		return response;
 	}
 	
-	@PostMapping(value = "/search")
+	@PostMapping(value = API.DOCUMENT.SEARCH)
 	@ResponseBody
 	public DocumentSearchResponse search(@RequestBody DocumentSearchRequest request) {
 		DocumentSearchResponse response = new DocumentSearchResponse();
@@ -90,7 +92,7 @@ public class DocumentController {
 	}
 	
 
-	@PutMapping(value = "/update")
+	@PutMapping(value = API.DOCUMENT.UPDATE)
 	@ResponseBody
 	public UpdateDocumentResponse update(@RequestBody UpdateDocumentRequest request) {
 		UpdateDocumentResponse response = new UpdateDocumentResponse();

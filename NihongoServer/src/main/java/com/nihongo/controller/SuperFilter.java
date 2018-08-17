@@ -11,12 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import com.nihongo.techhelper.MultiReadHttpServletRequest;
 
+/**
+ * 
+ * @author DoanhNV Aug 17, 2018 5:45:26 PM
+ *
+ */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SuperFilter extends GenericFilterBean {
@@ -34,8 +38,6 @@ public class SuperFilter extends GenericFilterBean {
 		System.out.println("getRequestURL: " + multipleRequest.getRequestURL());
 		String remoteString = multipleRequest.getRemoteAddr() + " == "+ multipleRequest.getRemoteHost()
 		                     + " == " + multipleRequest.getRemotePort() + " == " + multipleRequest.getRemoteUser();
-		String saveUrl = (String) httpServletRequest.getParameter("saveUrl");
-		httpServletResponse.setHeader(HttpHeaders.LOCATION, "/document/create");
 		multipleRequest.setAttribute("requestBody", multipleRequest.getBody());
 		chain.doFilter(multipleRequest, httpServletResponse);
 	}

@@ -17,6 +17,7 @@ import com.nihongo.dto.httpdto.response.file.LoadBase64Response;
 import com.nihongo.dto.httpdto.response.file.UploadStreamResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.FileService;
+import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
 
 /**
@@ -24,14 +25,14 @@ import com.nihongo.support.constant.ResponseCode;
  * @author DoanhNV Jul 8, 2018 12:27:47 PM
  */
 @RestController
-@RequestMapping(value = "/file")
+@RequestMapping(value = API.FILE.ROOT)
 @CrossOrigin
 public class FileController {
 	
 	@Autowired
 	private FileService fileService;
 	
-	@PostMapping(value = "/upload/base64")
+	@PostMapping(value = API.FILE.UPLOAD_BASE64)
 	@ResponseBody
 	public UploadStreamResponse upload(@RequestBody UploadStreamRequest request) {
 		UploadStreamResponse response = new UploadStreamResponse();
@@ -48,7 +49,7 @@ public class FileController {
 		return response;
 	}
 	
-	@PostMapping(value = "/load/base64")
+	@PostMapping(value = API.FILE.LOAD_BASE64)
 	@ResponseBody
 	public LoadBase64Response loadFile(@RequestBody LoadFileBase64Request request) {
 		LoadBase64Response response = new LoadBase64Response();
