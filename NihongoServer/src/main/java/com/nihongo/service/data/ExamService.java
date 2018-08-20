@@ -1,4 +1,4 @@
-package com.nihongo.service;
+package com.nihongo.service.data;
 /**
  * 
  * @author DoanhNV Jul 9, 2018 11:09:57 AM

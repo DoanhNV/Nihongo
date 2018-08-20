@@ -5,6 +5,7 @@ package com.nihongo.data.entity.question;
  * @author DoanhNV Jul 7, 2018 3:01:10 PM
  */
 public class Answer {
+	
 	private String content;
 	private boolean isCorrect;
 

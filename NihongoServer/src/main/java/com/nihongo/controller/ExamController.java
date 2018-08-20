@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nihongo.dto.httpdto.RandomExamDTO;
 import com.nihongo.dto.httpdto.response.RandomExamResponse;
 import com.nihongo.exception.AbstractNihongoException;
-import com.nihongo.service.ExamService;
+import com.nihongo.service.data.ExamService;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.support.util.NihongoUtil;
 

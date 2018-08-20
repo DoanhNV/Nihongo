@@ -1,9 +1,9 @@
 package com.nihongo.controller;
 
+import static com.nihongo.support.util.EntityUtil.castToDocumentObject;
 import static com.nihongo.support.util.EntityUtil.transferObjectTo;
 
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,10 +25,9 @@ import com.nihongo.dto.httpdto.response.GetDocumentResponse;
 import com.nihongo.dto.httpdto.response.InsertDocumentResponse;
 import com.nihongo.dto.httpdto.response.UpdateDocumentResponse;
 import com.nihongo.exception.AbstractNihongoException;
-import com.nihongo.service.DocumentService;
+import com.nihongo.service.data.DocumentService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
-import static com.nihongo.support.util.EntityUtil.castToDocumentObject;
 
 /**
  * 

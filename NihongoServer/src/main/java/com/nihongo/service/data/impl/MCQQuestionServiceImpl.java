@@ -1,4 +1,4 @@
-package com.nihongo.service.impl;
+package com.nihongo.service.data.impl;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
-import com.nihongo.service.MCQQuestionService;
+import com.nihongo.service.data.MCQQuestionService;
 
 @Service
 public class MCQQuestionServiceImpl implements MCQQuestionService {

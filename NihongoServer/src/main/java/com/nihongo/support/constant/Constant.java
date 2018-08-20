@@ -1,5 +1,7 @@
 package com.nihongo.support.constant;
 
+import org.springframework.core.Ordered;
+
 /**
  * 
  * @author DoanhNV
@@ -58,5 +60,21 @@ public class Constant {
 	
 	public class STRING_PROPERTIES {
 		public static final String EMPTY = "";
+	}
+	
+	public class FILTER_ORDER  {
+		public static final int FIRST = Ordered.HIGHEST_PRECEDENCE;
+		public static final int SECOND = FIRST + 1;
+	}
+	
+	public class REQUEST_PROPERTIES {
+		public static final String REQUEST_BODY = "request_body";
+		public static final String REQUEST_URI = "request_uri";
+		public static final String ACCESS_TOKEN = "access_token";
+	}
+	
+	public class RESPONSE_PROPERTIES {
+		public static final String CODE = "code";
+		public static final String MESSAGE = "message";
 	}
 }

@@ -1,4 +1,4 @@
-package com.nihongo.service.impl;
+package com.nihongo.service.data.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
 import com.nihongo.dto.httpdto.RandomExamDTO;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
-import com.nihongo.service.ExamService;
+import com.nihongo.service.data.ExamService;
 
 /**
  * 

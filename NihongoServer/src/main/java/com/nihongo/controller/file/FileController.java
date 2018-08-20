@@ -16,7 +16,7 @@ import com.nihongo.dto.httpdto.request.file.UploadStreamRequest;
 import com.nihongo.dto.httpdto.response.file.LoadBase64Response;
 import com.nihongo.dto.httpdto.response.file.UploadStreamResponse;
 import com.nihongo.exception.AbstractNihongoException;
-import com.nihongo.service.FileService;
+import com.nihongo.service.data.FileService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
 

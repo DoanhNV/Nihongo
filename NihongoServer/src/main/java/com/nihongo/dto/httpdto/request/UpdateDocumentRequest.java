@@ -7,7 +7,7 @@ import java.util.List;
  * @author DoanhNV Aug 8, 2018 3:00:16 PM
  *
  */
-public class UpdateDocumentRequest extends AbstractRequest {
+public class UpdateDocumentRequest extends AbstractNihongoRequest {
 
 	private String id;
 	private String content;

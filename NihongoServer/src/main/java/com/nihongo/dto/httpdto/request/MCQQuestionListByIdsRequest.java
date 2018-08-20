@@ -7,7 +7,7 @@ import java.util.List;
  * @author DoanhNV Aug 10, 2018 4:06:26 PM
  *
  */
-public class MCQQuestionListByIdsRequest extends AbstractRequest {
+public class MCQQuestionListByIdsRequest extends AbstractNihongoRequest {
 
 	private List<String> questionIds;
 

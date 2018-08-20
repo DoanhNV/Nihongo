@@ -5,7 +5,7 @@ package com.nihongo.dto.httpdto.response;
  * @author DoanhNV Aug 8, 2018 11:36:39 AM
  *
  */
-public abstract class AbstractInsertResponse extends NihongoResponse {
+public abstract class AbstractInsertResponse extends AbstractNihongoResponse {
 
 	protected String id;
 

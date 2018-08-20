@@ -6,7 +6,7 @@ import java.util.List;
  * 
  * @author DoanhNV Jul 8, 2018 11:40:35 AM
  */
-public class InsertDocumentRequest extends AbstractRequest {
+public class InsertDocumentRequest extends AbstractNihongoRequest {
 
 	private String content;
 	private int topic;

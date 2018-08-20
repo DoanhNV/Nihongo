@@ -9,11 +9,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.nihongo.support.constant.Constant;
 import com.nihongo.techhelper.MultiReadHttpServletRequest;
 
 /**
@@ -22,7 +22,7 @@ import com.nihongo.techhelper.MultiReadHttpServletRequest;
  *
  */
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Constant.FILTER_ORDER.FIRST)
 public class SuperFilter extends GenericFilterBean {
 
 	@Override
@@ -31,14 +31,10 @@ public class SuperFilter extends GenericFilterBean {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		MultiReadHttpServletRequest multipleRequest = new MultiReadHttpServletRequest(httpServletRequest);
-
-		System.out.println("request: " + multipleRequest.getScheme() + "://" + multipleRequest.getServerName() + ":" + multipleRequest.getServerPort());
-		System.out.println("getServletPath: " + multipleRequest.getServletPath());
-		System.out.println("getRequestURI: " + multipleRequest. getRequestURI());
-		System.out.println("getRequestURL: " + multipleRequest.getRequestURL());
-		String remoteString = multipleRequest.getRemoteAddr() + " == "+ multipleRequest.getRemoteHost()
-		                     + " == " + multipleRequest.getRemotePort() + " == " + multipleRequest.getRemoteUser();
-		multipleRequest.setAttribute("requestBody", multipleRequest.getBody());
+		
+		String requestBody = multipleRequest.getBody();
+		multipleRequest.setAttribute(Constant.REQUEST_PROPERTIES.REQUEST_BODY, requestBody);
+		
 		chain.doFilter(multipleRequest, httpServletResponse);
 	}
 }

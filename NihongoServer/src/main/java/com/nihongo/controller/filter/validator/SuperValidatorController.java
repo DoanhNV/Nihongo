@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nihongo.data.techentity.Validation;
+import com.nihongo.data.techentity.FilterValidation;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class SuperValidatorController {
 	
 	@RequestMapping(value = "/token", method = { RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE } )
 	@ResponseBody
-	public JSONObject validate(@RequestBody Validation validate, HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServletException, IOException, ParseException {
+	public JSONObject validate(@RequestBody FilterValidation validate, HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServletException, IOException, ParseException {
 		JSONObject validateResponse = new JSONObject();
 		boolean isValidRequest = false;
 		Map<String, Object> mapResponse = new HashMap<>();

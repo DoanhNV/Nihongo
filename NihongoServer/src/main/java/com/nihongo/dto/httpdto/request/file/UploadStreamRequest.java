@@ -1,12 +1,12 @@
 package com.nihongo.dto.httpdto.request.file;
 
-import com.nihongo.dto.httpdto.request.AbstractRequest;
+import com.nihongo.dto.httpdto.request.AbstractNihongoRequest;
 
 /**
  * 
  * @author DoanhNV Jul 8, 2018 2:02:13 PM
  */
-public class UploadStreamRequest extends AbstractRequest {
+public class UploadStreamRequest extends AbstractNihongoRequest {
 	private String base64Stream;
 	private String fileName;
 	private int fileType;

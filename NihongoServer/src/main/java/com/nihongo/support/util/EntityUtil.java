@@ -1,24 +1,28 @@
 package com.nihongo.support.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.AbstractSingleEntity;
 import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.data.entity.questiondocument.Document;
-import com.nihongo.dto.httpdto.request.AbstractRequest;
+import com.nihongo.dto.httpdto.request.AbstractNihongoRequest;
 
 public class EntityUtil {
 	
-	public static void transferObjectTo(AbstractRequest sourceObject, AbstractEntity desObject) {
+	public static void transferObjectTo(AbstractNihongoRequest sourceObject, AbstractEntity desObject) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.map(sourceObject, desObject);
 	}
 	
-	public static void transferSingleObjectTo(AbstractRequest sourceObject, AbstractSingleEntity desObject) {
+	public static void transferSingleObjectTo(AbstractNihongoRequest sourceObject, AbstractSingleEntity desObject) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.map(sourceObject, desObject);
 	}
@@ -43,5 +47,10 @@ public class EntityUtil {
 			}
 		}
 		return documents;
+	}
+	
+	public static AbstractEntity mappingJsonStringToObject(String jsonString, Class<AbstractEntity> className) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper(); 
+		return mapper.readValue(jsonString, className);
 	}
 }

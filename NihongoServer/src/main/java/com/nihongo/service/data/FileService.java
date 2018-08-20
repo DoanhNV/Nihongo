@@ -1,4 +1,4 @@
-package com.nihongo.service;
+package com.nihongo.service.data;
 
 import com.nihongo.data.entity.file.DataFile;
 

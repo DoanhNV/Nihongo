@@ -1,12 +1,12 @@
 package com.nihongo.dto.httpdto.response.file;
 
-import com.nihongo.dto.httpdto.response.NihongoResponse;
+import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 
 /**
  * 
  * @author DoanhNV Jul 8, 2018 2:05:17 PM
  */
-public class UploadStreamResponse extends NihongoResponse {
+public class UploadStreamResponse extends AbstractNihongoResponse {
 	
 	private String filePath;
 

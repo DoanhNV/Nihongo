@@ -22,7 +22,7 @@ import com.nihongo.dto.httpdto.response.InsertMCQQuestionResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionListByIdsResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionSearchResponse;
 import com.nihongo.exception.AbstractNihongoException;
-import com.nihongo.service.MCQQuestionService;
+import com.nihongo.service.data.MCQQuestionService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
 

@@ -1,4 +1,4 @@
-package com.nihongo.service.impl;
+package com.nihongo.service.data.impl;
 
 import static com.nihongo.support.constant.Constant.FILE.DEFAULT_IMAGE_DIRECTORY;
 import static com.nihongo.support.constant.Constant.FILE.DEFAULT_IMAGE_EXTENTION;
@@ -11,7 +11,7 @@ import java.io.File;
 import org.springframework.stereotype.Service;
 
 import com.nihongo.data.entity.file.DataFile;
-import com.nihongo.service.FileService;
+import com.nihongo.service.data.FileService;
 import com.nihongo.support.util.FileUtil;
 
 /**
