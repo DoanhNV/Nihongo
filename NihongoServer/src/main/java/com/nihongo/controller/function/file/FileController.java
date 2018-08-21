@@ -1,4 +1,4 @@
-package com.nihongo.controller.file;
+package com.nihongo.controller.function.file;
 
 import static com.nihongo.support.util.EntityUtil.transferSingleObjectTo;
 

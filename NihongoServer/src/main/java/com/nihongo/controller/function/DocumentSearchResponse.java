@@ -1,4 +1,4 @@
-package com.nihongo.controller;
+package com.nihongo.controller.function;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.nihongo.controller;
+package com.nihongo.controller.function;
 
 import static com.nihongo.support.util.EntityUtil.castToMCQQuestionObject;
 import static com.nihongo.support.util.EntityUtil.transferObjectTo;

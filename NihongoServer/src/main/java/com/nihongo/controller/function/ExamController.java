@@ -1,4 +1,4 @@
-package com.nihongo.controller;
+package com.nihongo.controller.function;
 
 import static com.nihongo.support.constant.Constant.MAX_TOPIC_PER_EXAM;
 import static com.nihongo.support.constant.Constant.MAX_TOPIC_NUMBER;
