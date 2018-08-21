@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.nihongo.filter.validation.DocumentValidationFilter;
-import com.nihongo.filter.validation.ValidationFilter;
+import com.nihongo.filter.validation.DocumentValidation;
+import com.nihongo.filter.validation.Validation;
 import com.nihongo.support.constant.API.DOCUMENT;
 import com.nihongo.support.constant.API.FILE;
 import com.nihongo.support.constant.API.MCQ_QUESTION;
@@ -19,7 +19,7 @@ import com.nihongo.support.constant.API.MCQ_QUESTION;
 public class APIManager {
 
 	private static List<String> tokenAPIs = new ArrayList<>();
-	private static Map<String, ValidationFilter> validateAPIMap = new HashMap<>();
+	private static Map<String, Validation> validateAPIMap = new HashMap<>();
 
 	static {
 		tokenAPIs.add(FILE.ROOT + FILE.UPLOAD_BASE64);
@@ -34,7 +34,7 @@ public class APIManager {
 
 		for (String uri : tokenAPIs) {
 			if (uri.contains(DOCUMENT.ROOT)) {
-				validateAPIMap.put(uri, new DocumentValidationFilter());
+				validateAPIMap.put(uri, new DocumentValidation());
 			}
 		}
 	}
@@ -43,7 +43,7 @@ public class APIManager {
 		return tokenAPIs;
 	}
 
-	public static Map<String, ValidationFilter> getValidateAPIMap() {
+	public static Map<String, Validation> getValidateAPIMap() {
 		return validateAPIMap;
 	}
 	
@@ -51,7 +51,7 @@ public class APIManager {
 		return tokenAPIs.contains(uri);
 	}
 
-	public static ValidationFilter getValidateFilter(String uri) {
+	public static Validation getValidateFilter(String uri) {
 		return validateAPIMap.get(uri);
 	}
 }

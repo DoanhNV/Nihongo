@@ -18,8 +18,8 @@ public class NihongoFilter {
 		AbstractNihongoResponse response = new AbstractNihongoResponse();
 		response = APIManager.isTokenAPI(requestURI) ? TokenValidatorFilter.validate(token) : response;
 		if(response.getCode() == ResponseCode.SUCCESS) {
-			ValidationFilter validatior = APIManager.getValidateFilter(requestURI);
-			response = validatior.validate(requestBody);
+			Validation validatior = APIManager.getValidateFilter(requestURI);
+			response = validatior.validate(requestURI, requestBody);
 		}
 		return response;
 	}
