@@ -18,7 +18,8 @@ public class ExamSetting extends AbstractEntity {
 
 	}
 
-	public ExamSetting(int level, List<TopicNumber> topicConfigs) {
+	public ExamSetting(String id, int level, List<TopicNumber> topicConfigs) {
+		this.id = id;
 		this.level = level;
 		this.topicConfigs = topicConfigs;
 	}

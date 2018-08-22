@@ -7,4 +7,11 @@ package com.nihongo.dto.httpdto.response;
  */
 public class ExamSettingResponse extends AbstractNihongoResponse {
 
+	public ExamSettingResponse() {
+	
+	}
+	
+	public ExamSettingResponse(float code) {
+		this.code = code;
+	}
 }
