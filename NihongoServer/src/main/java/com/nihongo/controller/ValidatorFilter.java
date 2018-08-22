@@ -16,6 +16,8 @@ import org.springframework.web.filter.GenericFilterBean;
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.filter.validation.NihongoFilter;
 import com.nihongo.support.constant.Constant;
+import com.nihongo.support.constant.Constant.CONTENT_TYPE;
+import com.nihongo.support.constant.Constant.REQUEST_PROPERTIES;
 import com.nihongo.support.constant.ResponseCode;
 
 /**
@@ -33,10 +35,11 @@ public class ValidatorFilter extends GenericFilterBean {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		
-		String requestBody = (String) request.getAttribute(Constant.REQUEST_PROPERTIES.REQUEST_BODY);
+		String requestBody = (String) request.getAttribute(REQUEST_PROPERTIES.REQUEST_BODY);
 		String requestURI = httpServletRequest.getRequestURI();
-		String token = httpServletRequest.getHeader(Constant.REQUEST_PROPERTIES.ACCESS_TOKEN);
+		String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
 		AbstractNihongoResponse validateResponse = NihongoFilter.validate(token, requestBody, requestURI);
+		response.setContentType(CONTENT_TYPE.APPLICATION_JSON);
 		
 		if(validateResponse.getCode() == ResponseCode.SUCCESS) {
 			chain.doFilter(httpServletRequest, httpServletResponse);

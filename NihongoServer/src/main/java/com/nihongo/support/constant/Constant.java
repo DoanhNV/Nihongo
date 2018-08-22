@@ -77,4 +77,8 @@ public class Constant {
 		public static final String CODE = "code";
 		public static final String MESSAGE = "message";
 	}
+	
+	public class CONTENT_TYPE {
+		public static final String APPLICATION_JSON = "application/json";
+	}
 }
