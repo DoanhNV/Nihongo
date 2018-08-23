@@ -3,6 +3,8 @@ package com.nihongo.data.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -33,7 +35,9 @@ public class SettingConverter {
 			listTopicConfig.add(topicNumberObject);
 		}
 
-		examSettingObject.append(SETTING.ID, id);
+		if(id != null) {
+			examSettingObject.append(SETTING.ID, new ObjectId(id));
+		}
 		examSettingObject.append(SETTING.LEVEL, level);
 		examSettingObject.append(SETTING.TOPIC_CONFIGS, listTopicConfig);
 		return examSettingObject;

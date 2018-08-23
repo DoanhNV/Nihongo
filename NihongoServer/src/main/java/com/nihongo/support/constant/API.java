@@ -30,6 +30,6 @@ public class API {
 	public class SETTING {
 		public static final String ROOT = "/setting";
 		public static final String SET_EXAM_NUMBER = "/exam/set/number";
-		public static final String LIST_EXAM_SETTING = "/exam/list/setting";
+		public static final String LIST_EXAM_SETTING = "/exam/list";
 	}
 }

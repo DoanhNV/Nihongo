@@ -16,10 +16,14 @@ public class NihongoFilter {
 	
 	public static AbstractNihongoResponse validate(String token, String requestBody, String requestURI) throws JsonParseException, JsonMappingException, IOException {
 		AbstractNihongoResponse response = new AbstractNihongoResponse();
-		response = APIManager.isTokenAPI(requestURI) ? TokenValidatorFilter.validate(token) : response;
-		if(response.getCode() == ResponseCode.SUCCESS) {
-			Validation validatior = APIManager.getValidateFilter(requestURI);
-			response = validatior.validate(requestURI, requestBody);
+		try {
+			response = APIManager.isTokenAPI(requestURI) ? TokenValidatorFilter.validate(token) : response;
+			if(response.getCode() == ResponseCode.SUCCESS) {
+				Validation validatior = APIManager.getValidateFilter(requestURI);
+				response = validatior.validate(requestURI, requestBody);
+			}
+		} catch (Exception e) {
+			
 		}
 		return response;
 	}
