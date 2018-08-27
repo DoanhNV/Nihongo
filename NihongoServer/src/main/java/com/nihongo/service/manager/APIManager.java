@@ -1,5 +1,6 @@
 package com.nihongo.service.manager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import com.nihongo.filter.validation.Validation;
 import com.nihongo.support.constant.API.DOCUMENT;
 import com.nihongo.support.constant.API.FILE;
 import com.nihongo.support.constant.API.MCQ_QUESTION;
+import com.nihongo.support.constant.API.SETTING;
 
 /**
  * 
@@ -34,6 +36,10 @@ public class APIManager {
 
 		for (String uri : tokenAPIs) {
 			if (uri.contains(DOCUMENT.ROOT)) {
+				validateAPIMap.put(uri, new DocumentValidation());
+			} else 	if (uri.contains(SETTING.ROOT)) {
+				validateAPIMap.put(uri, new DocumentValidation());
+			} else 	if (uri.contains(FILE.ROOT)) {
 				validateAPIMap.put(uri, new DocumentValidation());
 			}
 		}

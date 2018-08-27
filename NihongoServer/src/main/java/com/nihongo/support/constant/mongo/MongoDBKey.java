@@ -5,6 +5,7 @@ package com.nihongo.support.constant.mongo;
  * @author DoanhNV Jul 7, 2018 9:12:02 PM
  */
 public class MongoDBKey {
+	
 	public static final String ID = "_id";
 	public static final String TOPIC = "topic";
 	public static final String LEVEL = "level";
@@ -27,4 +28,8 @@ public class MongoDBKey {
 		public static final String EXAM_NAME = "exam_name";
 	}
 	
+	public class SETTING extends MongoDBKey {
+		public static final String NUMBER = "number";
+		public static final String TOPIC_CONFIGS = "topic_configs";
+	} 
 }

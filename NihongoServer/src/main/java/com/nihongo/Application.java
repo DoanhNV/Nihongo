@@ -8,6 +8,8 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.nihongo.service.initialize.SettingInit;
+
 /**
  * 
  * @author DoanhNV Jul 7, 2018 10:35:17 AM
@@ -18,6 +20,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class Application {
 
 	public static void main(String[] args) {
+		SettingInit settingInit = new SettingInit();
+		settingInit.init();
 		SpringApplication.run(Application.class, args);
 	}
 

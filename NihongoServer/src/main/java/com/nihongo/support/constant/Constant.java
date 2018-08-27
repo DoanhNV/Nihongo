@@ -32,10 +32,10 @@ public class Constant {
 	public class LEVEL {
 		public static final int BEGINER = 0;
 		public static final int N1 = 1;
-		public static final int N2 = 1;
-		public static final int N3 = 1;
-		public static final int N4 = 1;
-		public static final int N5 = 1;
+		public static final int N2 = 2;
+		public static final int N3 = 3;
+		public static final int N4 = 4;
+		public static final int N5 = 5;
 	}
 	
 	public class FILE {
