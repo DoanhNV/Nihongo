@@ -1,15 +1,19 @@
 package com.nihongo.data.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.AggregationOutput;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.client.model.Aggregates;
 import com.nihongo.data.converter.MCQQuestionConverter;
 import com.nihongo.data.dao.MCQQuestionDAO;
 import com.nihongo.data.entity.AbstractEntity;
@@ -19,6 +23,7 @@ import com.nihongo.data.entity.question.Question;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
 import com.nihongo.support.constant.mongo.MongoConfigInfo.EXAM_DB;
+import com.nihongo.support.constant.mongo.MongoDBKey;
 import com.nihongo.support.constant.mongo.MongoDBKey.ExamKey;
 import com.nihongo.support.constant.mongo.MongoDBKey.MCQQuestionKey;
 import com.nihongo.support.constant.mongo.MongoOperator;
@@ -127,5 +132,33 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 		}
 		searchData.setDatas(questionIdList);
 		return searchData;
+	}
+
+	public static void main(String[] args) {
+		MCQQuestionDAOImpl mcqQuestionDAOImpl = new MCQQuestionDAOImpl();
+		mcqQuestionDAOImpl.getRandomQuestions(5, 3);
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public  List<MCQQuestion> getRandomQuestions(int level, int size) {
+		List<MCQQuestion> mcqQuestions = new ArrayList<>();
+		BasicDBObject conditionQuery = new BasicDBObject(MongoOperator.$MATCH, new BasicDBObject(MongoDBKey.LEVEL, level));
+		BasicDBObject randomSizeQuery = new BasicDBObject(MongoOperator.$SAMPLE, new BasicDBObject(MongoOperator.SIZE, size));
+		BasicDBObject projecttionQuery = new BasicDBObject(MongoOperator.$PROJECT, new BasicDBObject(MongoDBKey.ID, MongoOperator.INCLUDE_FIELD));
+			
+		AggregationOutput aggregation = mCQQuestionCollection.aggregate(
+				Arrays.asList(
+						conditionQuery,
+						randomSizeQuery,
+						projecttionQuery
+				)
+		);
+		
+		Iterable<DBObject> results = aggregation.results();
+		for (DBObject dbObject : results) {
+			System.out.println(dbObject.get("level") + " - "+  dbObject.get("_id").toString());
+		}
+		return null;
 	}
 }

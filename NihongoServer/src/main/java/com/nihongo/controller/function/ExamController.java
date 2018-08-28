@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.dto.httpdto.RandomExamDTO;
+import com.nihongo.dto.httpdto.request.RandomCreateExamRequest;
+import com.nihongo.dto.httpdto.response.RandomCreateExamResponse;
 import com.nihongo.dto.httpdto.response.RandomExamResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.ExamService;
@@ -41,6 +45,20 @@ public class ExamController {
 			List<RandomExamDTO> exams = examService.getRandomExam(level, topics);
 			response.setExams(exams);
 			response.setCode(ResponseCode.SUCCESS);
+		}  catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		}  catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@PostMapping(value = "/create/random")
+	@ResponseBody
+	public RandomCreateExamResponse createRandom(@RequestBody RandomCreateExamRequest request) {
+		RandomCreateExamResponse response = new RandomCreateExamResponse();
+		try {
+			
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		}  catch (Exception e) {

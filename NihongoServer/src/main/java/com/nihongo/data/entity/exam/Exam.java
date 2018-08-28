@@ -1,7 +1,5 @@
 package com.nihongo.data.entity.exam;
 
-import java.util.List;
-
 import com.nihongo.data.entity.AbstractEntity;
 
 /**
@@ -9,27 +7,55 @@ import com.nihongo.data.entity.AbstractEntity;
  * @author DoanhNV Jul 7, 2018 3:07:28 PM
  */
 public class Exam extends AbstractEntity {
-	private String examName;
-	private List<String> examTopics;
+
+	private int minutes;
+	private boolean isTrial;
+	private boolean free;
+	private int likeNumber;
+	private int createTime;
+	private int lastUpdateTime;
 
 	public Exam() {
 
 	}
 
-	public String getExamName() {
-		return examName;
+	public int getMinutes() {
+		return minutes;
 	}
 
-	public void setExamName(String examName) {
-		this.examName = examName;
+	public void setMinutes(int minutes) {
+		this.minutes = minutes;
 	}
 
-	public List<String> getExamTopics() {
-		return examTopics;
+	public boolean isTrial() {
+		return isTrial;
 	}
 
-	public void setExamTopics(List<String> examTopics) {
-		this.examTopics = examTopics;
+	public void setTrial(boolean isTrial) {
+		this.isTrial = isTrial;
 	}
 
+	public int getLikeNumber() {
+		return likeNumber;
+	}
+
+	public void setLikeNumber(int likeNumber) {
+		this.likeNumber = likeNumber;
+	}
+
+	public int getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(int createTime) {
+		this.createTime = createTime;
+	}
+
+	public int getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(int lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
+	}
 }

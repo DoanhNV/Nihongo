@@ -9,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nihongo.data.dao.MCQQuestionDAO;
-import com.nihongo.data.entity.AbstractEntity;
-import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
 import com.nihongo.dto.httpdto.RandomExamDTO;
-import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.service.data.ExamService;
 
 /**
@@ -25,37 +22,7 @@ public class ExamServiceImpl implements ExamService {
 
 	@Autowired
 	private MCQQuestionDAO mcqQuestionDAO;
-
-	@Override
-	public String insert(AbstractEntity entity) {
-		return null;
-	}
-
-	@Override
-	public boolean update(AbstractEntity entity) {
-		return false;
-	}
-
-	@Override
-	public Question getById(String id) {
-		return null;
-	}
-
-	@Override
-	public List<AbstractEntity> listAll() {
-		return null;
-	}
-
-	@Override
-	public SearchData search(AbstractSearchRequest request) {
-		return null;
-	}
-
-	@Override
-	public String delete(String id) {
-		return null;
-	}
-
+	
 	@Override
 	public List<RandomExamDTO> getRandomExam(int level, List<Integer> topics) {
 		List<RandomExamDTO> exams = new ArrayList<>();
@@ -65,5 +32,11 @@ public class ExamServiceImpl implements ExamService {
 			exams.add(randomExamDTO);
 		}
 		return exams;
+	}
+
+	@Override
+	public List<RandomExamDTO> createRandomExam(int level) {
+		
+		return null;
 	}
 }

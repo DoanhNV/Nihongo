@@ -8,7 +8,9 @@ import java.util.List;
 
 import com.nihongo.dto.httpdto.RandomExamDTO;
 
-public interface ExamService extends IService {
+public interface ExamService {
 	
 	public List<RandomExamDTO> getRandomExam(int level, List<Integer> topics);
+	
+	public List<RandomExamDTO> createRandomExam(int level);
 }
