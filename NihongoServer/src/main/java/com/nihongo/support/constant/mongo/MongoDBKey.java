@@ -14,6 +14,7 @@ public class MongoDBKey {
 	public static final String SUB_TITLE = "sub_title";
 	public static final String DOCUMENT = "document";
 	public static final String QUESTION_IDS = "question_ids";
+	public static final String IS_ACTIVE = "is_active";
 	
 	public class MCQQuestionKey extends MongoDBKey {
 		public static final String TITLE = "title";

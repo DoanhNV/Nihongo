@@ -24,9 +24,10 @@ public class ExamConverter {
 
 	public static DBObject toInsertObject(Exam exam) {
 		BasicDBObject insertObject = new BasicDBObject();
-		insertObject.append(MongoDBKey.ExamKey.LEVEL, exam.getLevel());
+		insertObject.append(MongoDBKey.ExamKey.IS_ACTIVE, exam.isActive());
 		insertObject.append(MongoDBKey.ExamKey.IS_TRIAL, exam.isTrial());
 		insertObject.append(MongoDBKey.ExamKey.IS_FREE, exam.isFree());
+		insertObject.append(MongoDBKey.ExamKey.LEVEL, exam.getLevel());
 		insertObject.append(MongoDBKey.ExamKey.LIKE_NUMBER, exam.getLikeNumber());
 		insertObject.append(MongoDBKey.ExamKey.CREATE_TIME, exam.getCreateTime());
 		insertObject.append(MongoDBKey.ExamKey.UPDATE_TIME, exam.getUpdateTime());
@@ -51,6 +52,7 @@ public class ExamConverter {
 		Integer likeNumber = (Integer) examObject.get(MongoDBKey.ExamKey.LIKE_NUMBER);
 		Long createTime = (Long) examObject.get(MongoDBKey.ExamKey.CREATE_TIME);
 		Long updateTime = (Long) examObject.get(MongoDBKey.ExamKey.UPDATE_TIME);
+		Boolean isActive = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_ACTIVE);
 		
 		List<EmbedExamTopic> embedTopics = new ArrayList<>();
 		BasicDBList listEmbedTopic = (BasicDBList) examObject.get(MongoDBKey.ExamKey.EMBED_TOPIC);
@@ -67,6 +69,7 @@ public class ExamConverter {
 		}
 		
 		exam.setId(id);
+		exam.setActive(isActive);
 		exam.setLevel(level);
 		exam.setTrial(isTrial);
 		exam.setFree(isFree);

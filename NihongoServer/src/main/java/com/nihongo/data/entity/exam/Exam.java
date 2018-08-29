@@ -12,6 +12,7 @@ public class Exam extends AbstractEntity {
 	
 	private int level;
 	private int completedMinutes;
+	private boolean isActive;
 	private boolean isTrial;
 	private boolean isFree;
 	private int likeNumber;
@@ -27,6 +28,7 @@ public class Exam extends AbstractEntity {
 		long currentServerTime = System.currentTimeMillis();
 		this.setCreateTime(currentServerTime);
 		this.setUpdateTime(currentServerTime);
+		this.setActive(true);
 	}
 
 	public boolean isTrial() {
@@ -91,5 +93,13 @@ public class Exam extends AbstractEntity {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 }
