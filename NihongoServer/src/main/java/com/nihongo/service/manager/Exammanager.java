@@ -48,8 +48,8 @@ public class Exammanager {
 	public static ExamSetting getN5Setting() {
 		ExamSetting examSetting = new ExamSetting(Constant.LEVEL.N5);
 		List<TopicNumber> topicConfigs = new ArrayList<>();
-		topicConfigs.add(new TopicNumber(Constant.TOPIC.KANJI_TO_HIRAGANA, 12));
-		topicConfigs.add(new TopicNumber(Constant.TOPIC.HIRAGRANA_TO_KANJI, 8));
+		topicConfigs.add(new TopicNumber(Constant.TOPIC.HIRAGRANA_TO_KANJI, 12));
+		topicConfigs.add(new TopicNumber(Constant.TOPIC.KANJI_TO_HIRAGANA, 8));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.SYNONNYM, 5));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.FILL_INTO_BRACES_1_VACABULARY, 10));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.REPLACE_STAR, 5));
@@ -61,8 +61,8 @@ public class Exammanager {
 	public static ExamSetting getN4Setting() {
 		ExamSetting examSetting = new ExamSetting(Constant.LEVEL.N4);
 		List<TopicNumber> topicConfigs = new ArrayList<>();
-		topicConfigs.add(new TopicNumber(Constant.TOPIC.KANJI_TO_HIRAGANA, 9));
-		topicConfigs.add(new TopicNumber(Constant.TOPIC.HIRAGRANA_TO_KANJI, 6));
+		topicConfigs.add(new TopicNumber(Constant.TOPIC.HIRAGRANA_TO_KANJI, 9));
+		topicConfigs.add(new TopicNumber(Constant.TOPIC.KANJI_TO_HIRAGANA, 6));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.SYNONNYM, 5));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.FILL_INTO_BRACES_1_VACABULARY, 15));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.WORDING, 5));
@@ -75,8 +75,8 @@ public class Exammanager {
 	public static ExamSetting getN3Setting() {
 		ExamSetting examSetting = new ExamSetting(Constant.LEVEL.N3);
 		List<TopicNumber> topicConfigs = new ArrayList<>();
-		topicConfigs.add(new TopicNumber(Constant.TOPIC.KANJI_TO_HIRAGANA, 9));
-		topicConfigs.add(new TopicNumber(Constant.TOPIC.HIRAGRANA_TO_KANJI, 6));
+		topicConfigs.add(new TopicNumber(Constant.TOPIC.HIRAGRANA_TO_KANJI, 9));
+		topicConfigs.add(new TopicNumber(Constant.TOPIC.KANJI_TO_HIRAGANA, 6));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.FILL_INTO_BRACES_1_VACABULARY, 15));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.SYNONNYM, 5));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.FILL_INTO_BRACES_2_STREAM_PARAGRAPH, 15));
@@ -90,8 +90,8 @@ public class Exammanager {
 	public static ExamSetting getN2Setting() {
 		ExamSetting examSetting = new ExamSetting(Constant.LEVEL.N2);
 		List<TopicNumber> topicConfigs = new ArrayList<>();
-		topicConfigs.add(new TopicNumber(Constant.TOPIC.KANJI_TO_HIRAGANA, 9));
-		topicConfigs.add(new TopicNumber(Constant.TOPIC.HIRAGRANA_TO_KANJI, 6));
+		topicConfigs.add(new TopicNumber(Constant.TOPIC.HIRAGRANA_TO_KANJI, 9));
+		topicConfigs.add(new TopicNumber(Constant.TOPIC.KANJI_TO_HIRAGANA, 6));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.FILL_INTO_BRACES_1_VACABULARY, 5));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.FILL_INTO_BRACES_2_STREAM_PARAGRAPH, 5));
 		topicConfigs.add(new TopicNumber(Constant.TOPIC.SYNONNYM, 5));
