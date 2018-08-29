@@ -2,7 +2,7 @@ package com.nihongo.dto.httpdto.response;
 
 import java.util.List;
 
-import com.nihongo.dto.httpdto.RandomExamDTO;
+import com.nihongo.dto.httpdto.entity.RandomExamDTO;
 
 /**
  * 

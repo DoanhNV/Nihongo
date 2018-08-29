@@ -8,12 +8,10 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.AggregationOutput;
-import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.client.model.Aggregates;
 import com.nihongo.data.converter.MCQQuestionConverter;
 import com.nihongo.data.dao.MCQQuestionDAO;
 import com.nihongo.data.entity.AbstractEntity;
@@ -33,6 +31,7 @@ import com.nihongo.support.util.TransferData.RandomExamTransfer;
  * 
  * @author DoanhNV Jul 7, 2018 8:56:05 PM
  */
+@SuppressWarnings({ "deprecation", "unused" })
 @Repository
 public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 	
@@ -136,29 +135,29 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 
 	public static void main(String[] args) {
 		MCQQuestionDAOImpl mcqQuestionDAOImpl = new MCQQuestionDAOImpl();
-		mcqQuestionDAOImpl.getRandomQuestions(5, 3);
+		mcqQuestionDAOImpl.getRandomQuestions(1, 5, 3);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
-	public  List<MCQQuestion> getRandomQuestions(int level, int size) {
-		List<MCQQuestion> mcqQuestions = new ArrayList<>();
-		BasicDBObject conditionQuery = new BasicDBObject(MongoOperator.$MATCH, new BasicDBObject(MongoDBKey.LEVEL, level));
+	public  List<String> getRandomQuestions(int topic, int level, int size) {
+		List<String> mcqQuestionIds = new ArrayList<>();
+		BasicDBObject matchObject = new BasicDBObject(MongoDBKey.LEVEL, level).append(MongoDBKey.TOPIC, topic);
+		BasicDBObject conditionQuery = new BasicDBObject(MongoOperator.$MATCH, matchObject);
 		BasicDBObject randomSizeQuery = new BasicDBObject(MongoOperator.$SAMPLE, new BasicDBObject(MongoOperator.SIZE, size));
 		BasicDBObject projecttionQuery = new BasicDBObject(MongoOperator.$PROJECT, new BasicDBObject(MongoDBKey.ID, MongoOperator.INCLUDE_FIELD));
 			
-		AggregationOutput aggregation = mCQQuestionCollection.aggregate(
+		Iterable<DBObject> results = mCQQuestionCollection.aggregate(
 				Arrays.asList(
 						conditionQuery,
 						randomSizeQuery,
 						projecttionQuery
 				)
-		);
+		).results();
 		
-		Iterable<DBObject> results = aggregation.results();
-		for (DBObject dbObject : results) {
-			System.out.println(dbObject.get("level") + " - "+  dbObject.get("_id").toString());
+		for (DBObject question : results) {
+			String questionId = question.get(MongoDBKey.MCQQuestionKey.ID).toString();
+			mcqQuestionIds.add(questionId);
 		}
-		return null;
+		return mcqQuestionIds;
 	}
 }

@@ -8,10 +8,21 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nihongo.data.dao.DocumentDAO;
+import com.nihongo.data.dao.ExamDAO;
 import com.nihongo.data.dao.MCQQuestionDAO;
+import com.nihongo.data.dao.SettingDAO;
+import com.nihongo.data.entity.exam.EmbedExamTopic;
+import com.nihongo.data.entity.exam.Exam;
+import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.Question;
-import com.nihongo.dto.httpdto.RandomExamDTO;
+import com.nihongo.data.entity.setting.ExamSetting;
+import com.nihongo.data.entity.setting.TopicNumber;
+import com.nihongo.dto.httpdto.entity.RandomExamDTO;
+import com.nihongo.dto.httpdto.request.SearchExamRequest;
+import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.ExamService;
+import com.nihongo.support.constant.Constant;
 
 /**
  * 
@@ -22,6 +33,12 @@ public class ExamServiceImpl implements ExamService {
 
 	@Autowired
 	private MCQQuestionDAO mcqQuestionDAO;
+	@Autowired
+	private SettingDAO settingDAO;
+	@Autowired
+	private ExamDAO examDAO;
+	@Autowired
+	private DocumentDAO documentDAO;
 	
 	@Override
 	public List<RandomExamDTO> getRandomExam(int level, List<Integer> topics) {
@@ -35,8 +52,33 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public List<RandomExamDTO> createRandomExam(int level) {
+	public boolean createRandomExam(int level) {
+		ExamSetting examSetting = settingDAO.getExamSetting(level);
+		Exam exam = new Exam();
+		List<EmbedExamTopic> embedExamTopics = new ArrayList<>();
+		if(examSetting == null) {
+			throw new AbstractNihongoException();
+		}
 		
-		return null;
+		for (TopicNumber topicNumber : examSetting .getTopicConfigs()) {
+			int topic = topicNumber.getTopic();
+			List<String> questionIds = new ArrayList<>();
+			boolean isParagraph = topic == Constant.TOPIC.READING_UNDERSTANDING_PARAGRAPH  
+											|| topic == Constant.TOPIC.FILL_INTO_PARAGRAPH;
+			if(isParagraph) {
+				questionIds = documentDAO.getRandomQuestions(topic, level, topicNumber.getNumber());
+			} else {
+				questionIds = mcqQuestionDAO.getRandomQuestions(topic, level, topicNumber.getNumber());
+			}
+			EmbedExamTopic examTopic = new EmbedExamTopic(topic, questionIds);
+			embedExamTopics.add(examTopic);
+		}
+		exam.setEmbedExamTopics(embedExamTopics);
+		return examDAO.insert(exam);
+	}
+
+	@Override
+	public SearchData search(SearchExamRequest request) {
+		return examDAO.search(request);
 	}
 }

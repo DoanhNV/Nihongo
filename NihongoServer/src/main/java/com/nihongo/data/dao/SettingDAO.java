@@ -20,5 +20,7 @@ public interface SettingDAO {
 	
 	public ExamSetting getExamSetting(String id);
 	
+	public ExamSetting getExamSetting(int level);
+	
 	public List<ExamSetting> listExamSetting();
 }

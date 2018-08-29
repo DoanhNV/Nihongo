@@ -1,8 +1,9 @@
-package com.nihongo.dto.httpdto;
+package com.nihongo.dto.httpdto.entity;
 
 import java.util.List;
 
 import com.nihongo.data.entity.question.Question;
+import com.nihongo.dto.httpdto.AbstractDTO;
 
 /**
  * 

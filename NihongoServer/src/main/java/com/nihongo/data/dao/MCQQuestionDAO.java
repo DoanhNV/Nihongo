@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.nihongo.data.entity.other.transfer.SearchData;
-import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.data.entity.question.Question;
 
 /**
@@ -17,5 +16,5 @@ public interface MCQQuestionDAO extends IDAO {
 	
 	public SearchData listByIds(List<String> questionIds);
 	
-	public List<MCQQuestion> getRandomQuestions(int level, int size);
+	public List<String> getRandomQuestions(int topic, int level, int size);
 }

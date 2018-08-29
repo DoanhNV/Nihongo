@@ -7,4 +7,11 @@ package com.nihongo.dto.httpdto.response;
  */
 public class RandomCreateExamResponse extends AbstractNihongoResponse {
 	
+	public RandomCreateExamResponse() {
+
+	}
+	
+	public RandomCreateExamResponse(float code) {
+		this.code = code;
+	}
 }
