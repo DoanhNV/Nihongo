@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.nihongo.data.entity.question.Question;
+import com.nihongo.dto.httpdto.entity.ExamElement;
 
 /**
  * 
@@ -29,6 +30,26 @@ public class TransferData {
 		}
 
 		public void setTopicMap(Map<Integer, List<Question>> topicMap) {
+			this.topicMap = topicMap;
+		}
+	}
+	
+	public static class DetailExamTransfer {
+
+		private Map<Integer, List<ExamElement>> topicMap = new HashMap<>();
+
+		public DetailExamTransfer(List<Integer> topics) {
+			for (Integer topic : topics) {
+				List<ExamElement> questions = new ArrayList<>();
+				topicMap.put(topic, questions);
+			}
+		}
+
+		public Map<Integer, List<ExamElement>> getTopicMap() {
+			return topicMap;
+		}
+
+		public void setTopicMap(Map<Integer, List<ExamElement>> topicMap) {
 			this.topicMap = topicMap;
 		}
 	}

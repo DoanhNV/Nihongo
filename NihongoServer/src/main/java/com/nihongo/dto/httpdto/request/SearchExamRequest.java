@@ -11,8 +11,8 @@ public class SearchExamRequest extends AbstractSearchRequest {
 	
 	private int level;
 	private Sort sort;
-	private boolean isTrial;
-	private boolean isFree;
+	private Boolean isTrial;
+	private Boolean isFree;
 	private int fromCompletedMinutes;
 	private int toCompletedMinutes;
 	private long fromCreateTime;
@@ -36,19 +36,19 @@ public class SearchExamRequest extends AbstractSearchRequest {
 		this.sort = sort;
 	}
 
-	public boolean isTrial() {
+	public Boolean getIsTrial() {
 		return isTrial;
 	}
 
-	public void setIsTrial(boolean isTrial) {
+	public void setIsTrial(Boolean isTrial) {
 		this.isTrial = isTrial;
 	}
 
-	public boolean isFree() {
+	public Boolean getIsFree() {
 		return isFree;
 	}
 
-	public void setIsFree(boolean isFree) {
+	public void setIsFree(Boolean isFree) {
 		this.isFree = isFree;
 	}
 

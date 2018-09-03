@@ -3,12 +3,15 @@ package com.nihongo.data.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.nihongo.data.entity.Sort;
 import com.nihongo.data.entity.exam.EmbedExamTopic;
 import com.nihongo.data.entity.exam.Exam;
+import com.nihongo.dto.httpdto.entity.BasicExam;
 import com.nihongo.dto.httpdto.request.SearchExamRequest;
 import com.nihongo.support.RequestValidator;
 import com.nihongo.support.constant.Constant;
@@ -28,7 +31,9 @@ public class ExamConverter {
 		insertObject.append(MongoDBKey.ExamKey.IS_TRIAL, exam.isTrial());
 		insertObject.append(MongoDBKey.ExamKey.IS_FREE, exam.isFree());
 		insertObject.append(MongoDBKey.ExamKey.LEVEL, exam.getLevel());
+		insertObject.append(MongoDBKey.ExamKey.POINT, exam.getPoint());
 		insertObject.append(MongoDBKey.ExamKey.LIKE_NUMBER, exam.getLikeNumber());
+		insertObject.append(MongoDBKey.ExamKey.TAKED_NUMBER, exam.getTakedNumber());
 		insertObject.append(MongoDBKey.ExamKey.CREATE_TIME, exam.getCreateTime());
 		insertObject.append(MongoDBKey.ExamKey.UPDATE_TIME, exam.getUpdateTime());
 
@@ -43,16 +48,80 @@ public class ExamConverter {
 		return insertObject;
 	}
 
-	public static Exam toExam(DBObject examObject) {
-		Exam exam = new Exam();
-		Integer level = (Integer) examObject.get(MongoDBKey.ExamKey.LEVEL);
+	public static DBObject prepareSearchExaObject(SearchExamRequest request) {
+		final Boolean QUERY_ALL = null;
+		BasicDBObject searchObject = new BasicDBObject();
+		if(request.getLevel() != Constant.QUERY_PROPERTIES.QUERY_ALL) {
+			searchObject.append(MongoDBKey.LEVEL, request.getLevel());
+		}
+		if(request.getIsTrial() != QUERY_ALL) {
+			searchObject.append(MongoDBKey.ExamKey.IS_TRIAL, request.getIsTrial());
+		}
+		if(request.getIsFree() != QUERY_ALL) {
+			searchObject.append(MongoDBKey.ExamKey.IS_FREE, request.getIsFree());
+		}
+		return searchObject;
+	}
+	
+	public static DBObject prepareSortOject(Sort sort) {
+		BasicDBObject sortObject = new BasicDBObject(DEFAULT_SORT_FIELD, DEFAULT_SORT_VALUE);
+		if(RequestValidator.isValidSortRequest(sort)) {
+			sortObject = new BasicDBObject(sort.getFieldName(), sort.getOrder());
+		}
+		return sortObject;
+	}
+	
+	public static DBObject prepareGetDetailObject(String id) {
+		ObjectId objectId = new ObjectId(id);
+		return new BasicDBObject(MongoDBKey.ExamKey.ID, objectId);
+	}
+	
+	public static BasicExam toBasicExam(DBObject examObject) {
+		BasicExam exam = new BasicExam();
+		
 		String id = examObject.get(MongoDBKey.ExamKey.ID).toString();
-		Boolean isTrial = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_TRIAL);
-		Boolean isFree = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_FREE);
-		Integer likeNumber = (Integer) examObject.get(MongoDBKey.ExamKey.LIKE_NUMBER);
 		Long createTime = (Long) examObject.get(MongoDBKey.ExamKey.CREATE_TIME);
 		Long updateTime = (Long) examObject.get(MongoDBKey.ExamKey.UPDATE_TIME);
+		Integer level = (Integer) examObject.get(MongoDBKey.ExamKey.LEVEL);
+		Integer point = (Integer) examObject.get(MongoDBKey.ExamKey.POINT);
+		Integer likeNumber = (Integer) examObject.get(MongoDBKey.ExamKey.LIKE_NUMBER);
+		Integer takedNumber = (Integer) examObject.get(MongoDBKey.ExamKey.TAKED_NUMBER);
+		Boolean isTrial = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_TRIAL);
+		Boolean isFree = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_FREE);
 		Boolean isActive = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_ACTIVE);
+		
+		exam.setId(id);
+		exam.setActive(isActive);
+		exam.setTrial(isTrial);
+		exam.setFree(isFree);
+		exam.setLevel(level);
+		exam.setPoint(point);
+		exam.setTakedNumber(takedNumber);
+		exam.setLikeNumber(likeNumber);
+		exam.setCreateTime(createTime);
+		exam.setUpdateTime(updateTime);
+		return exam;
+	}
+	
+	public static Exam toExam(DBObject examObject, int clientQueryMode) {
+		Exam exam = new Exam();
+		
+		String id = examObject.get(MongoDBKey.ExamKey.ID).toString();
+		Long createTime = (Long) examObject.get(MongoDBKey.ExamKey.CREATE_TIME);
+		Integer level = (Integer) examObject.get(MongoDBKey.ExamKey.LEVEL);
+		Integer point = (Integer) examObject.get(MongoDBKey.ExamKey.POINT);
+		Integer likeNumber = (Integer) examObject.get(MongoDBKey.ExamKey.LIKE_NUMBER);
+		Integer takedNumber = (Integer) examObject.get(MongoDBKey.ExamKey.TAKED_NUMBER);
+		Boolean isTrial = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_TRIAL);
+		Boolean isFree = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_FREE);
+		Boolean isActive = null;
+		Long updateTime = null;
+		
+		if(clientQueryMode == Constant.CLIENT_QUERY_MODE.BACKEND_MODE) {
+			isActive = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_ACTIVE);
+			updateTime = (Long) examObject.get(MongoDBKey.ExamKey.UPDATE_TIME);
+		}
+		
 		
 		List<EmbedExamTopic> embedTopics = new ArrayList<>();
 		BasicDBList listEmbedTopic = (BasicDBList) examObject.get(MongoDBKey.ExamKey.EMBED_TOPIC);
@@ -70,33 +139,15 @@ public class ExamConverter {
 		
 		exam.setId(id);
 		exam.setActive(isActive);
-		exam.setLevel(level);
 		exam.setTrial(isTrial);
 		exam.setFree(isFree);
+		exam.setLevel(level);
+		exam.setPoint(point);
+		exam.setTakedNumber(takedNumber);
 		exam.setLikeNumber(likeNumber);
 		exam.setCreateTime(createTime);
 		exam.setUpdateTime(updateTime);
 		exam.setEmbedExamTopics(embedTopics);
 		return exam;
-	}
-	
-	
-	public static DBObject prepareSearchExaObject(SearchExamRequest request) {
-		BasicDBObject searchObject = new BasicDBObject();
-		if(request.getLevel() != Constant.QUERY_PROPERTIES.QUERY_ALL) {
-			searchObject.append(MongoDBKey.LEVEL, request.getLevel());
-		}
-		searchObject.append(MongoDBKey.ExamKey.IS_TRIAL, request.isTrial());
-		searchObject.append(MongoDBKey.ExamKey.IS_FREE, request.isFree());
-		
-		return searchObject;
-	}
-	
-	public static DBObject prepareSortOject(Sort sort) {
-		BasicDBObject sortObject = new BasicDBObject(DEFAULT_SORT_FIELD, DEFAULT_SORT_VALUE);
-		if(RequestValidator.isValidSortRequest(sort)) {
-			sortObject = new BasicDBObject(sort.getFieldName(), sort.getOrder());
-		}
-		return sortObject;
 	}
 }

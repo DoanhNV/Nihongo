@@ -11,11 +11,13 @@ import com.nihongo.data.entity.AbstractEntity;
 public class Exam extends AbstractEntity {
 	
 	private int level;
+	private int likeNumber;
+	private int takedNumber;
+	private int point;
 	private int completedMinutes;
 	private boolean isActive;
 	private boolean isTrial;
 	private boolean isFree;
-	private int likeNumber;
 	private long createTime;
 	private long updateTime;
 	private List<EmbedExamTopic> embedExamTopics;
@@ -45,6 +47,14 @@ public class Exam extends AbstractEntity {
 
 	public void setLikeNumber(int likeNumber) {
 		this.likeNumber = likeNumber;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
 	}
 
 	public long getCreateTime() {
@@ -101,5 +111,13 @@ public class Exam extends AbstractEntity {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public int getTakedNumber() {
+		return takedNumber;
+	}
+
+	public void setTakedNumber(int takedNumber) {
+		this.takedNumber = takedNumber;
 	}
 }

@@ -11,9 +11,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.AbstractSingleEntity;
-import com.nihongo.data.entity.exam.Exam;
 import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.data.entity.questiondocument.Document;
+import com.nihongo.dto.httpdto.AbstractDTO;
+import com.nihongo.dto.httpdto.entity.BasicExam;
 import com.nihongo.dto.httpdto.request.AbstractNihongoRequest;
 
 public class EntityUtil {
@@ -50,11 +51,11 @@ public class EntityUtil {
 		return documents;
 	}
 	
-	public static List<Exam> castExamObject(List<AbstractEntity> entitys) {
-		List<Exam> documents = new ArrayList<>();
+	public static List<BasicExam> castBasicExamObject(List<AbstractDTO> entitys) {
+		List<BasicExam> documents = new ArrayList<>();
 		if(entitys != null && !entitys.isEmpty()) {
-			for (AbstractEntity entity : entitys) {
-				Exam document = (Exam) entity;
+			for (AbstractDTO entity :  entitys) {
+				BasicExam document = (BasicExam) entity;
 				documents.add(document);
 			}
 		}

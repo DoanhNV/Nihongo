@@ -3,7 +3,7 @@ package com.nihongo.data.dao;
 import com.mongodb.DB;
 import com.nihongo.config.mongo.MongoDBConnection;
 import com.nihongo.data.entity.exam.Exam;
-import com.nihongo.data.entity.other.transfer.SearchData;
+import com.nihongo.data.entity.other.transfer.SearchResult;
 import com.nihongo.dto.httpdto.request.SearchExamRequest;
 import com.nihongo.support.constant.mongo.MongoConfigInfo;
 
@@ -17,5 +17,7 @@ public interface ExamDAO {
 	
 	public boolean insert(Exam exam);
 
-	public SearchData search(SearchExamRequest request);
+	public SearchResult search(SearchExamRequest request);
+	
+	public Exam getExam(String id, int clientQueryMode);
 }

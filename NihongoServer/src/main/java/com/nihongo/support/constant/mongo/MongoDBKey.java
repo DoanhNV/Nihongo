@@ -34,6 +34,8 @@ public class MongoDBKey {
 		public static final String CREATE_TIME = "create_time";
 		public static final String UPDATE_TIME = "update_time";
 		public static final String EMBED_TOPIC = "embed_topic";
+		public static final String TAKED_NUMBER = "taked_number";
+		public static final String POINT = "point";
 	}
 	
 	public class SETTING extends MongoDBKey {

@@ -12,9 +12,10 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.nihongo.data.converter.ExamConverter;
 import com.nihongo.data.dao.ExamDAO;
-import com.nihongo.data.entity.AbstractEntity;
 import com.nihongo.data.entity.exam.Exam;
-import com.nihongo.data.entity.other.transfer.SearchData;
+import com.nihongo.data.entity.other.transfer.SearchResult;
+import com.nihongo.dto.httpdto.AbstractDTO;
+import com.nihongo.dto.httpdto.entity.BasicExam;
 import com.nihongo.dto.httpdto.request.SearchExamRequest;
 
 /**
@@ -34,9 +35,9 @@ public class ExamDAOImpl implements ExamDAO {
 	}
 
 	@Override
-	public SearchData search(SearchExamRequest request) {
-		SearchData examDatas = new SearchData();
-		List<AbstractEntity> exams = new ArrayList<>();
+	public SearchResult search(SearchExamRequest request) {
+		SearchResult examDatas = new SearchResult();
+		List<AbstractDTO> exams = new ArrayList<>();
 		
 		DBObject searchObject = ExamConverter.prepareSearchExaObject(request);
 		DBObject sortOject = ExamConverter.prepareSortOject(request.getSort());
@@ -46,10 +47,21 @@ public class ExamDAOImpl implements ExamDAO {
 		cursor = cursor.sort(sortOject).skip(request.getSkip()).limit(request.getTake());
 		while (cursor.hasNext()) {
 			DBObject examObject = cursor.next();
-			Exam exam = ExamConverter.toExam(examObject);
+			BasicExam exam = ExamConverter.toBasicExam(examObject);
 			exams.add(exam);
 		}
 		examDatas.setDatas(exams);
 		return examDatas;
+	}
+
+	@Override
+	public Exam getExam(String id, int clientQueryMode) {
+		Exam exam = null;
+		DBObject queryObject = ExamConverter.prepareGetDetailObject(id);
+		DBObject examObject = examCollection.findOne(queryObject);
+		if(examObject != null) {
+			exam = ExamConverter.toExam(examObject, clientQueryMode);
+		}
+		return exam;
 	}
 }

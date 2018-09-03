@@ -3,12 +3,13 @@ package com.nihongo.data.entity.questiondocument;
 import java.util.List;
 
 import com.nihongo.data.entity.AbstractEntity;
+import com.nihongo.dto.httpdto.entity.ExamElement;
 
 /**
  * 
  * @author DoanhNV Jul 7, 2018 2:53:23 PM
  */
-public class Document extends AbstractEntity {
+public class Document extends AbstractEntity implements ExamElement {
 	
 	private String content;
 	private int topic;
