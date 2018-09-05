@@ -20,4 +20,6 @@ public interface ExamDAO {
 	public SearchResult search(SearchExamRequest request);
 	
 	public Exam getExam(String id, int clientQueryMode);
+	
+	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point);
 }

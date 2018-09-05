@@ -16,6 +16,8 @@ import com.nihongo.dto.httpdto.request.SearchExamRequest;
 import com.nihongo.support.RequestValidator;
 import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.mongo.MongoDBKey;
+import com.nihongo.support.constant.mongo.MongoOperator;
+
 import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.*;
 
 /**
@@ -63,6 +65,25 @@ public class ExamConverter {
 		return searchObject;
 	}
 	
+	public static DBObject prepareUpdateObject(Boolean isActive, Boolean isFree, Boolean isTrial, Integer point) {
+		BasicDBObject fieldUpdateObject = new  BasicDBObject();
+		if (isActive != null) {
+			fieldUpdateObject.append(MongoDBKey.ExamKey.IS_ACTIVE, isActive);
+		}
+		if (isFree != null) {
+			fieldUpdateObject.append(MongoDBKey.ExamKey.IS_FREE, isFree);
+		}
+		if (isTrial != null) {
+			fieldUpdateObject.append(MongoDBKey.ExamKey.IS_TRIAL, isTrial);
+		}
+		if (point != null) {
+			fieldUpdateObject.append(MongoDBKey.ExamKey.POINT, point);
+		}
+		long currentTimeMillis = System.currentTimeMillis();
+		fieldUpdateObject.append(MongoDBKey.ExamKey.UPDATE_TIME, currentTimeMillis);
+		return new BasicDBObject(MongoOperator.$SET, fieldUpdateObject);
+	}
+	
 	public static DBObject prepareSortOject(Sort sort) {
 		BasicDBObject sortObject = new BasicDBObject(DEFAULT_SORT_FIELD, DEFAULT_SORT_VALUE);
 		if(RequestValidator.isValidSortRequest(sort)) {
@@ -71,7 +92,7 @@ public class ExamConverter {
 		return sortObject;
 	}
 	
-	public static DBObject prepareGetDetailObject(String id) {
+	public static DBObject prepareObjectId(String id) {
 		ObjectId objectId = new ObjectId(id);
 		return new BasicDBObject(MongoDBKey.ExamKey.ID, objectId);
 	}
@@ -120,6 +141,8 @@ public class ExamConverter {
 		if(clientQueryMode == Constant.CLIENT_QUERY_MODE.BACKEND_MODE) {
 			isActive = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_ACTIVE);
 			updateTime = (Long) examObject.get(MongoDBKey.ExamKey.UPDATE_TIME);
+			exam.setActive(isActive);
+			exam.setUpdateTime(updateTime);
 		}
 		
 		
@@ -138,7 +161,6 @@ public class ExamConverter {
 		}
 		
 		exam.setId(id);
-		exam.setActive(isActive);
 		exam.setTrial(isTrial);
 		exam.setFree(isFree);
 		exam.setLevel(level);
@@ -146,7 +168,6 @@ public class ExamConverter {
 		exam.setTakedNumber(takedNumber);
 		exam.setLikeNumber(likeNumber);
 		exam.setCreateTime(createTime);
-		exam.setUpdateTime(updateTime);
 		exam.setEmbedExamTopics(embedTopics);
 		return exam;
 	}

@@ -20,4 +20,6 @@ public interface ExamService {
 	public SearchResult search(SearchExamRequest request);
 	
 	public DetailExam getDetail(String id, int clientQueryMode);
+	
+	public boolean udpate(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point);
 }

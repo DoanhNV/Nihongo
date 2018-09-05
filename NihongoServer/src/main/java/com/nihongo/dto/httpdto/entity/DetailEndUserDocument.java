@@ -2,8 +2,6 @@ package com.nihongo.dto.httpdto.entity;
 
 import java.util.List;
 
-import com.nihongo.data.entity.question.MCQQuestion;
-
 /**
  * 
  * @author DoanhNV Sep 3, 2018 - 11:11:46 PM
@@ -12,8 +10,7 @@ import com.nihongo.data.entity.question.MCQQuestion;
 public class DetailEndUserDocument implements ExamElement {
 
 	private String content;
-	private int topic;
-	private List<MCQQuestion> questions;
+	private List<DetailEndUserExamQuestion> questions;
 
 	public String getContent() {
 		return content;
@@ -23,19 +20,11 @@ public class DetailEndUserDocument implements ExamElement {
 		this.content = content;
 	}
 
-	public int getTopic() {
-		return topic;
-	}
-
-	public void setTopic(int topic) {
-		this.topic = topic;
-	}
-
-	public List<MCQQuestion> getQuestions() {
+	public List<DetailEndUserExamQuestion> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<MCQQuestion> questions) {
+	public void setQuestions(List<DetailEndUserExamQuestion> questions) {
 		this.questions = questions;
 	}
 }

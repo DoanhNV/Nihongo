@@ -57,11 +57,19 @@ public class ExamDAOImpl implements ExamDAO {
 	@Override
 	public Exam getExam(String id, int clientQueryMode) {
 		Exam exam = null;
-		DBObject queryObject = ExamConverter.prepareGetDetailObject(id);
+		DBObject queryObject = ExamConverter.prepareObjectId(id);
 		DBObject examObject = examCollection.findOne(queryObject);
 		if(examObject != null) {
 			exam = ExamConverter.toExam(examObject, clientQueryMode);
 		}
 		return exam;
+	}
+
+	@Override
+	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point) {
+		DBObject queryObject = ExamConverter.prepareObjectId(id);
+		DBObject updateObject = ExamConverter.prepareUpdateObject(isActive, isFree, isTrial, point);
+		examCollection.update(queryObject, updateObject);
+		return true;
 	}
 }

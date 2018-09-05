@@ -23,6 +23,7 @@ import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.data.entity.setting.ExamSetting;
 import com.nihongo.data.entity.setting.TopicNumber;
 import com.nihongo.dto.httpdto.entity.DetailEndUserDocument;
+import com.nihongo.dto.httpdto.entity.DetailEndUserExamQuestion;
 import com.nihongo.dto.httpdto.entity.DetailExam;
 import com.nihongo.dto.httpdto.entity.ExamDTO;
 import com.nihongo.dto.httpdto.entity.ExamElement;
@@ -90,8 +91,8 @@ public class ExamServiceImpl implements ExamService {
 	
 	@Override
 	public DetailExam getDetail(String id, int clientQueryMode) {
-		DetailExam detailExam = new DetailExam();
 		Exam exam = examDAO.getExam(id, clientQueryMode);
+		DetailExam detailExam = EntityUtil.toDetailExam(exam, clientQueryMode);
 		List<EmbedExamTopic> embedExamTopics = exam.getEmbedExamTopics();
 		List<String> questionIds = new ArrayList<>();
 		Map<Integer, Document> documentMap = new HashMap<>();
@@ -130,18 +131,26 @@ public class ExamServiceImpl implements ExamService {
 				DetailEndUserDocument detailDocument = null;
 				if(examTopicElements.size() == 0) {
 					detailDocument = new DetailEndUserDocument();
-					detailDocument.setQuestions(new ArrayList<MCQQuestion>());
-					detailDocument.setTopic(topic);
+					detailDocument.setQuestions(new ArrayList<DetailEndUserExamQuestion>());
 					detailDocument.setContent(documentMap.get(topic).getContent());
 					examElement = detailDocument;
 					examTopicElements.add(examElement);
 				} else {
 					detailDocument = (DetailEndUserDocument) examTopicElements.get(0);
 				}
-
-				detailDocument.getQuestions().add(mcqQuestion);
+				
+				DetailEndUserExamQuestion question = new DetailEndUserExamQuestion(
+						mcqQuestion.getTitle(), 
+						mcqQuestion.getDocument(),
+						mcqQuestion.getAnswers(), 
+						mcqQuestion.getTitleSub());
+				detailDocument.getQuestions().add(question);
 			} else {
-				examElement = mcqQuestion;
+				 examElement = (DetailEndUserExamQuestion) new DetailEndUserExamQuestion(
+																mcqQuestion.getTitle(), 
+																mcqQuestion.getDocument(),
+																mcqQuestion.getAnswers(), 
+																mcqQuestion.getTitleSub());
 				examTopicElements.add(examElement);
 			}
 		}
@@ -157,5 +166,10 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public SearchResult search(SearchExamRequest request) {
 		return examDAO.search(request);
+	}
+
+	@Override
+	public boolean udpate(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point) {
+		return examDAO.update(id, isActive, isFree, isTrial, point);
 	}
 }
