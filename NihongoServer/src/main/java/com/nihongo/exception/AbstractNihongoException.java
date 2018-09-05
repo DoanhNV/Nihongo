@@ -15,7 +15,7 @@ public class AbstractNihongoException extends RuntimeException {
 
 	}
 
-	public AbstractNihongoException(String message, float code) {
+	public AbstractNihongoException(float code) {
 		this.code = code;
 	}
 

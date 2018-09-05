@@ -25,4 +25,9 @@ public class ResponseCode {
 	public static final float UPLOAD_FAIL = 3.1f;
 	public static final float FILE_NOT_EXIST = 3.2f;
 	
+	/**
+	 * Exam
+	 */
+	public static final float LEVEL_NOT_SETTING = 4.1f;
+	public static final float NOT_ENOUGH_QUESTION_PER_TOPIC = 4.2f;
 }
