@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.nihongo.data.converter.SettingConverter;
 import com.nihongo.data.dao.SettingDAO;
 import com.nihongo.data.entity.setting.ExamSetting;
+import com.nihongo.support.constant.mongo.MongoDBKey;
 import com.nihongo.support.constant.mongo.MongoConfigInfo.SETTING;
 
 /**
@@ -44,6 +46,16 @@ public class SettingDAOImpl implements SettingDAO {
 
 	@Override
 	public ExamSetting getExamSetting(String id) {
+		return null;
+	}
+
+	@Override
+	public ExamSetting getExamSetting(int level) {
+		BasicDBObject levelQuery = new  BasicDBObject(MongoDBKey.SETTING.LEVEL, level);
+		DBObject examSettingObject = examSettingCollection.findOne(levelQuery);
+		if(examSettingObject != null) {
+			return SettingConverter.convertToExam(examSettingObject);
+		}
 		return null;
 	}
 }

@@ -13,6 +13,8 @@ public class MongoDBKey {
 	public static final String TYPE = "type";
 	public static final String SUB_TITLE = "sub_title";
 	public static final String DOCUMENT = "document";
+	public static final String QUESTION_IDS = "question_ids";
+	public static final String IS_ACTIVE = "is_active";
 	
 	public class MCQQuestionKey extends MongoDBKey {
 		public static final String TITLE = "title";
@@ -21,11 +23,19 @@ public class MongoDBKey {
 	}
 	
 	public class DocumentKey extends MongoDBKey {
-		public static final String QUESTION_IDS = "question_ids";
+		
 	}
 	
 	public class ExamKey extends MongoDBKey {
 		public static final String EXAM_NAME = "exam_name";
+		public static final String IS_TRIAL = "is_trial";
+		public static final String IS_FREE = "is_free";
+		public static final String LIKE_NUMBER = "like_number";
+		public static final String CREATE_TIME = "create_time";
+		public static final String UPDATE_TIME = "update_time";
+		public static final String EMBED_TOPIC = "embed_topic";
+		public static final String TAKED_NUMBER = "taked_number";
+		public static final String POINT = "point";
 	}
 	
 	public class SETTING extends MongoDBKey {

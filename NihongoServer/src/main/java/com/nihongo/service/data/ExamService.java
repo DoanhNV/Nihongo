@@ -6,9 +6,20 @@ package com.nihongo.service.data;
 
 import java.util.List;
 
-import com.nihongo.dto.httpdto.RandomExamDTO;
+import com.nihongo.data.entity.other.transfer.SearchResult;
+import com.nihongo.dto.httpdto.entity.DetailExam;
+import com.nihongo.dto.httpdto.entity.RandomExamDTO;
+import com.nihongo.dto.httpdto.request.SearchExamRequest;
 
-public interface ExamService extends IService {
+public interface ExamService {
 	
 	public List<RandomExamDTO> getRandomExam(int level, List<Integer> topics);
+	
+	public boolean createRandomExam(int level);
+	
+	public SearchResult search(SearchExamRequest request);
+	
+	public DetailExam getDetail(String id, int clientQueryMode);
+	
+	public boolean udpate(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point);
 }

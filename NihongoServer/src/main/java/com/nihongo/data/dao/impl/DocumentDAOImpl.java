@@ -3,6 +3,7 @@ package com.nihongo.data.dao.impl;
 import static com.nihongo.support.constant.mongo.MongoConfigInfo.EXAM_DB.DOCUMENT_COLLECTION;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,8 @@ import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.dto.httpdto.request.DocumentSearchRequest;
+import com.nihongo.support.constant.mongo.MongoDBKey;
+import com.nihongo.support.constant.mongo.MongoOperator;
 import com.nihongo.support.constant.mongo.MongoDBKey.DocumentKey;
 
 /**
@@ -91,5 +94,29 @@ public class DocumentDAOImpl implements DocumentDAO {
 		searchData.setTotal(total);
 		searchData.setDatas(documents);
 		return searchData;
+	}
+
+	@Override
+	public  List<String> getRandomQuestions(int topic, int level, int size) {
+		List<String> mcqQuestionIds = new ArrayList<>();
+		BasicDBObject matchObject = new BasicDBObject(MongoDBKey.LEVEL, level).append(MongoDBKey.TOPIC, topic);
+		BasicDBObject conditionQuery = new BasicDBObject(MongoOperator.$MATCH, matchObject);
+		BasicDBObject randomSizeQuery = new BasicDBObject(MongoOperator.$SAMPLE, new BasicDBObject(MongoOperator.SIZE, size));
+		BasicDBObject projecttionQuery = new BasicDBObject(MongoOperator.$PROJECT, new BasicDBObject(MongoDBKey.ID, MongoOperator.INCLUDE_FIELD));
+			
+		@SuppressWarnings("deprecation")
+		Iterable<DBObject> results = docCollection.aggregate(
+				Arrays.asList(
+						conditionQuery,
+						randomSizeQuery,
+						projecttionQuery
+				)
+		).results();
+		
+		for (DBObject question : results) {
+			String questionId = question.get(MongoDBKey.MCQQuestionKey.ID).toString();
+			mcqQuestionIds.add(questionId);
+		}
+		return mcqQuestionIds;
 	}
 }

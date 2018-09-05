@@ -15,4 +15,6 @@ public interface MCQQuestionDAO extends IDAO {
 	public Map<Integer, List<Question>> getRandomExam(int level, List<Integer> topics);
 	
 	public SearchData listByIds(List<String> questionIds);
+	
+	public List<String> getRandomQuestions(int topic, int level, int size);
 }

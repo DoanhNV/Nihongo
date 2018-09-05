@@ -2,11 +2,13 @@ package com.nihongo.data.entity.question;
 
 import java.util.List;
 
+import com.nihongo.dto.httpdto.entity.ExamElement;
+
 /**
  * 
  * @author DoanhNV Jul 7, 2018 2:55:05 PM
  */
-public class MCQQuestion extends Question {
+public class MCQQuestion extends Question implements ExamElement {
 	private String title;
 	private String document;
 	private List<Answer> answers;

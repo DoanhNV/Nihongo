@@ -81,4 +81,11 @@ public class Constant {
 	public class CONTENT_TYPE {
 		public static final String APPLICATION_JSON = "application/json";
 	}
+	
+	
+	////////////
+	public class CLIENT_QUERY_MODE {
+		public static final int BACKEND_MODE = 0;
+		public static final int END_USER_MODE = 1;
+	}
 }

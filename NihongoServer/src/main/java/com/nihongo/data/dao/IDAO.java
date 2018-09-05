@@ -13,7 +13,7 @@ import com.nihongo.support.constant.mongo.MongoConfigInfo;
  * 
  * @author DoanhNV Jul 7, 2018 10:34:29 AM
  */
-public interface IDAO {
+public interface  IDAO {
 	
 	public static final DB EXAM_DATABASE = MongoDBConnection.getDatabase(MongoConfigInfo.EXAM_DB);
 	
