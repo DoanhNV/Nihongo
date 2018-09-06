@@ -21,5 +21,5 @@ public interface ExamDAO {
 	
 	public Exam getExam(String id, int clientQueryMode);
 	
-	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point);
+	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes);
 }

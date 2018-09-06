@@ -13,6 +13,7 @@ public class DetailExam {
 	protected int level;
 	protected int likeNumber;
 	protected int takedNumber;
+	protected int completedMinutes;
 	private int point;
 	protected boolean isFree;
 	protected boolean isTrial;
@@ -89,5 +90,13 @@ public class DetailExam {
 
 	public void setContents(List<ExamDTO> contents) {
 		this.contents = contents;
+	}
+
+	public int getCompletedMinutes() {
+		return completedMinutes;
+	}
+
+	public void setCompletedMinutes(int completedMinutes) {
+		this.completedMinutes = completedMinutes;
 	}
 }
