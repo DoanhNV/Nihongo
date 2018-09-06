@@ -98,6 +98,9 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public DetailExam getDetail(String id, int clientQueryMode) {
 		Exam exam = examDAO.getExam(id, clientQueryMode);
+		if(exam == null) {
+			throw new AbstractNihongoException(ResponseCode.EXAM_NOT_EXIST);
+		}
 		DetailExam detailExam = EntityUtil.toDetailExam(exam, clientQueryMode);
 		List<EmbedExamTopic> embedExamTopics = exam.getEmbedExamTopics();
 		List<String> questionIds = new ArrayList<>();
@@ -175,7 +178,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public boolean udpate(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point) {
-		return examDAO.update(id, isActive, isFree, isTrial, point);
+	public boolean udpate(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes) {
+		return examDAO.update(id, isActive, isFree, isTrial, point, completedMinutes);
 	}
 }

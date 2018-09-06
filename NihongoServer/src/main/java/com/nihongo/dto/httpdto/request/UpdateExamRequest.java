@@ -11,6 +11,7 @@ public class UpdateExamRequest extends AbstractNihongoRequest {
 	private Boolean isTrial;
 	private Boolean isActive;
 	private Integer point;
+	private Integer completedMinutes;
 
 	public Boolean getIsFree() {
 		return isFree;
@@ -42,5 +43,13 @@ public class UpdateExamRequest extends AbstractNihongoRequest {
 
 	public void setPoint(Integer point) {
 		this.point = point;
+	}
+
+	public Integer getCompletedMinutes() {
+		return completedMinutes;
+	}
+
+	public void setCompletedMinutes(Integer completedMinutes) {
+		this.completedMinutes = completedMinutes;
 	}
 }

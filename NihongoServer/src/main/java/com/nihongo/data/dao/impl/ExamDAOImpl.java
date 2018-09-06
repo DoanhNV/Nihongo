@@ -66,9 +66,9 @@ public class ExamDAOImpl implements ExamDAO {
 	}
 
 	@Override
-	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point) {
+	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes) {
 		DBObject queryObject = ExamConverter.prepareObjectId(id);
-		DBObject updateObject = ExamConverter.prepareUpdateObject(isActive, isFree, isTrial, point);
+		DBObject updateObject = ExamConverter.prepareUpdateObject(isActive, isFree, isTrial, point, completedMinutes);
 		examCollection.update(queryObject, updateObject);
 		return true;
 	}

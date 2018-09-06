@@ -79,6 +79,7 @@ public class EntityUtil {
 		detailExam.setLevel(exam.getLevel());
 		detailExam.setLikeNumber(exam.getLikeNumber());
 		detailExam.setTakedNumber(exam.getTakedNumber());
+		detailExam.setCompletedMinutes(exam.getCompletedMinutes());
 		detailExam.setPoint(exam.getPoint());
 		detailExam.setFree(exam.isFree());
 		detailExam.setTrial(exam.isTrial());

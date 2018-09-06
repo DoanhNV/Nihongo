@@ -38,7 +38,8 @@ public class ExamConverter {
 		insertObject.append(MongoDBKey.ExamKey.TAKED_NUMBER, exam.getTakedNumber());
 		insertObject.append(MongoDBKey.ExamKey.CREATE_TIME, exam.getCreateTime());
 		insertObject.append(MongoDBKey.ExamKey.UPDATE_TIME, exam.getUpdateTime());
-
+		insertObject.append(MongoDBKey.ExamKey.COMPLETED_MINUTES, exam.getCompletedMinutes());
+		
 		List<EmbedExamTopic> embedExamTopics = exam.getEmbedExamTopics();
 		BasicDBList listEmbedTopic = new BasicDBList();
 		for (EmbedExamTopic embedExamTopic : embedExamTopics) {
@@ -65,7 +66,7 @@ public class ExamConverter {
 		return searchObject;
 	}
 	
-	public static DBObject prepareUpdateObject(Boolean isActive, Boolean isFree, Boolean isTrial, Integer point) {
+	public static DBObject prepareUpdateObject(Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes) {
 		BasicDBObject fieldUpdateObject = new  BasicDBObject();
 		if (isActive != null) {
 			fieldUpdateObject.append(MongoDBKey.ExamKey.IS_ACTIVE, isActive);
@@ -78,6 +79,9 @@ public class ExamConverter {
 		}
 		if (point != null) {
 			fieldUpdateObject.append(MongoDBKey.ExamKey.POINT, point);
+		}
+		if (completedMinutes != null) {
+			fieldUpdateObject.append(MongoDBKey.ExamKey.COMPLETED_MINUTES, completedMinutes);
 		}
 		long currentTimeMillis = System.currentTimeMillis();
 		fieldUpdateObject.append(MongoDBKey.ExamKey.UPDATE_TIME, currentTimeMillis);
@@ -107,6 +111,7 @@ public class ExamConverter {
 		Integer point = (Integer) examObject.get(MongoDBKey.ExamKey.POINT);
 		Integer likeNumber = (Integer) examObject.get(MongoDBKey.ExamKey.LIKE_NUMBER);
 		Integer takedNumber = (Integer) examObject.get(MongoDBKey.ExamKey.TAKED_NUMBER);
+		Integer completedMinutes = (Integer) examObject.get(MongoDBKey.ExamKey.COMPLETED_MINUTES);
 		Boolean isTrial = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_TRIAL);
 		Boolean isFree = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_FREE);
 		Boolean isActive = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_ACTIVE);
@@ -119,6 +124,7 @@ public class ExamConverter {
 		exam.setPoint(point);
 		exam.setTakedNumber(takedNumber);
 		exam.setLikeNumber(likeNumber);
+		exam.setCompletedMinutes(completedMinutes);
 		exam.setCreateTime(createTime);
 		exam.setUpdateTime(updateTime);
 		return exam;
@@ -133,6 +139,7 @@ public class ExamConverter {
 		Integer point = (Integer) examObject.get(MongoDBKey.ExamKey.POINT);
 		Integer likeNumber = (Integer) examObject.get(MongoDBKey.ExamKey.LIKE_NUMBER);
 		Integer takedNumber = (Integer) examObject.get(MongoDBKey.ExamKey.TAKED_NUMBER);
+		Integer completedMinutes = (Integer) examObject.get(MongoDBKey.ExamKey.COMPLETED_MINUTES);
 		Boolean isTrial = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_TRIAL);
 		Boolean isFree = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_FREE);
 		Boolean isActive = null;
@@ -165,8 +172,9 @@ public class ExamConverter {
 		exam.setFree(isFree);
 		exam.setLevel(level);
 		exam.setPoint(point);
-		exam.setTakedNumber(takedNumber);
 		exam.setLikeNumber(likeNumber);
+		exam.setTakedNumber(takedNumber);
+		exam.setCompletedMinutes(completedMinutes);
 		exam.setCreateTime(createTime);
 		exam.setEmbedExamTopics(embedTopics);
 		return exam;
