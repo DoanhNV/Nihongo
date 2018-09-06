@@ -32,6 +32,7 @@ import com.nihongo.dto.httpdto.request.SearchExamRequest;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.ExamService;
 import com.nihongo.support.constant.Constant;
+import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.support.util.EntityUtil;
 import com.nihongo.support.util.TransferData.DetailExamTransfer;
 
@@ -65,13 +66,14 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public boolean createRandomExam(int level) {
 		ExamSetting examSetting = settingDAO.getExamSetting(level);
-		Exam exam = new Exam();
+		List<TopicNumber> topicConfigs = examSetting.getTopicConfigs();
+		Exam exam = new Exam(level);
 		List<EmbedExamTopic> embedExamTopics = new ArrayList<>();
-		if(examSetting == null) {
-			throw new AbstractNihongoException();
+		if(examSetting == null || topicConfigs == null || topicConfigs.isEmpty()) {
+			throw new AbstractNihongoException(ResponseCode.LEVEL_NOT_SETTING);
 		}
 		
-		for (TopicNumber topicNumber : examSetting .getTopicConfigs()) {
+		for (TopicNumber topicNumber : topicConfigs) {
 			int topic = topicNumber.getTopic();
 			List<String> questionIds = new ArrayList<>();
 			boolean isParagraph = topic == Constant.TOPIC.READING_UNDERSTANDING_PARAGRAPH  
@@ -80,6 +82,10 @@ public class ExamServiceImpl implements ExamService {
 				questionIds = documentDAO.getRandomQuestions(topic, level, topicNumber.getNumber());
 			} else {
 				questionIds = mcqQuestionDAO.getRandomQuestions(topic, level, topicNumber.getNumber());
+			}
+			
+			if(questionIds.size() < topicNumber.getNumber()) {
+				throw new AbstractNihongoException(ResponseCode.NOT_ENOUGH_QUESTION_PER_TOPIC);
 			}
 			EmbedExamTopic examTopic = new EmbedExamTopic(topic, questionIds);
 			embedExamTopics.add(examTopic);

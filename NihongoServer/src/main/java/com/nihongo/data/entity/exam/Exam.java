@@ -25,6 +25,11 @@ public class Exam extends AbstractEntity {
 	public Exam() {
 		init();
 	}
+	
+	public Exam(int level) {
+		this.setLevel(level);
+		init();
+	}
 
 	public void init() {
 		long currentServerTime = System.currentTimeMillis();
