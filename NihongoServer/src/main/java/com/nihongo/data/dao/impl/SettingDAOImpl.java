@@ -56,6 +56,6 @@ public class SettingDAOImpl implements SettingDAO {
 		if(examSettingObject != null) {
 			return SettingConverter.convertToExam(examSettingObject);
 		}
-		return null;
+		return new ExamSetting();
 	}
 }
