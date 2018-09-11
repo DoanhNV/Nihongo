@@ -132,11 +132,6 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 		searchData.setDatas(questionIdList);
 		return searchData;
 	}
-
-	public static void main(String[] args) {
-		MCQQuestionDAOImpl mcqQuestionDAOImpl = new MCQQuestionDAOImpl();
-		mcqQuestionDAOImpl.getRandomQuestions(1, 5, 3);
-	}
 	
 	@Override
 	public  List<String> getRandomQuestions(int topic, int level, int size) {
