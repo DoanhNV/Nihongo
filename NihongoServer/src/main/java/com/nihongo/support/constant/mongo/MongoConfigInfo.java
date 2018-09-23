@@ -11,6 +11,7 @@ public class MongoConfigInfo {
 	
 	public static final String EXAM_DB = "exam";
 	public static final String SETTING_DB = "setting";
+	public static final String USER_DB = "userdb";
 	
 	public class EXAM_DB {
 		public static final String MCQ_QUESTION_COLLECTION = "mcq_question";
@@ -20,5 +21,9 @@ public class MongoConfigInfo {
 	
 	public class SETTING {
 		public static final String EXAM_SETTING_COLLECTION = "exam_setting";
+	}
+	
+	public class USER {
+		public static final String USER_COLLECTION = "user";
 	}
 }

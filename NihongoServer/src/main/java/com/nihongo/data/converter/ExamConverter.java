@@ -12,6 +12,7 @@ import com.nihongo.data.entity.Sort;
 import com.nihongo.data.entity.exam.EmbedExamTopic;
 import com.nihongo.data.entity.exam.Exam;
 import com.nihongo.dto.httpdto.entity.BasicExam;
+import com.nihongo.dto.httpdto.entity.EndUserBasicExam;
 import com.nihongo.dto.httpdto.request.SearchExamRequest;
 import com.nihongo.support.RequestValidator;
 import com.nihongo.support.constant.Constant;
@@ -19,6 +20,7 @@ import com.nihongo.support.constant.mongo.MongoDBKey;
 import com.nihongo.support.constant.mongo.MongoOperator;
 
 import static com.nihongo.support.constant.Constant.QUERY_PROPERTIES.*;
+import static com.nihongo.support.constant.mongo.MongoDBKey.ExamKey.*;
 
 /**
  * 
@@ -99,6 +101,29 @@ public class ExamConverter {
 	public static DBObject prepareObjectId(String id) {
 		ObjectId objectId = new ObjectId(id);
 		return new BasicDBObject(MongoDBKey.ExamKey.ID, objectId);
+	}
+	
+	public static BasicDBObject prepareListExamObject(int level) {
+		BasicDBObject queryObject = new BasicDBObject(LEVEL, level);
+		queryObject.append(IS_ACTIVE, true);
+		return queryObject;
+	}
+	
+	public static EndUserBasicExam toEndUserBasicExam(DBObject examObject) {
+		EndUserBasicExam exam = new EndUserBasicExam();
+		
+		String id = examObject.get(MongoDBKey.ExamKey.ID).toString();
+		Integer level = (Integer) examObject.get(MongoDBKey.ExamKey.LEVEL);
+		Integer likeNumber = (Integer) examObject.get(MongoDBKey.ExamKey.LIKE_NUMBER);
+		Integer takedNumber = (Integer) examObject.get(MongoDBKey.ExamKey.TAKED_NUMBER);
+		Boolean isFree = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_FREE);
+		
+		exam.setId(id);
+		exam.setFree(isFree);
+		exam.setLevel(level);
+		exam.setTakedNumber(takedNumber);
+		exam.setLikeNumber(likeNumber);
+		return exam;
 	}
 	
 	public static BasicExam toBasicExam(DBObject examObject) {

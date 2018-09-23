@@ -22,4 +22,6 @@ public interface ExamDAO {
 	public Exam getExam(String id, int clientQueryMode);
 	
 	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes);
+	
+	public SearchResult listExam(int level, int examType, int skip, int take);
 }

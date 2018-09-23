@@ -22,4 +22,6 @@ public interface ExamService {
 	public DetailExam getDetail(String id, int clientQueryMode);
 	
 	public boolean udpate(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes);
+	
+	public SearchResult listExam(int level, int examType, int skip, int take);
 }

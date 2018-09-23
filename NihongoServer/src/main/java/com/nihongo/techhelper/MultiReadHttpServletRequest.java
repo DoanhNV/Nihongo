@@ -21,8 +21,9 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
 
 	@Override
 	public ServletInputStream getInputStream() throws IOException {
-		if (cachedBytes == null)
+		if (cachedBytes == null) {
 			cacheInputStream();
+		}
 		return new CachedServletInputStream(cachedBytes);
 	}
 

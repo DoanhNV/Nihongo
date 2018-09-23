@@ -17,6 +17,10 @@ public class ResponseCode {
 	 * Param code
 	 */
 	public static final float INVALID_ID = 2.1f;
+	public static final float INVALID_TOKEN = 2.2f;
+	public static final float EXPIRED_TOKEN = 2.3f;
+	public static final float EXISTED_USER_NAME = 2.4f;
+	public static final float USER_NOT_EXIST = 2.5f;
 	
 	
 	/**

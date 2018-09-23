@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -16,7 +17,10 @@ import com.nihongo.data.entity.exam.Exam;
 import com.nihongo.data.entity.other.transfer.SearchResult;
 import com.nihongo.dto.httpdto.AbstractDTO;
 import com.nihongo.dto.httpdto.entity.BasicExam;
+import com.nihongo.dto.httpdto.entity.EndUserBasicExam;
 import com.nihongo.dto.httpdto.request.SearchExamRequest;
+import com.nihongo.support.constant.Constant;
+import com.nihongo.support.constant.mongo.MongoDBKey;
 
 /**
  * 
@@ -38,12 +42,12 @@ public class ExamDAOImpl implements ExamDAO {
 	public SearchResult search(SearchExamRequest request) {
 		SearchResult examDatas = new SearchResult();
 		List<AbstractDTO> exams = new ArrayList<>();
-		
+
 		DBObject searchObject = ExamConverter.prepareSearchExaObject(request);
 		DBObject sortOject = ExamConverter.prepareSortOject(request.getSort());
 		DBCursor cursor = examCollection.find(searchObject);
 		examDatas.setTotal(cursor.size());
-		
+
 		cursor = cursor.sort(sortOject).skip(request.getSkip()).limit(request.getTake());
 		while (cursor.hasNext()) {
 			DBObject examObject = cursor.next();
@@ -59,17 +63,53 @@ public class ExamDAOImpl implements ExamDAO {
 		Exam exam = null;
 		DBObject queryObject = ExamConverter.prepareObjectId(id);
 		DBObject examObject = examCollection.findOne(queryObject);
-		if(examObject != null) {
+		if (examObject != null) {
 			exam = ExamConverter.toExam(examObject, clientQueryMode);
 		}
 		return exam;
 	}
 
 	@Override
-	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes) {
+	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point,
+			Integer completedMinutes) {
 		DBObject queryObject = ExamConverter.prepareObjectId(id);
 		DBObject updateObject = ExamConverter.prepareUpdateObject(isActive, isFree, isTrial, point, completedMinutes);
 		examCollection.update(queryObject, updateObject);
 		return true;
+	}
+
+	@Override
+	public SearchResult listExam(int level, int examType, int skip, int take) {
+		List<AbstractDTO> datas = new ArrayList<>();
+		BasicDBObject queryObject = ExamConverter.prepareListExamObject(level);
+		BasicDBObject sortObject = null;
+		final int DESC_ORDER = 1;
+		
+		switch (examType) {
+			case Constant.EXAM_TYPE.TRIAL:
+				queryObject.append(MongoDBKey.ExamKey.IS_TRIAL, true);
+				break;
+			case Constant.EXAM_TYPE.FREE:
+				queryObject.append(MongoDBKey.ExamKey.IS_FREE, true);
+				break;
+			case Constant.EXAM_TYPE.LATEST:
+				sortObject = new BasicDBObject(MongoDBKey.ExamKey.ID, DESC_ORDER);
+				break;
+			case Constant.EXAM_TYPE.BEST_TAKED:
+				sortObject = new BasicDBObject(MongoDBKey.ExamKey.TAKED_NUMBER, DESC_ORDER);
+				break;
+		}
+		
+		DBCursor cursor = examCollection.find(queryObject);
+		if(sortObject != null) {
+			cursor.sort(sortObject);
+		}
+		cursor.skip(skip).limit(take);
+		while(cursor.hasNext()) {
+			EndUserBasicExam endUserBasicExam = ExamConverter.toEndUserBasicExam(cursor.next());
+			datas.add(endUserBasicExam);
+		}
+		
+		return new SearchResult(datas);
 	}
 }

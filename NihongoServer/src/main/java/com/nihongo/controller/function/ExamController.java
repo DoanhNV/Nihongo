@@ -20,6 +20,8 @@ import com.nihongo.data.entity.other.transfer.SearchResult;
 import com.nihongo.dto.httpdto.entity.BasicExam;
 import com.nihongo.dto.httpdto.entity.DetailExam;
 import com.nihongo.dto.httpdto.entity.RandomExamDTO;
+import com.nihongo.dto.httpdto.request.ListExamRequest;
+import com.nihongo.dto.httpdto.request.ListExamResponse;
 import com.nihongo.dto.httpdto.request.RandomCreateExamRequest;
 import com.nihongo.dto.httpdto.request.SearchExamRequest;
 import com.nihongo.dto.httpdto.request.UpdateExamRequest;
@@ -117,6 +119,26 @@ public class ExamController {
 		try {
 			examService.udpate(id, request.getIsActive(), request.getIsFree(), 
 									request.getIsTrial(), request.getPoint(), request.getCompletedMinutes());
+		}  catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+			e.printStackTrace();
+		}  catch (Exception e) {
+			e.printStackTrace();
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@PostMapping(value = "/list")
+	@ResponseBody
+	public ListExamResponse listExam(@RequestBody ListExamRequest request) {
+		ListExamResponse response = new ListExamResponse();
+		try {
+			SearchResult exams = examService.listExam(request.getLevel(),
+									request.getExamType(), 
+										request.getSkip(), 
+											request.getTake());
+			response.setDatas(exams.getDatas());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 			e.printStackTrace();

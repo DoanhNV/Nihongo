@@ -12,6 +12,7 @@ public class MongoOperator {
 	public static final String $SAMPLE = "$sample";
 	public static final String $MATCH = "$match";
 	public static final String $PROJECT = "$project";
+	public static final String OR = "$or";
 	
 	
 	public static final String SIZE = "size";

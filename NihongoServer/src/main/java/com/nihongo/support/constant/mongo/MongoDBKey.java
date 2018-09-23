@@ -15,6 +15,8 @@ public class MongoDBKey {
 	public static final String DOCUMENT = "document";
 	public static final String QUESTION_IDS = "question_ids";
 	public static final String IS_ACTIVE = "is_active";
+	public static final String POINT = "point";
+	public static final String CREATE_TIME = "create_time";
 	
 	public class MCQQuestionKey extends MongoDBKey {
 		public static final String TITLE = "title";
@@ -31,16 +33,25 @@ public class MongoDBKey {
 		public static final String IS_TRIAL = "is_trial";
 		public static final String IS_FREE = "is_free";
 		public static final String LIKE_NUMBER = "like_number";
-		public static final String CREATE_TIME = "create_time";
 		public static final String UPDATE_TIME = "update_time";
 		public static final String EMBED_TOPIC = "embed_topic";
 		public static final String TAKED_NUMBER = "taked_number";
 		public static final String COMPLETED_MINUTES = "completed_minutes";
-		public static final String POINT = "point";
+		
 	}
 	
 	public class SETTING extends MongoDBKey {
 		public static final String NUMBER = "number";
 		public static final String TOPIC_CONFIGS = "topic_configs";
 	} 
+	
+	public class USER extends MongoDBKey{
+		public static final String USER_NAME = "user_name";
+		public static final String PASSWORD = "password";
+		public static final String FULL_NAME = "full_name";
+		public static final String AVATAR_URL = "avatar_url";
+		public static final String GMAIL = "gmail";
+		public static final String FACEBOOK_ID = "facebook_id";
+		public static final String BIRTHDAY = "birthday";
+	}
 }

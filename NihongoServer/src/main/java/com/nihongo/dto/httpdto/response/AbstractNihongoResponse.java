@@ -17,6 +17,10 @@ public class AbstractNihongoResponse {
 	public AbstractNihongoResponse() {
 		this.code = ResponseCode.SUCCESS;
 	}
+	
+	public AbstractNihongoResponse(float code) {
+		this.code = code;
+	}
 
 	public AbstractNihongoResponse(float code, String message) {
 		this.code = code;

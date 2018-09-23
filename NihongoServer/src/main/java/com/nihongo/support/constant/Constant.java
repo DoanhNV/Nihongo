@@ -47,7 +47,7 @@ public class Constant {
 		public static final int VIDEO_TYPE = 1;
 		public static final String BASE64_PREFIX = "data:image/png;base64,";
 	}
-	
+
 	public class QUERY_PROPERTIES {
 		public static final int QUERY_ALL = -1;
 		public static final int DEFAULT_SORT_VALUE = -1;
@@ -88,4 +88,35 @@ public class Constant {
 		public static final int BACKEND_MODE = 0;
 		public static final int END_USER_MODE = 1;
 	}
+	
+	
+	public class EXAM_TYPE {
+		public static final int TRIAL = 0;
+		public static final int FREE = 1;
+		public static final int LATEST = 2;
+		public static final int BEST_TAKED = 3;
+	}
+	
+	public class DATE_TIME {
+		public static final long A_SECOND = 1000;
+		public static final long A_MINUTE = A_SECOND * 60;
+	}
+	
+	public class TOKEN {
+		public static final String LOGIN_SUBJECT = "login";
+		public static final String ISSUER = "ngovandoanh@gmail.com - 23/09/1196";
+		public static final long INTERVAL_EXPIRED_TIME = DATE_TIME.A_MINUTE * 30;
+		public static final String GENERATE_TOKEN_KEY = "ngovandoanh@hihongo-developer.authentication.20180923.mybirthday.firstapp";
+	}
+	
+	public class USER {
+		public static final String DEFAULT_AVATAR_URL = "";
+	}
+	
+	public class LOGIN_TYPE {
+		public static final int BY_USER_NAME = 0;
+		public static final int BY_GMAIL = 1;
+		public static final int BY_FACEBOOK = 2;
+	}
+	
 }

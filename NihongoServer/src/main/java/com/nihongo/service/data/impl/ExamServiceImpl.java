@@ -181,4 +181,9 @@ public class ExamServiceImpl implements ExamService {
 	public boolean udpate(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes) {
 		return examDAO.update(id, isActive, isFree, isTrial, point, completedMinutes);
 	}
+
+	@Override
+	public SearchResult listExam(int level, int examType, int skip, int take) {
+		return examDAO.listExam(level, examType, skip, take);
+	}
 }

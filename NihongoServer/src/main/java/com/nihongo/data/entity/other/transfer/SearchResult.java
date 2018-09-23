@@ -3,6 +3,7 @@ package com.nihongo.data.entity.other.transfer;
 import java.util.List;
 
 import com.nihongo.dto.httpdto.AbstractDTO;
+import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 
 /**
  * 
@@ -13,6 +14,14 @@ public class SearchResult {
 
 	private int total;
 	private List<AbstractDTO> datas;
+
+	public SearchResult() {
+
+	}
+
+	public SearchResult(List<AbstractDTO> datas) {
+		this.datas = datas;
+	}
 
 	public int getTotal() {
 		return total;
