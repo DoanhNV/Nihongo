@@ -21,7 +21,11 @@ public class ResponseCode {
 	public static final float EXPIRED_TOKEN = 2.3f;
 	public static final float EXISTED_USER_NAME = 2.4f;
 	public static final float USER_NOT_EXIST = 2.5f;
-	
+	public static final float INVALID_PARAMS = 2.6f;
+	public static final float OUT_OF_LEVEL_RANGE = 2.7f;
+	public static final float OUT_OF_LOGIN_TYPE_RANGE = 2.8f;
+	public static final float OUT_OF_EXAM_TYPE_RANGE = 2.9f;
+	public static final float INVALID_CLIENT_QUERY_MODE = 2.11f;
 	
 	/**
 	 * File code

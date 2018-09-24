@@ -15,6 +15,7 @@ import com.nihongo.dto.httpdto.request.RegisterRequest;
 import com.nihongo.dto.httpdto.response.RegisterResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.UserService;
+import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
 
 /**
@@ -24,13 +25,13 @@ import com.nihongo.support.constant.ResponseCode;
  */
 @CrossOrigin
 @RestController
-@RequestMapping( value = "/user")
+@RequestMapping( value = API.USER.ROOT)
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping(value = "/register")
+	@PostMapping(value = API.USER.REGISTER)
 	@ResponseBody
 	public RegisterResponse register(@RequestBody RegisterRequest request) {
 		RegisterResponse response = new RegisterResponse();
@@ -45,7 +46,7 @@ public class UserController {
 		return response;
 	}
 	
-	@PostMapping(value = "/login")
+	@PostMapping(value = API.USER.LOGIN)
 	@ResponseBody
 	public LoginResponse login(@RequestBody LoginRequest request) {
 		LoginResponse response = new LoginResponse();

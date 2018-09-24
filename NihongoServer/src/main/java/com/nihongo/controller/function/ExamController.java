@@ -32,6 +32,7 @@ import com.nihongo.dto.httpdto.response.RandomCreateExamResponse;
 import com.nihongo.dto.httpdto.response.RandomExamResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.ExamService;
+import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.support.util.EntityUtil;
 import com.nihongo.support.util.NihongoUtil;
@@ -40,7 +41,7 @@ import com.nihongo.support.util.NihongoUtil;
  * 
  * @author DoanhNV Jul 9, 2018 10:18:09 AM
  */
-@RequestMapping(value = "/exam")
+@RequestMapping(value = API.EXAM.ROOT)
 @RestController
 @CrossOrigin
 public class ExamController {
@@ -48,7 +49,7 @@ public class ExamController {
 	@Autowired
 	private ExamService examService;
 	
-	@GetMapping(value = "/get/random/{level}")
+	@GetMapping(value = API.EXAM.GET_RANDOM_EXAM)
 	@ResponseBody
 	public RandomExamResponse getRandomExam(@PathVariable int level) {
 		RandomExamResponse response = new RandomExamResponse();
@@ -65,7 +66,7 @@ public class ExamController {
 		return response;
 	}
 	
-	@PostMapping(value = "/create/random")
+	@PostMapping(value = API.EXAM.CREATE_RANDOM_EXAM)
 	@ResponseBody
 	public RandomCreateExamResponse createRandom(@RequestBody RandomCreateExamRequest request) {
 		RandomCreateExamResponse response = new RandomCreateExamResponse(ResponseCode.SUCCESS);
@@ -79,7 +80,7 @@ public class ExamController {
 		return response;
 	}
 	
-	@PostMapping(value = "/search")
+	@PostMapping(value = API.EXAM.SEARCH)
 	@ResponseBody
 	public SearchExamResponse searchExams(@RequestBody SearchExamRequest request) {
 		SearchExamResponse response = new SearchExamResponse();
@@ -95,7 +96,7 @@ public class ExamController {
 		return response;
 	}
 	
-	@GetMapping(value = "/detail/{id}/{clientQueryMode}")
+	@GetMapping(value = API.EXAM.DETAIL)
 	@ResponseBody
 	public DetailExamResponse getDetail(@PathVariable String id, @PathVariable int clientQueryMode) {
 		DetailExamResponse response = new DetailExamResponse();
@@ -112,7 +113,7 @@ public class ExamController {
 		return response;
 	}
 	
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = API.EXAM.UPDATE_BY_ID)
 	@ResponseBody
 	public UpdateExamResponse update(@PathVariable String id, @RequestBody UpdateExamRequest request) {
 		UpdateExamResponse response = new UpdateExamResponse();
@@ -129,15 +130,15 @@ public class ExamController {
 		return response;
 	}
 	
-	@PostMapping(value = "/list")
+	@PostMapping(value = API.EXAM.LIST)
 	@ResponseBody
 	public ListExamResponse listExam(@RequestBody ListExamRequest request) {
 		ListExamResponse response = new ListExamResponse();
 		try {
 			SearchResult exams = examService.listExam(request.getLevel(),
-									request.getExamType(), 
-										request.getSkip(), 
-											request.getTake());
+															request.getExamType(), 
+																request.getSkip(), 
+																	request.getTake());
 			response.setDatas(exams.getDatas());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());

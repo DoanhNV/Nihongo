@@ -1,4 +1,4 @@
-package com.nihongo.filter.validation;
+package com.nihongo.filter.validation.implement;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import com.nihongo.dto.httpdto.request.DocumentSearchRequest;
 import com.nihongo.dto.httpdto.request.InsertDocumentRequest;
 import com.nihongo.dto.httpdto.request.UpdateDocumentRequest;
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
+import com.nihongo.filter.validation.Validation;
 import com.nihongo.support.constant.API;
 
 /**
@@ -17,7 +18,7 @@ import com.nihongo.support.constant.API;
  */
 public class DocumentValidation implements Validation {
 	
-	ObjectMapper mapper = new ObjectMapper();
+	private ObjectMapper mapper = new ObjectMapper();
 
 	@Override
 	public AbstractNihongoResponse validate(String requestUri, String requestBody) throws JsonParseException, JsonMappingException, IOException {

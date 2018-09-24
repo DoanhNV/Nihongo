@@ -23,7 +23,7 @@ public class NihongoFilter {
 				response = validatior.validate(requestURI, requestBody);
 			}
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		return response;
 	}

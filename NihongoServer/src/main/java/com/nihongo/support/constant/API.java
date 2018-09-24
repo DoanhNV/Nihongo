@@ -32,4 +32,22 @@ public class API {
 		public static final String SET_EXAM_NUMBER = "/exam/set/number";
 		public static final String LIST_EXAM_SETTING = "/exam/list";
 	}
+	
+	public class EXAM {
+		public static final String ROOT = "/exam";
+		public static final String CREATE_RANDOM_EXAM =  "/create/random";
+		public static final String GET_RANDOM_EXAM = "/get/random/{level}";
+		public static final String SEARCH = "/search";
+		public static final String DETAIL = "detail/{id}/{clientQueryMode}";
+		public static final String DETAIL_ALIAS = "detail/";
+		public static final String UPDATE_BY_ID = "/update/{id}";
+		public static final String LIST = "/list";
+	}
+	
+	
+	public class USER {
+		public static final String ROOT = "/user";
+		public static final String REGISTER =  "/register";
+		public static final String LOGIN = "/login";
+	}
 }
