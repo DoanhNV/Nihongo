@@ -109,6 +109,10 @@ public class ExamConverter {
 		return queryObject;
 	}
 	
+	public static BasicDBObject prepareEncreaseLike(int likeNumber) {
+		return new BasicDBObject(MongoOperator.INCREASE, likeNumber);
+	}
+	
 	public static EndUserBasicExam toEndUserBasicExam(DBObject examObject) {
 		EndUserBasicExam exam = new EndUserBasicExam();
 		

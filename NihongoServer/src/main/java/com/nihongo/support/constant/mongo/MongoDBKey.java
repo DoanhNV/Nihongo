@@ -54,4 +54,12 @@ public class MongoDBKey {
 		public static final String FACEBOOK_ID = "facebook_id";
 		public static final String BIRTHDAY = "birthday";
 	}
+	
+	public class EXAM_LIKE extends MongoDBKey {
+		public static final String EXAMS = "exams";
+	}
+	
+	public class EXAM_FAVORITE extends MongoDBKey {
+		public static final String EXAMS = "exams";
+	}
 }

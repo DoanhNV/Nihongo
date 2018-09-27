@@ -13,15 +13,19 @@ import com.nihongo.dto.httpdto.request.SearchExamRequest;
 
 public interface ExamService {
 	
+	public DetailExam getDetail(String id, int clientQueryMode);
+	
 	public List<RandomExamDTO> getRandomExam(int level, List<Integer> topics);
 	
 	public boolean createRandomExam(int level);
 	
-	public SearchResult search(SearchExamRequest request);
-	
-	public DetailExam getDetail(String id, int clientQueryMode);
-	
 	public boolean udpate(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes);
 	
+	public SearchResult search(SearchExamRequest request);
+	
 	public SearchResult listExam(int level, int examType, int skip, int take);
+	
+	public void encreaseLikeNumber (String examId);
+	
+	public void decreaseLikeNumber (String examId);
 }

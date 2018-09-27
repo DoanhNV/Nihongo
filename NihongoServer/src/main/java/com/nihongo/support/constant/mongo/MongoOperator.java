@@ -13,10 +13,11 @@ public class MongoOperator {
 	public static final String $MATCH = "$match";
 	public static final String $PROJECT = "$project";
 	public static final String OR = "$or";
-	
+	public static final String PUSH = "$push";
+	public static final String PULL = "$pull";
+	public static final String INCREASE = "$inc";
 	
 	public static final String SIZE = "size";
-	
 	
 	public static final int INCLUDE_FIELD  = 1;
 }

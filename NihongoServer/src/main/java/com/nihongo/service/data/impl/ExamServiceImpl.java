@@ -186,4 +186,14 @@ public class ExamServiceImpl implements ExamService {
 	public SearchResult listExam(int level, int examType, int skip, int take) {
 		return examDAO.listExam(level, examType, skip, take);
 	}
+
+	@Override
+	public void encreaseLikeNumber(String examId) {
+		examDAO.encreaseLikeNumber(examId);
+	}
+
+	@Override
+	public void decreaseLikeNumber(String examId) {
+		examDAO.decreaseLikeNumber(examId);
+	}
 }

@@ -12,6 +12,7 @@ public class MongoConfigInfo {
 	public static final String EXAM_DB = "exam";
 	public static final String SETTING_DB = "setting";
 	public static final String USER_DB = "userdb";
+	public static final String USER_CONNECTION_DB = "userconnectiondb";
 	
 	public class EXAM_DB {
 		public static final String MCQ_QUESTION_COLLECTION = "mcq_question";
@@ -25,5 +26,10 @@ public class MongoConfigInfo {
 	
 	public class USER {
 		public static final String USER_COLLECTION = "user";
+	}
+	
+	public class USER_CONNECTION {
+		public static final String EXAM_LIKE_COLLECTION = "exam_like";
+		public static final String EXAM_FAVORITE_COLLECTION = "exam_favorite";
 	}
 }

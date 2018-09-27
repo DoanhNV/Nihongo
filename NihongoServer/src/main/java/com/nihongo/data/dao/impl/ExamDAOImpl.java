@@ -112,4 +112,20 @@ public class ExamDAOImpl implements ExamDAO {
 		
 		return new SearchResult(datas);
 	}
+
+	@Override
+	public void encreaseLikeNumber(String examId) {
+		final int ENCREASE_LIKE_NUMBER = 1;
+		DBObject query = ExamConverter.prepareObjectId(examId);
+		BasicDBObject encreaseobject = ExamConverter.prepareEncreaseLike(ENCREASE_LIKE_NUMBER);
+		examCollection.update(query, encreaseobject);
+	}
+
+	@Override
+	public void decreaseLikeNumber(String examId) {
+		final int ENCREASE_LIKE_NUMBER = -1;
+		DBObject query = ExamConverter.prepareObjectId(examId);
+		BasicDBObject encreaseobject = ExamConverter.prepareEncreaseLike(ENCREASE_LIKE_NUMBER);
+		examCollection.update(query, encreaseobject);
+	}
 }
