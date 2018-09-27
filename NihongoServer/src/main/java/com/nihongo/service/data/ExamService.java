@@ -25,6 +25,8 @@ public interface ExamService {
 	
 	public SearchResult listExam(int level, int examType, int skip, int take);
 	
+	public SearchResult listFavoriteExam(String userId, int skip, int take);
+	
 	public void encreaseLikeNumber (String examId);
 	
 	public void decreaseLikeNumber (String examId);

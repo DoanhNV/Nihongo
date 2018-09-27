@@ -23,7 +23,7 @@ public class ExamFavoriteConverter {
 		return new BasicDBObject(MongoOperator.PULL, removeFavoriteExamObject);
 	}
 	
-	public static BasicDBObject prepareObjectId(String userId) {
+	public static BasicDBObject prepareIdObject(String userId) {
 		return new BasicDBObject(MongoDBKey.EXAM_FAVORITE.ID, new ObjectId(userId));
 	}
 }

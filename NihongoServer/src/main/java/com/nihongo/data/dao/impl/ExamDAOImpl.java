@@ -128,4 +128,17 @@ public class ExamDAOImpl implements ExamDAO {
 		BasicDBObject encreaseobject = ExamConverter.prepareEncreaseLike(ENCREASE_LIKE_NUMBER);
 		examCollection.update(query, encreaseobject);
 	}
+
+	@Override
+	public SearchResult listFavoriteExam(List<String> examIds) {
+		List<AbstractDTO> datas = new ArrayList<>();
+		BasicDBObject queryObject = ExamConverter.prepareListFavoriteExamObject(examIds);
+		DBCursor cursor = examCollection.find(queryObject);
+		while(cursor.hasNext()) {
+			EndUserBasicExam endUserBasicExam = ExamConverter.toEndUserBasicExam(cursor.next());
+			datas.add(endUserBasicExam);
+		}
+		
+		return new SearchResult(datas);
+	}
 }

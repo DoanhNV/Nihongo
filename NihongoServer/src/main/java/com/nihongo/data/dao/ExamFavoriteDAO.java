@@ -1,5 +1,7 @@
 package com.nihongo.data.dao;
 
+import java.util.List;
+
 import com.mongodb.DB;
 
 /**
@@ -14,4 +16,6 @@ public interface ExamFavoriteDAO {
 	public void addExamToFavoriteList(String userId, String examId);
 	
 	public void removeExamFromFavoriteList(String userId, String examId);
+	
+	public List<String> listFavoriteExam(String userId, int skip, int take);
 }

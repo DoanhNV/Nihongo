@@ -30,8 +30,7 @@ import com.nihongo.support.constant.ResponseCode;
 public class ValidatorFilter extends GenericFilterBean {
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-	    throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		

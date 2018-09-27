@@ -109,6 +109,15 @@ public class ExamConverter {
 		return queryObject;
 	}
 	
+	public static BasicDBObject prepareListFavoriteExamObject(List<String> examIds) {
+		BasicDBList listExamId = new BasicDBList();
+		for (String examId : examIds) {
+			listExamId.add(new ObjectId(examId));
+		}
+		BasicDBObject inObject = new BasicDBObject(MongoOperator.$IN, listExamId);
+		return new BasicDBObject(ID, inObject);
+	}
+	
 	public static BasicDBObject prepareEncreaseLike(int likeNumber) {
 		return new BasicDBObject(MongoOperator.INCREASE, likeNumber);
 	}

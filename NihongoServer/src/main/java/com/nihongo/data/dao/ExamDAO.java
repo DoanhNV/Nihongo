@@ -1,5 +1,7 @@
 package com.nihongo.data.dao;
 
+import java.util.List;
+
 import com.mongodb.DB;
 import com.nihongo.config.mongo.MongoDBConnection;
 import com.nihongo.data.entity.exam.Exam;
@@ -24,6 +26,8 @@ public interface ExamDAO {
 	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes);
 	
 	public SearchResult listExam(int level, int examType, int skip, int take);
+	
+	public SearchResult listFavoriteExam(List<String> examIds);
 	
 	public void encreaseLikeNumber(String examId);
 	
