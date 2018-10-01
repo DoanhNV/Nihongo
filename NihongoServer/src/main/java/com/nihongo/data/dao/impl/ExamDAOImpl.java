@@ -79,7 +79,7 @@ public class ExamDAOImpl implements ExamDAO {
 	}
 
 	@Override
-	public SearchResult listExam(int level, int examType, int skip, int take) {
+	public SearchResult listExam(Integer level, int examType, int skip, int take) {
 		List<AbstractDTO> datas = new ArrayList<>();
 		BasicDBObject queryObject = ExamConverter.prepareListExamObject(level);
 		BasicDBObject sortObject = null;

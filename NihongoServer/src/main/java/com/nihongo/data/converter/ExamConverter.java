@@ -103,9 +103,13 @@ public class ExamConverter {
 		return new BasicDBObject(MongoDBKey.ExamKey.ID, objectId);
 	}
 	
-	public static BasicDBObject prepareListExamObject(int level) {
-		BasicDBObject queryObject = new BasicDBObject(LEVEL, level);
-		queryObject.append(IS_ACTIVE, true);
+	public static BasicDBObject prepareListExamObject(Integer level) {
+		boolean isNotQueryAll = level != null && level != Constant.QUERY_PROPERTIES.QUERY_ALL;
+		BasicDBObject queryObject = new BasicDBObject(IS_ACTIVE, true);
+		
+		if (isNotQueryAll) {
+			queryObject.put(LEVEL, level);
+		}
 		return queryObject;
 	}
 	

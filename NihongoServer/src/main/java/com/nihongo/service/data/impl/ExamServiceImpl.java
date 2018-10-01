@@ -104,6 +104,7 @@ public class ExamServiceImpl implements ExamService {
 		if(exam == null) {
 			throw new AbstractNihongoException(ResponseCode.EXAM_NOT_EXIST);
 		}
+		
 		DetailExam detailExam = EntityUtil.toDetailExam(exam, clientQueryMode);
 		List<EmbedExamTopic> embedExamTopics = exam.getEmbedExamTopics();
 		List<String> questionIds = new ArrayList<>();
@@ -133,43 +134,21 @@ public class ExamServiceImpl implements ExamService {
 
 		for (MCQQuestion mcqQuestion : mcqQuestions) {
 			int topic = mcqQuestion.getTopic();
-			ExamElement examElement = null;
-			
-			boolean isParagraph = topic == Constant.TOPIC.READING_UNDERSTANDING_PARAGRAPH  
-														|| topic == Constant.TOPIC.FILL_INTO_PARAGRAPH;
-			
 			List<ExamElement> examTopicElements = topicMap.get(topic);
-			if (isParagraph) {
-				DetailEndUserDocument detailDocument = null;
-				if(examTopicElements.size() == 0) {
-					detailDocument = new DetailEndUserDocument();
-					detailDocument.setQuestions(new ArrayList<DetailEndUserExamQuestion>());
-					detailDocument.setContent(documentMap.get(topic).getContent());
-					examElement = detailDocument;
-					examTopicElements.add(examElement);
-				} else {
-					detailDocument = (DetailEndUserDocument) examTopicElements.get(0);
-				}
-				
-				DetailEndUserExamQuestion question = new DetailEndUserExamQuestion(
-						mcqQuestion.getTitle(), 
-						mcqQuestion.getDocument(),
-						mcqQuestion.getAnswers(), 
-						mcqQuestion.getTitleSub());
-				detailDocument.getQuestions().add(question);
-			} else {
-				 examElement = (DetailEndUserExamQuestion) new DetailEndUserExamQuestion(
-																mcqQuestion.getTitle(), 
-																mcqQuestion.getDocument(),
-																mcqQuestion.getAnswers(), 
-																mcqQuestion.getTitleSub());
-				examTopicElements.add(examElement);
-			}
+			ExamElement examElement = (DetailEndUserExamQuestion) new DetailEndUserExamQuestion(
+													mcqQuestion.getTitle(), 
+													mcqQuestion.getDocument(),
+													mcqQuestion.getAnswers(), 
+													mcqQuestion.getTitleSub());
+			examTopicElements.add(examElement);
 		}
 		
 		List<ExamDTO> contents = new ArrayList<>();
 		for (Entry<Integer, List<ExamElement>> entry : topicMap.entrySet()) {
-			contents.add(new ExamDTO(entry.getKey(), entry.getValue()));
+			Integer topic = entry.getKey();
+			Document document = documentMap.get(topic);
+			String content = document == null ? null : document.getContent();
+			contents.add(new ExamDTO(entry.getKey(), entry.getValue(), content));
 		}
 		detailExam.setContents(contents);
 		return  detailExam;
@@ -186,7 +165,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public SearchResult listExam(int level, int examType, int skip, int take) {
+	public SearchResult listExam(Integer level, int examType, int skip, int take) {
 		return examDAO.listExam(level, examType, skip, take);
 	}
 	

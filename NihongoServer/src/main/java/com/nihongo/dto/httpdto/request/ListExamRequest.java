@@ -7,16 +7,16 @@ package com.nihongo.dto.httpdto.request;
  */
 public class ListExamRequest extends AbstractNihongoRequest {
 
-	private int level;
+	private Integer level;
 	private int examType;
 	private int skip;
 	private int take;
 
-	public int getLevel() {
+	public Integer getLevel() {
 		return level;
 	}
 
-	public void setLevel(int level) {
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
 

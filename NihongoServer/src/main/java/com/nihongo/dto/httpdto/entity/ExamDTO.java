@@ -12,15 +12,17 @@ import com.nihongo.dto.httpdto.AbstractDTO;
 public class ExamDTO extends AbstractDTO {
 
 	private int topic;
+	private String content;
 	private List<ExamElement> questions;
 	
 	public ExamDTO() {
 
 	}
 
-	public ExamDTO(int topic, List<ExamElement> questions) {
+	public ExamDTO(int topic, List<ExamElement> questions, String content) {
 		this.topic = topic;
 		this.questions = questions;
+		this.content = content;
 	}
 
 	public int getTopic() {
@@ -37,5 +39,13 @@ public class ExamDTO extends AbstractDTO {
 
 	public void setQuestions(List<ExamElement> questions) {
 		this.questions = questions;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }
