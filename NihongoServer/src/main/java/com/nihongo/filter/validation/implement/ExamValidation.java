@@ -1,8 +1,6 @@
 package com.nihongo.filter.validation.implement;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -43,10 +41,12 @@ public class ExamValidation implements Validation {
 	private AbstractNihongoResponse validateListForClient(String requestBody) throws JsonParseException, JsonMappingException, IOException {
 		ListExamRequest request = jsonMapper.readValue(requestBody, ListExamRequest.class);
 		float code = ResponseCode.SUCCESS;
+		final int queryAll = Constant.QUERY_PROPERTIES.QUERY_ALL;
+		final boolean isOutOfLevelRange = request.getLevel() != null && request.getLevel() < queryAll || Constant.LEVEL.N5 <  request.getLevel();
 		
-		if(request.getExamType() < Constant.EXAM_TYPE.TRIAL || Constant.EXAM_TYPE.BEST_TAKED <  request.getExamType()) {
+		if(request.getExamType() < queryAll || Constant.EXAM_TYPE.BEST_TAKED <  request.getExamType()) {
 			code = ResponseCode.OUT_OF_EXAM_TYPE_RANGE;
-		} else if(request.getLevel() < Constant.LEVEL.BEGINER || Constant.LEVEL.N5 <  request.getLevel()) {
+		} else if (isOutOfLevelRange) {
 			code = ResponseCode.OUT_OF_LEVEL_RANGE;
 		}
 		return new AbstractNihongoResponse(code);

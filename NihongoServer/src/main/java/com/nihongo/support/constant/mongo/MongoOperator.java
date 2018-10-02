@@ -14,6 +14,7 @@ public class MongoOperator {
 	public static final String $PROJECT = "$project";
 	public static final String OR = "$or";
 	public static final String PUSH = "$push";
+	public static final String ADD_TO_SET = "$addToSet";
 	public static final String PULL = "$pull";
 	public static final String INCREASE = "$inc";
 	

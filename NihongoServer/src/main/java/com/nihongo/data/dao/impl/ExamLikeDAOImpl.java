@@ -26,7 +26,7 @@ public class ExamLikeDAOImpl implements ExamLikeDAO {
 		ObjectId objectId = new ObjectId(userId);
 		BasicDBObject query = new BasicDBObject(MongoDBKey.EXAM_LIKE.ID,objectId);
 		DBObject prepateAddExamToLikeList = ExamLikeConverter.prepareAddExamToLikeList(examId);
-		examLikecollection.update(query, prepateAddExamToLikeList);
+		examLikecollection.update(query, prepateAddExamToLikeList, true, false);
 		return true;
 	}
 
@@ -35,7 +35,7 @@ public class ExamLikeDAOImpl implements ExamLikeDAO {
 		ObjectId objectId = new ObjectId(userId);
 		BasicDBObject query = new BasicDBObject(MongoDBKey.EXAM_LIKE.ID,objectId);
 		DBObject prepateAddExamToLikeList = ExamLikeConverter.prepareRemoveExamFromLikeList(examId);
-		examLikecollection.update(query, prepateAddExamToLikeList);
+		examLikecollection.update(query, prepateAddExamToLikeList, true, false);
 		return true;
 	}
 }

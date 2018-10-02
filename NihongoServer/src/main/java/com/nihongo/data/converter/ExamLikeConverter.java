@@ -14,7 +14,7 @@ public class ExamLikeConverter {
 	
 	public static DBObject prepareAddExamToLikeList(String examId) {
 		BasicDBObject newExam = new BasicDBObject(MongoDBKey.EXAM_LIKE.EXAMS, examId);
-		return new BasicDBObject(MongoOperator.PUSH, newExam);
+		return new BasicDBObject(MongoOperator.ADD_TO_SET, newExam);
 	}
 	
 	public static DBObject prepareRemoveExamFromLikeList(String examId) {

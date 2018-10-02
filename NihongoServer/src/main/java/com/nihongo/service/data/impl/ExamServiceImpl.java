@@ -23,7 +23,6 @@ import com.nihongo.data.entity.question.Question;
 import com.nihongo.data.entity.questiondocument.Document;
 import com.nihongo.data.entity.setting.ExamSetting;
 import com.nihongo.data.entity.setting.TopicNumber;
-import com.nihongo.dto.httpdto.entity.DetailEndUserDocument;
 import com.nihongo.dto.httpdto.entity.DetailEndUserExamQuestion;
 import com.nihongo.dto.httpdto.entity.DetailExam;
 import com.nihongo.dto.httpdto.entity.ExamDTO;

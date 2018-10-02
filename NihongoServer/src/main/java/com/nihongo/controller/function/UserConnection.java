@@ -51,6 +51,7 @@ public class UserConnection {
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
 		}
 		return response;

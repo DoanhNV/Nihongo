@@ -123,7 +123,8 @@ public class ExamConverter {
 	}
 	
 	public static BasicDBObject prepareEncreaseLike(int likeNumber) {
-		return new BasicDBObject(MongoOperator.INCREASE, likeNumber);
+		BasicDBObject likeObject = new BasicDBObject(MongoDBKey.ExamKey.LIKE_NUMBER, likeNumber);
+		return new BasicDBObject(MongoOperator.INCREASE, likeObject);
 	}
 	
 	public static EndUserBasicExam toEndUserBasicExam(DBObject examObject) {
@@ -134,10 +135,12 @@ public class ExamConverter {
 		Integer likeNumber = (Integer) examObject.get(MongoDBKey.ExamKey.LIKE_NUMBER);
 		Integer takedNumber = (Integer) examObject.get(MongoDBKey.ExamKey.TAKED_NUMBER);
 		Boolean isFree = (Boolean) examObject.get(MongoDBKey.ExamKey.IS_FREE);
+		Integer point = (Integer) examObject.get(MongoDBKey.ExamKey.POINT);
 		
 		exam.setId(id);
 		exam.setFree(isFree);
 		exam.setLevel(level);
+		exam.setPoint(point);
 		exam.setTakedNumber(takedNumber);
 		exam.setLikeNumber(likeNumber);
 		return exam;
