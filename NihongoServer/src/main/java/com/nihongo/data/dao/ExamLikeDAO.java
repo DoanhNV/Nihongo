@@ -13,6 +13,8 @@ public interface ExamLikeDAO {
 	
 	public static final DB EXAM_DB = MongoDBConnection.getDatabase(MongoConfigInfo.USER_CONNECTION_DB);
 	
+	public boolean isLiked(String userId, String examId);
+	
 	public boolean addExamToLikeList(String userId, String examId);
 	
 	public boolean removeExamFromLikeList(String userId, String examId);

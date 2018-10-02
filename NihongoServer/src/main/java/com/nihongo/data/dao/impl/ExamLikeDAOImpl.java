@@ -38,4 +38,11 @@ public class ExamLikeDAOImpl implements ExamLikeDAO {
 		examLikecollection.update(query, prepateAddExamToLikeList, true, false);
 		return true;
 	}
+
+	@Override
+	public boolean isLiked(String userId, String examId) {
+		DBObject query = ExamLikeConverter.prepareIsLikedExamQuery(userId, examId);
+		long recordNumber = examLikecollection.count(query);
+		return recordNumber != 0;
+	}
 }

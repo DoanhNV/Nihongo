@@ -19,6 +19,10 @@ public class ExamLikeServiceImpl implements ExamLikeService {
 	
 	@Override
 	public boolean likeExam(String userId, String examId) {
+		boolean isLiked = examLikeDAO.isLiked(userId, examId);
+		if (isLiked) {
+			return true;
+		}
 		return examLikeDAO.addExamToLikeList(userId, examId);
 	}
 
