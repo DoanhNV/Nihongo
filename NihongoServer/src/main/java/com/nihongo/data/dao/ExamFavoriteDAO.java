@@ -12,6 +12,8 @@ import com.mongodb.DB;
 public interface ExamFavoriteDAO {
 	
 	public static final DB USER_CONNECTION_DB = ExamLikeDAO.EXAM_DB;
+	
+	public boolean isFavorited(String userId, String examId);
 
 	public void addExamToFavoriteList(String userId, String examId);
 	

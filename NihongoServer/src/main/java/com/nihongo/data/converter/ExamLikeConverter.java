@@ -27,7 +27,6 @@ public class ExamLikeConverter {
 	public static DBObject prepareIsLikedExamQuery(String userId, String examId) {
 		ObjectId objectId = new ObjectId(userId);
 		BasicDBObject query = new BasicDBObject(MongoDBKey.EXAM_LIKE.ID,objectId);
-		BasicDBObject  elementMatchObject = new BasicDBObject(MongoOperator.ELEMENT_MATCH, examId);
-		return query.append(MongoDBKey.EXAM_LIKE.EXAMS, elementMatchObject);
+		return query.append(MongoDBKey.EXAM_LIKE.EXAMS, examId);
 	}
 }

@@ -18,16 +18,14 @@ public class ExamLikeServiceImpl implements ExamLikeService {
 	private ExamLikeDAO examLikeDAO;
 	
 	@Override
-	public boolean likeExam(String userId, String examId) {
+	public boolean doLikeExamAction(String userId, String examId) {
 		boolean isLiked = examLikeDAO.isLiked(userId, examId);
+		
 		if (isLiked) {
-			return true;
+			examLikeDAO.removeExamFromLikeList(userId, examId);
+		} else {
+			examLikeDAO.addExamToLikeList(userId, examId);
 		}
-		return examLikeDAO.addExamToLikeList(userId, examId);
-	}
-
-	@Override
-	public boolean unlikeExam(String userId, String examId) {
-		return examLikeDAO.removeExamFromLikeList(userId, examId);
+		return isLiked;
 	}
 }

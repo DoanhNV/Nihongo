@@ -3,6 +3,7 @@ package com.nihongo.filter.validation.implement;
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nihongo.dto.httpdto.request.LoginRequest;
@@ -20,7 +21,7 @@ import com.nihongo.support.constant.Constant;
  */
 public class UserValidation implements Validation {
 	
-	private ObjectMapper jsonMapper = new ObjectMapper();
+	private ObjectMapper jsonMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 	@Override
 	public AbstractNihongoResponse validate(String requestUri, String requestBody) throws JsonParseException, JsonMappingException, IOException {
@@ -57,9 +58,8 @@ public class UserValidation implements Validation {
 		boolean isSocialNetWorkLogin = request.getLoginType() != Constant.LOGIN_TYPE.BY_USER_NAME;
 		boolean isEmptyFullName = request.getFullName() == null || request.getFullName().isEmpty();
 		if(request.getLoginAlias() == null || request.getLoginAlias().isEmpty()
-						|| request.getPassword() == null || request.getPassword().isEmpty()
-						|| (isSocialNetWorkLogin && isEmptyFullName)) {
-			
+							|| request.getPassword() == null || request.getPassword().isEmpty()
+														|| (isSocialNetWorkLogin && isEmptyFullName)) {
 			code = ResponseCode.INVALID_PARAMS;
 		} else if(isSocialNetWorkLogin && (request.getLevel() <  Constant.LEVEL.BEGINER || Constant.LEVEL.N5 < request.getLevel())) {
 			code = ResponseCode.OUT_OF_LEVEL_RANGE;

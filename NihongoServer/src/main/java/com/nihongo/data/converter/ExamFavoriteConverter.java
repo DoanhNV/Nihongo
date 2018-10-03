@@ -15,7 +15,7 @@ public class ExamFavoriteConverter {
 	
 	public static BasicDBObject prepareAddFavoriteExamObject(String examId) {
 		BasicDBObject addFavoriteExamObject = new BasicDBObject(MongoDBKey.EXAM_FAVORITE.EXAMS, examId);
-		return new BasicDBObject(MongoOperator.PUSH, addFavoriteExamObject);
+		return new BasicDBObject(MongoOperator.ADD_TO_SET, addFavoriteExamObject);
 	}
 	
 	public static BasicDBObject prepareRemoveFavoriteExamObject(String examId) {
@@ -25,5 +25,11 @@ public class ExamFavoriteConverter {
 	
 	public static BasicDBObject prepareIdObject(String userId) {
 		return new BasicDBObject(MongoDBKey.EXAM_FAVORITE.ID, new ObjectId(userId));
+	}
+	
+	public static BasicDBObject prepareIsFavoritedQuery(String userId, String examId) {
+		ObjectId objectId = new ObjectId(userId);
+		BasicDBObject query = new BasicDBObject(MongoDBKey.EXAM_LIKE.ID,objectId);
+		return query.append(MongoDBKey.EXAM_LIKE.EXAMS, examId);
 	}
 }

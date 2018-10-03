@@ -19,11 +19,11 @@ public class ExamFavoriteServiceImpl implements ExamFavoriteService {
 
 	@Override
 	public void favoriteExam(String userId, String examId) {
-		examFavoriteDAO.addExamToFavoriteList(userId, examId);
-	}
-
-	@Override
-	public void unfavoriteExam(String userId, String examId) {
-		examFavoriteDAO.removeExamFromFavoriteList(userId, examId);
+		boolean isFavorited = examFavoriteDAO.isFavorited(userId, examId);
+		if (isFavorited) {
+			examFavoriteDAO.removeExamFromFavoriteList(userId, examId);
+		} else {
+			examFavoriteDAO.addExamToFavoriteList(userId, examId);
+		}
 	}
 }

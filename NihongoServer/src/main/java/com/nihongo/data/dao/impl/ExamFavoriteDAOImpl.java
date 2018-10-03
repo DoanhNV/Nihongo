@@ -28,7 +28,7 @@ public class ExamFavoriteDAOImpl implements ExamFavoriteDAO {
 	public void addExamToFavoriteList(String userId, String examId) {
 		BasicDBObject query = ExamFavoriteConverter.prepareIdObject(userId);
 		BasicDBObject addFavoriteExamObject = ExamFavoriteConverter.prepareAddFavoriteExamObject(examId);
-		examFavoriteCollection.update(query, addFavoriteExamObject);
+		examFavoriteCollection.update(query, addFavoriteExamObject, true, false);
 	}
 
 	@Override
@@ -57,5 +57,12 @@ public class ExamFavoriteDAOImpl implements ExamFavoriteDAO {
 			}
 		}
 		return favoriteExamIds;
+	}
+
+	@Override
+	public boolean isFavorited(String userId, String examId) {
+		BasicDBObject query = ExamFavoriteConverter.prepareIsFavoritedQuery(userId, examId);
+		long recordNumber = examFavoriteCollection.count(query);
+		return recordNumber != 0;
 	}
 }

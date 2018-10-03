@@ -8,6 +8,4 @@ package com.nihongo.service.data;
 public interface ExamFavoriteService {
 	
 	public void favoriteExam(String userId, String examId);
-	
-	public void unfavoriteExam(String userId, String examId);
 }

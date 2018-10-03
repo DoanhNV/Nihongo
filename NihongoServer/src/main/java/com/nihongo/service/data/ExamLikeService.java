@@ -7,7 +7,5 @@ package com.nihongo.service.data;
  */
 public interface ExamLikeService {
 	
-	public boolean likeExam(String userId, String examId);
-	
-	public boolean unlikeExam(String userId, String examId);
+	public boolean doLikeExamAction(String userId, String examId);
 }

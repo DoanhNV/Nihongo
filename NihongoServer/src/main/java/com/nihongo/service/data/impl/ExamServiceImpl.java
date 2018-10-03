@@ -176,12 +176,11 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public void encreaseLikeNumber(String examId) {
-		examDAO.encreaseLikeNumber(examId);
-	}
-
-	@Override
-	public void decreaseLikeNumber(String examId) {
-		examDAO.decreaseLikeNumber(examId);
+	public void changeLikeNumber(String examId, boolean isLikedBefore) {
+		if (isLikedBefore) {
+			examDAO.decreaseLikeNumber(examId);
+		} else {
+			examDAO.encreaseLikeNumber(examId);
+		}
 	}
 }

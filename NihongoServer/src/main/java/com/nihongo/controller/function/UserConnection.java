@@ -10,11 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.dto.httpdto.request.ExamFavoriteRequest;
 import com.nihongo.dto.httpdto.request.ExamLikeRequest;
-import com.nihongo.dto.httpdto.request.ExamUnLikeRequest;
-import com.nihongo.dto.httpdto.request.ExamUnfavoriteRequest;
 import com.nihongo.dto.httpdto.response.ExamLikeResponse;
-import com.nihongo.dto.httpdto.response.ExamUnLikeResponse;
-import com.nihongo.dto.httpdto.response.ExamUnfavoriteResponse;
 import com.nihongo.dto.httpdto.response.ExamFavoriteResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.ExamFavoriteService;
@@ -46,27 +42,12 @@ public class UserConnection {
 	public ExamLikeResponse likeExam(@RequestBody ExamLikeRequest request) {
 		ExamLikeResponse response = new ExamLikeResponse();
 		try {
-			examLikeService.likeExam(request.getUserId(), request.getExamId());
-			examService.encreaseLikeNumber(request.getExamId());
+			boolean isLikedBefore = examLikeService.doLikeExamAction(request.getUserId(), request.getExamId());
+			examService.changeLikeNumber(request.getExamId(), isLikedBefore);
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.setCode(ResponseCode.SYSTEM_ERROR);
-		}
-		return response;
-	}
-
-	@PutMapping(value = "/unlike")
-	@ResponseBody
-	public ExamUnLikeResponse unlikeExam(@RequestBody ExamUnLikeRequest request) {
-		ExamUnLikeResponse response = new ExamUnLikeResponse();
-		try {
-			examLikeService.unlikeExam(request.getUserId(), request.getExamId());
-			examService.decreaseLikeNumber(request.getExamId());
-		} catch (AbstractNihongoException e) {
-			response.setCodeAndMessage(e.getCode(), e.getMessage());
-		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
 		}
 		return response;
@@ -78,20 +59,6 @@ public class UserConnection {
 		ExamFavoriteResponse response = new ExamFavoriteResponse();
 		try {
 			examFavoriteService.favoriteExam(request.getUserId(), request.getExamId());
-		} catch (AbstractNihongoException e) {
-			response.setCodeAndMessage(e.getCode(), e.getMessage());
-		} catch (Exception e) {
-			response.setCode(ResponseCode.SYSTEM_ERROR);
-		}
-		return response;
-	}
-	
-	@PutMapping(value = "/unfavorite")
-	@ResponseBody
-	public ExamUnfavoriteResponse favoriteExam(@RequestBody ExamUnfavoriteRequest request) {
-		ExamUnfavoriteResponse response = new ExamUnfavoriteResponse();
-		try {
-			examFavoriteService.unfavoriteExam(request.getUserId(), request.getExamId());
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
