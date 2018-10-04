@@ -33,10 +33,12 @@ public class TokenUtil {
 				.setIssuer(Constant.TOKEN.ISSUER).signWith(signingKey, signatureAlgorithm);
 
 		builder.claim(MongoDBKey.USER.PASSWORD, password);
-
+		
+		/*
 		long expireMillis = nowMillis + Constant.TOKEN.INTERVAL_EXPIRED_TIME;
 		Date expireDate = new Date(expireMillis);
 		builder.setExpiration(expireDate);
+		*/
 
 		// Builds the JWT and serializes it to a compact, URL-safe string
 		return builder.compact();

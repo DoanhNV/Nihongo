@@ -18,6 +18,7 @@ import com.nihongo.support.constant.API.FILE;
 import com.nihongo.support.constant.API.MCQ_QUESTION;
 import com.nihongo.support.constant.API.SETTING;
 import com.nihongo.support.constant.API.USER;
+import com.nihongo.support.constant.API.USER_CONNECTION;
 
 /**
  * 
@@ -27,11 +28,13 @@ import com.nihongo.support.constant.API.USER;
 public class APIManager {
 
 	private static Map<String, Boolean> tokenAPIs = new TreeMap<>();
+	private static Map<String, Boolean> transferHeaderParamAPIMap = new TreeMap<>();
 	private static Map<String, Validation> validateAPIMap = new HashMap<>();
 
 	static {
 		initTokenAPIMap();
 		initValidatorAPIMap();
+		initTransferHeaderParamAPIMap();
 	}
 	
 	private static void initTokenAPIMap() {
@@ -59,6 +62,10 @@ public class APIManager {
 		
 		tokenAPIs.put(USER.ROOT + USER.REGISTER, false);
 		tokenAPIs.put(USER.ROOT + USER.LOGIN, false);
+	}
+	
+	private static void initTransferHeaderParamAPIMap() {
+		transferHeaderParamAPIMap.put(USER_CONNECTION.ROOT + USER_CONNECTION.LIKE, true);
 	}
 	
 	private static void initValidatorAPIMap() {
@@ -94,6 +101,14 @@ public class APIManager {
 			return false;
 		}
 		return isTokenAPI;
+	}
+	
+	public static boolean isHeaderTransferParamAPI(String uri) {
+		Boolean isHeaderTransferParamAPI = transferHeaderParamAPIMap.get(uri);
+		if (isHeaderTransferParamAPI == null) {
+			return false;
+		}
+		return isHeaderTransferParamAPI;
 	}
 
 	public static Validation getValidateFilter(String uri) {

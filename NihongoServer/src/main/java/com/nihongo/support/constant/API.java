@@ -50,4 +50,10 @@ public class API {
 		public static final String REGISTER =  "/register";
 		public static final String LOGIN = "/login";
 	}
+	
+	public class USER_CONNECTION {
+		public static final String ROOT = USER.ROOT;
+		public static final String LIKE =  "/like";
+		public static final String FAVORITE = "/favorite";
+	}
 }

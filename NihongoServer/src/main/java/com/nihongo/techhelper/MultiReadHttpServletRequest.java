@@ -4,12 +4,15 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+
+import com.nihongo.support.constant.Constant;
 
 public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
 
@@ -46,5 +49,10 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
 			body += character;
 		}
 		return body;
+	}
+	
+	public void setBody(String requestBody) throws IOException {
+		cachedBytes = new ByteArrayOutputStream();
+		cachedBytes.write(requestBody.getBytes(Charset.forName(Constant.ENCODING.UTF_8)));
 	}
 }
