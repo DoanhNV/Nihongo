@@ -20,7 +20,7 @@ import io.jsonwebtoken.ExpiredJwtException;
  */
 public class NihongoFilter {
 	
-	public static AbstractNihongoResponse validate(String accessToken, StringBuilder requestBody, String requestURI) throws JsonParseException, JsonMappingException, IOException {
+	public static AbstractNihongoResponse validate(String accessToken, StringBuilder requestBody, String requestURI, boolean isPreFlightRequest) throws JsonParseException, JsonMappingException, IOException {
 		AbstractNihongoResponse response = new AbstractNihongoResponse();
 		requestBody = requestBody == null ? new StringBuilder(Constant.STRING_PROPERTIES.EMPTY) : requestBody;
 		try {
@@ -29,8 +29,10 @@ public class NihongoFilter {
 				String requestBodyString = transferHeaderParamToBody(accessToken, requestBody.toString(), requestURI);
 				clearAndReWriteBody(requestBody, requestBodyString);
 				
-				Validation validatior = APIManager.getValidateFilter(requestURI);
-				response = validatior.validate(requestURI, requestBody.toString());
+				if (!isPreFlightRequest) {
+					Validation validatior = APIManager.getValidateFilter(requestURI);
+					response = validatior.validate(requestURI, requestBody.toString());
+				}
 			}
 		} catch (ExpiredJwtException e) {
 			TokenManager.removeToken(accessToken);

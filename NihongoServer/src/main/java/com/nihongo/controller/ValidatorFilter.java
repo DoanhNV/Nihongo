@@ -6,6 +6,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.annotation.Order;
@@ -39,7 +40,8 @@ public class ValidatorFilter extends GenericFilterBean {
 		String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
 		response.setContentType(CONTENT_TYPE.APPLICATION_JSON);
 		
-		AbstractNihongoResponse validateResponse = NihongoFilter.validate(token, requestBody, requestURI);
+		boolean isPreFlightRequest = isPreFlightRequest(httpServletRequest);
+		AbstractNihongoResponse validateResponse = NihongoFilter.validate(token, requestBody, requestURI, isPreFlightRequest);
 		changeBodyAfterTransferFromHeader(httpServletRequest, requestBody.toString());
 		
 		if(validateResponse.getCode() == ResponseCode.SUCCESS) {
@@ -51,5 +53,12 @@ public class ValidatorFilter extends GenericFilterBean {
 	
 	private void changeBodyAfterTransferFromHeader(MultiReadHttpServletRequest httpServletRequest, String requestBody) throws IOException {
 		httpServletRequest.setBody(requestBody);
+	}
+	
+	private boolean isPreFlightRequest(HttpServletRequest httpServletRequest) {
+		final String PREFLIGHT_METHOD = "OPTIONS";
+		String method = httpServletRequest.getMethod();
+		String contentType = httpServletRequest.getContentType();
+		return method.equals(PREFLIGHT_METHOD) && contentType == null;
 	}
 }
