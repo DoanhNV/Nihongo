@@ -100,6 +100,8 @@ public class Constant {
 	public class DATE_TIME {
 		public static final long A_SECOND = 1000;
 		public static final long A_MINUTE = A_SECOND * 60;
+		public static final long AN_HOUR = A_MINUTE * 60;
+		public static final long A_DAY = AN_HOUR * 24;
 	}
 	
 	public class TOKEN {

@@ -38,10 +38,11 @@ public class API {
 		public static final String CREATE_RANDOM_EXAM =  "/create/random";
 		public static final String GET_RANDOM_EXAM = "/get/random/{level}";
 		public static final String SEARCH = "/search";
-		public static final String DETAIL = "detail/{id}/{clientQueryMode}";
-		public static final String DETAIL_ALIAS = "detail/";
+		public static final String DETAIL = "/detail/{id}/{clientQueryMode}";
+		public static final String DETAIL_ALIAS = "/detail/";
 		public static final String UPDATE_BY_ID = "/update/{id}";
-		public static final String LIST = "/list";
+		public static final String LIST = "/list"; 
+		public static final String LIST_FAVORITE = "/listFavorite";
 	}
 	
 	
@@ -52,7 +53,7 @@ public class API {
 	}
 	
 	public class USER_CONNECTION {
-		public static final String ROOT = USER.ROOT;
+		public static final String ROOT = "/userconnection";
 		public static final String LIKE =  "/like";
 		public static final String FAVORITE = "/favorite";
 	}

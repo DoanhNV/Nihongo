@@ -23,7 +23,7 @@ public interface ExamService {
 	
 	public SearchResult search(SearchExamRequest request);
 	
-	public SearchResult listExam(Integer level, int examType, int skip, int take);
+	public SearchResult listExam(Integer level, Integer examType, int skip, int take);
 	
 	public SearchResult listFavoriteExam(String userId, int skip, int take);
 	

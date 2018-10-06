@@ -15,6 +15,7 @@ public class EndUserBasicExam  extends AbstractDTO{
 	private int takedNumber;
 	private int likeNumber;
 	private boolean isFree;
+	private boolean isLiked;
 
 	public String getId() {
 		return id;
@@ -62,5 +63,13 @@ public class EndUserBasicExam  extends AbstractDTO{
 
 	public void setPoint(int point) {
 		this.point = point;
+	}
+
+	public boolean getIsLiked() {
+		return isLiked;
+	}
+
+	public void setLiked(boolean isLiked) {
+		this.isLiked = isLiked;
 	}
 }

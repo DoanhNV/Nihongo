@@ -151,7 +151,7 @@ public class ExamController {
 		return response;
 	}
 	
-	@GetMapping(value = "/listFavorite")
+	@PostMapping(value = API.EXAM.LIST_FAVORITE)
 	@ResponseBody
 	public ListExamResponse listFavariteExam(@RequestBody ListFavoriteExamRequest request) {
 		ListExamResponse response = new ListExamResponse();

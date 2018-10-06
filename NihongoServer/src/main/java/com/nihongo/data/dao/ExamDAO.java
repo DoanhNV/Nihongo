@@ -19,17 +19,17 @@ public interface ExamDAO {
 	
 	public boolean insert(Exam exam);
 
-	public SearchResult search(SearchExamRequest request);
-	
-	public Exam getExam(String id, int clientQueryMode);
-	
 	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes);
 	
-	public SearchResult listExam(Integer level, int examType, int skip, int take);
+	public SearchResult listExam(Integer level, Integer examType, int skip, int take);
 	
 	public SearchResult listFavoriteExam(List<String> examIds);
+	
+	public SearchResult search(SearchExamRequest request);
 	
 	public void encreaseLikeNumber(String examId);
 	
 	public void decreaseLikeNumber(String examId);
+	
+	public Exam getExam(String id, int clientQueryMode);
 }

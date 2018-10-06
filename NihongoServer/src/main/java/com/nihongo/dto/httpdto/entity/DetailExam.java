@@ -10,14 +10,14 @@ import java.util.List;
 public class DetailExam {
 
 	protected String id;
+	private int point;
 	protected int level;
 	protected int likeNumber;
 	protected int takedNumber;
 	protected int completedMinutes;
-	private int point;
+	protected long updateTime;
 	protected boolean isFree;
 	protected boolean isTrial;
-	protected long updateTime;
 	protected List<ExamDTO> contents;
 
 	public String getId() {

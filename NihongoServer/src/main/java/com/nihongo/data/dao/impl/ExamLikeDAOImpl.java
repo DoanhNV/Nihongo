@@ -1,5 +1,8 @@
 package com.nihongo.data.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 
@@ -44,5 +47,16 @@ public class ExamLikeDAOImpl implements ExamLikeDAO {
 		DBObject query = ExamLikeConverter.prepareIsLikedExamQuery(userId, examId);
 		long recordNumber = examLikecollection.count(query);
 		return recordNumber != 0;
+	}
+
+	@Override
+	public List<String> listLikeExam(String userId) {
+		List<String> likeExamIds = new ArrayList<>();
+		DBObject query = ExamLikeConverter.prepareObjectId(userId);
+		DBObject examLikeObject = examLikecollection.findOne(query);
+		if (examLikeObject != null) {
+			likeExamIds = ExamLikeConverter.convertToExamLikeIds(examLikeObject);
+		}
+		return likeExamIds;
 	}
 }

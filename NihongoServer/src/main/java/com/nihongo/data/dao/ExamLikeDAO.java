@@ -1,5 +1,7 @@
 package com.nihongo.data.dao;
 
+import java.util.List;
+
 import com.mongodb.DB;
 import com.nihongo.config.mongo.MongoDBConnection;
 import com.nihongo.support.constant.mongo.MongoConfigInfo;
@@ -18,4 +20,6 @@ public interface ExamLikeDAO {
 	public boolean addExamToLikeList(String userId, String examId);
 	
 	public boolean removeExamFromLikeList(String userId, String examId);
+	
+	public List<String> listLikeExam(String userId);
 }

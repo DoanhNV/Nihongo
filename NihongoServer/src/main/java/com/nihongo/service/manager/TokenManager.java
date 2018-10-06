@@ -33,7 +33,7 @@ public class TokenManager {
 	}
 
 	public static boolean isExpiredToken(String token) {
-		if(TokenUtil.isValidToken(token)) {
+		if(!TokenUtil.isValidToken(token)) {
 			throw new AbstractNihongoException(ResponseCode.INVALID_TOKEN);
 		}
 		

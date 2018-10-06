@@ -27,7 +27,7 @@ import com.nihongo.support.constant.ResponseCode;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = API.USER.ROOT)
+@RequestMapping(value = API.USER_CONNECTION.ROOT)
 public class UserConnection {
 
 	@Autowired
@@ -37,7 +37,7 @@ public class UserConnection {
 	@Autowired
 	private ExamService examService;
 
-	@PutMapping(value = "/like")
+	@PutMapping(value = API.USER_CONNECTION.LIKE)
 	@ResponseBody
 	public ExamLikeResponse likeExam(@RequestBody ExamLikeRequest request) {
 		ExamLikeResponse response = new ExamLikeResponse();
@@ -53,7 +53,7 @@ public class UserConnection {
 		return response;
 	}
 	
-	@PutMapping(value = "/favorite")
+	@PutMapping(value = API.USER_CONNECTION.FAVORITE)
 	@ResponseBody
 	public ExamFavoriteResponse favoriteExam(@RequestBody ExamFavoriteRequest request) {
 		ExamFavoriteResponse response = new ExamFavoriteResponse();

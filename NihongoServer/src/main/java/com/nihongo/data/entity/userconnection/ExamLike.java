@@ -11,15 +11,14 @@ import com.nihongo.data.entity.AbstractEntity;
  */
 public class ExamLike extends AbstractEntity {
 
-	private String userId;
 	private List<String> examIds;
+	
+	public ExamLike() {
 
-	public String getUserId() {
-		return userId;
 	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+	
+	public ExamLike(List<String> examIds) {
+		this.examIds = examIds;
 	}
 
 	public List<String> getExamIds() {

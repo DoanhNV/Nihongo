@@ -31,8 +31,14 @@ public class ExamValidation implements Validation {
 			case API.EXAM.ROOT + API.EXAM.LIST:
 				validateResponse = validateListForClient(requestBody);
 				break;
+			case API.EXAM.ROOT + API.EXAM.LIST_FAVORITE:
+				break;
+			case API.EXAM.ROOT + API.EXAM.SEARCH:
+				break;
+			case API.EXAM.ROOT + API.EXAM.CREATE_RANDOM_EXAM:
+				break;
 			default:
-				validateResponse = validateGetDetail(requestUri);
+				validateResponse = validateGetRequest(requestUri);
 				break;
 		}
 		return validateResponse;
@@ -42,9 +48,11 @@ public class ExamValidation implements Validation {
 		ListExamRequest request = jsonMapper.readValue(requestBody, ListExamRequest.class);
 		float code = ResponseCode.SUCCESS;
 		final int queryAll = Constant.QUERY_PROPERTIES.QUERY_ALL;
-		final boolean isOutOfLevelRange = request.getLevel() != null && request.getLevel() < queryAll || Constant.LEVEL.N5 <  request.getLevel();
-		
-		if(request.getExamType() < queryAll || Constant.EXAM_TYPE.BEST_TAKED <  request.getExamType()) {
+		final boolean isOutOfExamTypeRange = request.getExamType() != null 
+												&& (request.getExamType() < queryAll || Constant.EXAM_TYPE.BEST_TAKED <  request.getExamType());
+		final boolean isOutOfLevelRange = request.getLevel() != null 
+												&& (request.getLevel() < queryAll || Constant.LEVEL.N5 <  request.getLevel());
+		if (isOutOfExamTypeRange) {
 			code = ResponseCode.OUT_OF_EXAM_TYPE_RANGE;
 		} else if (isOutOfLevelRange) {
 			code = ResponseCode.OUT_OF_LEVEL_RANGE;
@@ -70,6 +78,14 @@ public class ExamValidation implements Validation {
 		}
 		
 		return new AbstractNihongoResponse(code);
+	}
+	
+	public AbstractNihongoResponse validateGetRequest (String requestUri) throws JsonParseException, JsonMappingException, IOException {
+		AbstractNihongoResponse response = new AbstractNihongoResponse();
+		if(requestUri.contains(API.EXAM.ROOT + API.EXAM.DETAIL_ALIAS)) {
+			response = validateGetDetail(requestUri);
+		}
+		return response;
 	}
 	
 }

@@ -39,4 +39,9 @@ public class ResponseCode {
 	public static final float LEVEL_NOT_SETTING = 4.1f;
 	public static final float NOT_ENOUGH_QUESTION_PER_TOPIC = 4.2f;
 	public static final float EXAM_NOT_EXIST= 4.3f;
+	
+	/**
+	 * API code
+	 */
+	public static final float API_NOT_EXIST = 5.1f;
 }

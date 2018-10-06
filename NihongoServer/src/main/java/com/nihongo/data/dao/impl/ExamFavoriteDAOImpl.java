@@ -50,6 +50,8 @@ public class ExamFavoriteDAOImpl implements ExamFavoriteDAO {
 			if (listFavoriteExamId == null) {
 				return favoriteExamIds;
 			}
+			take = take > listFavoriteExamId.size() ? listFavoriteExamId.size() : take;
+			
 			List<Object> subListFavoriteExamId = listFavoriteExamId.subList(skip, take);
 			for (Object examId : subListFavoriteExamId) {
 				String favoriteExamId = (String) examId;

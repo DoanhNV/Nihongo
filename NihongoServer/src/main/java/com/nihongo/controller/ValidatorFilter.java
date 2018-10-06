@@ -37,9 +37,10 @@ public class ValidatorFilter extends GenericFilterBean {
 		StringBuilder requestBody = new StringBuilder((String) request.getAttribute(REQUEST_PROPERTIES.REQUEST_BODY));
 		String requestURI = httpServletRequest.getRequestURI();
 		String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
-		AbstractNihongoResponse validateResponse = NihongoFilter.validate(token, requestBody, requestURI);
 		response.setContentType(CONTENT_TYPE.APPLICATION_JSON);
-		httpServletRequest.setBody(requestBody.toString());
+		
+		AbstractNihongoResponse validateResponse = NihongoFilter.validate(token, requestBody, requestURI);
+		changeBodyAfterTransferFromHeader(httpServletRequest, requestBody.toString());
 		
 		if(validateResponse.getCode() == ResponseCode.SUCCESS) {
 			chain.doFilter(httpServletRequest, httpServletResponse);
@@ -47,5 +48,8 @@ public class ValidatorFilter extends GenericFilterBean {
 			response.getWriter().write(validateResponse.toJson().toJSONString());
 		}
 	}
-
+	
+	private void changeBodyAfterTransferFromHeader(MultiReadHttpServletRequest httpServletRequest, String requestBody) throws IOException {
+		httpServletRequest.setBody(requestBody);
+	}
 }

@@ -35,10 +35,12 @@ public class TokenUtil {
 		builder.claim(MongoDBKey.USER.PASSWORD, password);
 		
 		/*
-		long expireMillis = nowMillis + Constant.TOKEN.INTERVAL_EXPIRED_TIME;
+		final long BUFFER_EXPIRED_TOKEN = Constant.DATE_TIME.A_DAY;
+		long expireMillis = nowMillis + Constant.TOKEN.INTERVAL_EXPIRED_TIME + BUFFER_EXPIRED_TOKEN;
 		Date expireDate = new Date(expireMillis);
 		builder.setExpiration(expireDate);
 		*/
+		
 
 		// Builds the JWT and serializes it to a compact, URL-safe string
 		return builder.compact();

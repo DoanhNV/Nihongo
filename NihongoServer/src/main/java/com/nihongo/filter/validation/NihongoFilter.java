@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
+import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.filter.datatransfer.HeaderTransfer;
 import com.nihongo.service.manager.APIManager;
 import com.nihongo.service.manager.TokenManager;
@@ -34,6 +35,8 @@ public class NihongoFilter {
 		} catch (ExpiredJwtException e) {
 			TokenManager.removeToken(accessToken);
 			response.setCode(ResponseCode.EXPIRED_TOKEN);
+		} catch (AbstractNihongoException e) {
+			response.setCode(e.getCode());
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);

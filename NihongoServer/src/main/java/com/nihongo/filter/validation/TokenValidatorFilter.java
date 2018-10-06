@@ -1,6 +1,8 @@
 package com.nihongo.filter.validation;
 
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
+import com.nihongo.service.manager.TokenManager;
+import com.nihongo.support.constant.ResponseCode;
 
 /**
  * 

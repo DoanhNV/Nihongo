@@ -79,11 +79,12 @@ public class ExamDAOImpl implements ExamDAO {
 	}
 
 	@Override
-	public SearchResult listExam(Integer level, int examType, int skip, int take) {
+	public SearchResult listExam(Integer level, Integer examType, int skip, int take) {
 		List<AbstractDTO> datas = new ArrayList<>();
 		BasicDBObject queryObject = ExamConverter.prepareListExamObject(level);
 		BasicDBObject sortObject = null;
 		final int DESC_ORDER = 1;
+		examType = examType == null ? Constant.QUERY_PROPERTIES.QUERY_ALL : examType;
 		
 		switch (examType) {
 			case Constant.EXAM_TYPE.TRIAL:
