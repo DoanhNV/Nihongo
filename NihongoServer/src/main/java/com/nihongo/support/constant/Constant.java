@@ -115,6 +115,11 @@ public class Constant {
 		public static final String DEFAULT_AVATAR_URL = "";
 	}
 	
+	public class USER_TYPE {
+		public static final int ADMIN = 0;
+		public static final int NORMAL_USER = 1;
+	}
+	
 	public class LOGIN_TYPE {
 		public static final int BY_USER_NAME = 0;
 		public static final int BY_GMAIL = 1;

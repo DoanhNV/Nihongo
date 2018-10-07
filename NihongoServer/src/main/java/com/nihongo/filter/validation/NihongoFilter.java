@@ -13,6 +13,7 @@ import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.ResponseCode;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 
 /**
  * 
@@ -20,7 +21,7 @@ import io.jsonwebtoken.ExpiredJwtException;
  */
 public class NihongoFilter {
 	
-	public static AbstractNihongoResponse validate(String accessToken, StringBuilder requestBody, String requestURI, boolean isPreFlightRequest) throws JsonParseException, JsonMappingException, IOException {
+	public static AbstractNihongoResponse validate(String accessToken, StringBuilder requestBody, String requestURI) throws JsonParseException, JsonMappingException, IOException {
 		AbstractNihongoResponse response = new AbstractNihongoResponse();
 		requestBody = requestBody == null ? new StringBuilder(Constant.STRING_PROPERTIES.EMPTY) : requestBody;
 		try {
@@ -29,14 +30,13 @@ public class NihongoFilter {
 				String requestBodyString = transferHeaderParamToBody(accessToken, requestBody.toString(), requestURI);
 				clearAndReWriteBody(requestBody, requestBodyString);
 				
-				if (!isPreFlightRequest) {
-					Validation validatior = APIManager.getValidateFilter(requestURI);
-					response = validatior.validate(requestURI, requestBody.toString());
-				}
-			}
+				validateBackendRequest(requestURI, accessToken);
+				Validation validatior = APIManager.getValidateFilter(requestURI);
+				response = validatior.validate(requestURI, requestBody.toString());
+			}	
 		} catch (ExpiredJwtException e) {
 			TokenManager.removeToken(accessToken);
-			response.setCode(ResponseCode.EXPIRED_TOKEN);
+			response.setCode(ResponseCode.INVALID_TOKEN);
 		} catch (AbstractNihongoException e) {
 			response.setCode(e.getCode());
 		} catch (Exception e) {
@@ -45,7 +45,6 @@ public class NihongoFilter {
 		}
 		return response;
 	}
-
 	
 	private static String transferHeaderParamToBody(String accessToken, String requestBody, String requestURI) {
 		boolean isHeaderTransferParamAPI = APIManager.isHeaderTransferParamAPI(requestURI);
@@ -53,6 +52,12 @@ public class NihongoFilter {
 			requestBody = HeaderTransfer.tranferParamToBody(requestURI, accessToken, requestBody);
 		}
 		return requestBody;
+	}
+	
+	private static void validateBackendRequest(String requestURI, String accessToken) {
+		if(APIManager.isBackendAPI(requestURI) && !TokenManager.isAdminUser(accessToken)) {
+			throw new AbstractNihongoException(ResponseCode.ACCESS_DENY);
+		}
 	}
 	
 	private static void clearAndReWriteBody(StringBuilder requestBody, String requestBodyString) {

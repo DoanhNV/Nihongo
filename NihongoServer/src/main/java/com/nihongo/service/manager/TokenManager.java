@@ -7,7 +7,11 @@ import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.pojo.TokenKey;
 import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.ResponseCode;
+import com.nihongo.support.constant.mongo.MongoDBKey;
 import com.nihongo.support.util.TokenUtil;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.MalformedJwtException;
 
 /**
  * 
@@ -18,14 +22,14 @@ public class TokenManager {
 
 	private static TreeMap<TokenKey, Long> tokens = new TreeMap<TokenKey, Long>();
 
-	public static String createToken(String userId, String password) {
+	public static String createToken(String userId, String password, Boolean isAdmin) {
 		String token = existsTokenForUserId(tokens, userId);
 		boolean isExistTokenForUserId = token != null;
 		if(isExistTokenForUserId) {
 			return token;
 		}
 		
-		token = TokenUtil.createToken(userId, password);
+		token = TokenUtil.createToken(userId, password, isAdmin);
 		long nowMils = System.currentTimeMillis() + Constant.TOKEN.INTERVAL_EXPIRED_TIME;
 		TokenKey tokenKey = new TokenKey(userId, token);
 		tokens.put(tokenKey, nowMils);
@@ -50,6 +54,13 @@ public class TokenManager {
 		}
 		return isExpiredToken;
 	}
+	
+	public static boolean isAdminUser(String token) {
+		Claims claim = TokenUtil.parseToken(token);
+		Boolean isAdmin = (Boolean) claim.get(MongoDBKey.USER.IS_ADMIN);
+		isAdmin = isAdmin == null ? false : isAdmin;
+		return isAdmin;
+	}
 
 	public static void resetToken(String token) {
 		String userId = TokenUtil.getUserId(token);
@@ -59,9 +70,13 @@ public class TokenManager {
 	}
 
 	public static void removeToken(String token) {
-		String userId = TokenUtil.getUserId(token);
-		TokenKey tokenKey = new TokenKey(userId, token);
-		tokens.remove(tokenKey);
+		try {
+			String userId = TokenUtil.getUserId(token);
+			TokenKey tokenKey = new TokenKey(userId, token);
+			tokens.remove(tokenKey);
+		} catch (MalformedJwtException e) {
+			throw new AbstractNihongoException(ResponseCode.INVALID_TOKEN);
+		}
 	}
 	
 	/*=======================================================SUPPORT METHODs===================================================================*/

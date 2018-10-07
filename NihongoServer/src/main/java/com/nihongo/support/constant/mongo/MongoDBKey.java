@@ -53,6 +53,7 @@ public class MongoDBKey {
 		public static final String GMAIL = "gmail";
 		public static final String FACEBOOK_ID = "facebook_id";
 		public static final String BIRTHDAY = "birthday";
+		public static final String IS_ADMIN = "is_admin";
 	}
 	
 	public class EXAM_LIKE extends MongoDBKey {

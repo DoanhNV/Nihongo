@@ -41,8 +41,11 @@ public class ValidatorFilter extends GenericFilterBean {
 		response.setContentType(CONTENT_TYPE.APPLICATION_JSON);
 		
 		boolean isPreFlightRequest = isPreFlightRequest(httpServletRequest);
-		AbstractNihongoResponse validateResponse = NihongoFilter.validate(token, requestBody, requestURI, isPreFlightRequest);
-		changeBodyAfterTransferFromHeader(httpServletRequest, requestBody.toString());
+		AbstractNihongoResponse validateResponse = new AbstractNihongoResponse();
+		if (!isPreFlightRequest) {
+			validateResponse = NihongoFilter.validate(token, requestBody, requestURI);
+			changeBodyAfterTransferFromHeader(httpServletRequest, requestBody.toString());
+		}
 		
 		if(validateResponse.getCode() == ResponseCode.SUCCESS) {
 			chain.doFilter(httpServletRequest, httpServletResponse);

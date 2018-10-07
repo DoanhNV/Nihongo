@@ -31,13 +31,14 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		User registerUser = userDAO.createUser(user);
-		String accessToken = TokenManager.createToken(registerUser.getId(), registerUser.getPassword());
+		String accessToken = TokenManager.createToken(registerUser.getId(), registerUser.getPassword(), registerUser.isAdmin());
 		BasicLoginUser basicUser = new BasicLoginUser(registerUser.getId(), 
 																	accessToken, 
 																	registerUser.getFullName(),
 																	registerUser.getAvatarURL(), 
 																	registerUser.getLevel(), 
-																	registerUser.getPoint());
+																	registerUser.getPoint(),
+																	registerUser.isAdmin());
 		return basicUser;
 	}
 
@@ -62,13 +63,14 @@ public class UserServiceImpl implements UserService {
 			throw new AbstractNihongoException(ResponseCode.USER_NOT_EXIST);
 		}
 		
-		String accessToken = TokenManager.createToken(user.getId(), user.getPassword());
-		BasicLoginUser basicUser = new BasicLoginUser(user.getId(), 
-																	accessToken, 
-																	user.getFullName(),
+		String accessToken = TokenManager.createToken(user.getId(), user.getPassword(), user.isAdmin());
+		BasicLoginUser basicUser = new BasicLoginUser(user.getId(),
+															accessToken, 
+																user.getFullName(),
 																	user.getAvatarURL(), 
-																	user.getLevel(),
-																	user.getPoint());
+																		user.getLevel(),
+																			user.getPoint(),
+																				user.isAdmin());
 		return basicUser;
 	}
 	

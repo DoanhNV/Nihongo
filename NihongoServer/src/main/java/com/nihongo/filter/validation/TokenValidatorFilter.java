@@ -12,10 +12,10 @@ public class TokenValidatorFilter {
 
 	public static AbstractNihongoResponse validate(String token) {
 		AbstractNihongoResponse response = new AbstractNihongoResponse();
-		/*boolean isExpiredToken = TokenManager.isExpiredToken(token);
+		boolean isExpiredToken = TokenManager.isExpiredToken(token);
 		if(isExpiredToken) {
 			response = new AbstractNihongoResponse(ResponseCode.EXPIRED_TOKEN);
-		}*/
+		}
 		return response;
 	}
 }

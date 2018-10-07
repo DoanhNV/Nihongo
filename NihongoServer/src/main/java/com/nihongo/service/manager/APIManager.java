@@ -33,11 +33,13 @@ public class APIManager {
 	private static Map<String, Boolean> tokenAPIs = new TreeMap<>();
 	private static Map<String, Boolean> transferHeaderParamAPIMap = new TreeMap<>();
 	private static Map<String, Validation> validateAPIMap = new HashMap<>();
+	private static Map<String, Boolean> backendAPIMap = new HashMap<>();
 
 	static {
 		initTokenAPIMap();
 		initValidatorAPIMap();
 		initTransferHeaderParamAPIMap();
+		initBackendAPIMap();
 	}
 	
 	private static void initTokenAPIMap() {
@@ -48,11 +50,11 @@ public class APIManager {
 		tokenAPIs.put(SETTING.ROOT + SETTING.SET_EXAM_NUMBER, true);
 		
 		tokenAPIs.put(DOCUMENT.ROOT + DOCUMENT.CREATE, true);
-		tokenAPIs.put(DOCUMENT.ROOT + DOCUMENT.GET_BY_ID, true);
+		tokenAPIs.put(DOCUMENT.ROOT + DOCUMENT.GET_BY_ID_ALIAS, true);
 		tokenAPIs.put(DOCUMENT.ROOT + DOCUMENT.SEARCH, true);
 		tokenAPIs.put(DOCUMENT.ROOT + DOCUMENT.UPDATE, true);
 		
-		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.ROOT, true);
+		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.CREATE, true);
 		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.SEARCH, true);
 		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.LIST, true);
 		
@@ -74,6 +76,26 @@ public class APIManager {
 		transferHeaderParamAPIMap.put(USER_CONNECTION.ROOT + USER_CONNECTION.LIKE, true);
 		transferHeaderParamAPIMap.put(USER_CONNECTION.ROOT + USER_CONNECTION.FAVORITE, true);
 		transferHeaderParamAPIMap.put(EXAM.ROOT + EXAM.LIST_FAVORITE, true);
+	}
+	
+	private static void initBackendAPIMap() {
+		backendAPIMap.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.CREATE, true);
+		backendAPIMap.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.LIST, true);
+		backendAPIMap.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.SEARCH, true);
+		
+		backendAPIMap.put(FILE.ROOT + FILE.UPLOAD_BASE64, true);
+		backendAPIMap.put(FILE.ROOT+ FILE.LOAD_BASE64, true);
+		backendAPIMap.put(FILE.ROOT+ FILE.LOAD_BASE64, true);
+		
+		backendAPIMap.put(DOCUMENT.ROOT + DOCUMENT.CREATE, true);
+		backendAPIMap.put(DOCUMENT.ROOT + DOCUMENT.SEARCH, true);
+		backendAPIMap.put(DOCUMENT.ROOT + DOCUMENT.UPDATE, true);
+		
+		backendAPIMap.put(SETTING.ROOT + SETTING.LIST_EXAM_SETTING, true);
+		backendAPIMap.put(SETTING.ROOT + SETTING.SET_EXAM_NUMBER, true);
+		
+		backendAPIMap.put(EXAM.ROOT + EXAM.CREATE_RANDOM_EXAM, true);
+		backendAPIMap.put(EXAM.ROOT + EXAM.SEARCH, true);
 	}
 	
 	private static void initValidatorAPIMap() {
@@ -103,6 +125,14 @@ public class APIManager {
 		return validateAPIMap;
 	}
 	
+	private static String getAlias(String uri) {
+		final String DETAIL_ALIAS = API.EXAM.ROOT + API.EXAM.DETAIL_ALIAS;
+		if (uri.contains(DETAIL_ALIAS)) {
+			uri =  DETAIL_ALIAS;
+		}
+		return uri;
+	}
+	
 	public static boolean isTokenAPI(String uri) {
 		uri = getAlias(uri);
 		Boolean isTokenAPI = tokenAPIs.get(uri);
@@ -112,20 +142,28 @@ public class APIManager {
 		return isTokenAPI;
 	}
 	
-	private static String getAlias(String uri) {
-		final String DETAIL_ALIAS = API.EXAM.ROOT + API.EXAM.DETAIL_ALIAS;
-		if (uri.contains(DETAIL_ALIAS)) {
-			uri =  DETAIL_ALIAS;
-		}
-		return uri;
-	}
-	
 	public static boolean isHeaderTransferParamAPI(String uri) {
 		Boolean isHeaderTransferParamAPI = transferHeaderParamAPIMap.get(uri);
 		if (isHeaderTransferParamAPI == null) {
 			return false;
 		}
 		return isHeaderTransferParamAPI;
+	}
+	
+	public static boolean isBackendAPI(String uri) {
+		final String EXAM_UPDATE_BY_ID_ALIAS = EXAM.ROOT + EXAM.UPDATE_BY_ID_ALIAS;
+		final String EXAM_DETAIL_ALIAS = EXAM.ROOT + EXAM.DETAIL_ALIAS;
+		final String DOCUMENT_GET_BY_ID_ALIAS = DOCUMENT.ROOT + DOCUMENT.GET_BY_ID_ALIAS;
+		
+		if(uri.contains(EXAM_UPDATE_BY_ID_ALIAS) 
+				|| uri.contains(EXAM_DETAIL_ALIAS)
+				|| uri.contains(DOCUMENT_GET_BY_ID_ALIAS)) {
+			return true;
+		}
+		
+		Boolean isBackAPI = backendAPIMap.get(uri);
+		isBackAPI = isBackAPI == null ? false : isBackAPI;
+		return isBackAPI;
 	}
 
 	public static Validation getValidateFilter(String uri) {

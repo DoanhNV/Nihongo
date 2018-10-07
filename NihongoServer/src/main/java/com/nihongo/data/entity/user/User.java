@@ -19,6 +19,7 @@ public class User extends AbstractEntity {
 	private int level;
 	private int point;
 	private long createTime;
+	private boolean isAdmin;
 	
 	public User() {
 
@@ -119,5 +120,13 @@ public class User extends AbstractEntity {
 
 	public void setCreateTime(long createTime) {
 		this.createTime = createTime;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 }

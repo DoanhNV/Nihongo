@@ -21,7 +21,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 public class TokenUtil {
 
-	public static String createToken(String id, String password) {
+	public static String createToken(String id, String password, Boolean isAdmin) {
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 		byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(Constant.TOKEN.GENERATE_TOKEN_KEY);
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
@@ -32,7 +32,7 @@ public class TokenUtil {
 		JwtBuilder builder = Jwts.builder().setId(id).setIssuedAt(now).setSubject(Constant.TOKEN.LOGIN_SUBJECT)
 				.setIssuer(Constant.TOKEN.ISSUER).signWith(signingKey, signatureAlgorithm);
 
-		builder.claim(MongoDBKey.USER.PASSWORD, password);
+		builder.claim(MongoDBKey.USER.IS_ADMIN, isAdmin);
 		
 		/*
 		final long BUFFER_EXPIRED_TOKEN = Constant.DATE_TIME.A_DAY;

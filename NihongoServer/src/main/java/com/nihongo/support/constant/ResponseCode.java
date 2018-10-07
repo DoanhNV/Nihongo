@@ -44,4 +44,5 @@ public class ResponseCode {
 	 * API code
 	 */
 	public static final float API_NOT_EXIST = 5.1f;
+	public static final float ACCESS_DENY = 5.2f;
 }

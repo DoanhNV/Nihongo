@@ -16,6 +16,7 @@ public class API {
 		public static final String ROOT = "/document";
 		public static final String CREATE = "/create";
 		public static final String GET_BY_ID = "/get/{id}";
+		public static final String GET_BY_ID_ALIAS = "/get";
 		public static final String SEARCH = "/search";
 		public static final String UPDATE = "/update";
 	}
@@ -41,6 +42,7 @@ public class API {
 		public static final String DETAIL = "/detail/{id}/{clientQueryMode}";
 		public static final String DETAIL_ALIAS = "/detail/";
 		public static final String UPDATE_BY_ID = "/update/{id}";
+		public static final String UPDATE_BY_ID_ALIAS = "/update";
 		public static final String LIST = "/list"; 
 		public static final String LIST_FAVORITE = "/listFavorite";
 	}

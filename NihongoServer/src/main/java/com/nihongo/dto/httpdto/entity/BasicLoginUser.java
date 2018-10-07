@@ -1,5 +1,7 @@
 package com.nihongo.dto.httpdto.entity;
 
+import com.nihongo.support.constant.Constant;
+
 public class BasicLoginUser {
 	
 	private String id;
@@ -8,18 +10,20 @@ public class BasicLoginUser {
 	private String avatarURL;
 	private int level;
 	private int point;
+	private int userType;
 	
 	public BasicLoginUser() {
 
 	}
 
-	public BasicLoginUser(String id, String accessToken, String fullName, String avatarURL, int level, int point) {
+	public BasicLoginUser(String id, String accessToken, String fullName, String avatarURL, int level, int point, boolean isAdmin) {
 		this.id = id;
 		this.accessToken = accessToken;
 		this.fullName = fullName;
 		this.avatarURL = avatarURL;
 		this.level = level;
 		this.point = point;
+		this.userType = isAdmin ? Constant.USER_TYPE.ADMIN : Constant.USER_TYPE.NORMAL_USER;
 	}
 
 	public String getId() {
@@ -68,5 +72,13 @@ public class BasicLoginUser {
 
 	public void setPoint(int point) {
 		this.point = point;
+	}
+
+	public int getUserType() {
+		return userType;
+	}
+
+	public void setUserType(int userType) {
+		this.userType = userType;
 	}
 }

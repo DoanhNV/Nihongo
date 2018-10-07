@@ -71,6 +71,8 @@ public class UserConverter {
 		Integer point = (Integer) userObject.get(POINT);
 		String avatarURL = (String) userObject.get(AVATAR_URL);
 		String password = (String) userObject.get(PASSWORD);
+		Boolean isAdmin = (Boolean) userObject.get(IS_ADMIN);
+		isAdmin = isAdmin == null ? false : isAdmin;
 		
 		User user = new User(userId);
 		user.setFullName(fullName);
@@ -78,6 +80,7 @@ public class UserConverter {
 		user.setPoint(point);
 		user.setAvatarURL(avatarURL);
 		user.setPassword(password);
+		user.setAdmin(isAdmin);
 		return user;
 	}
 }
