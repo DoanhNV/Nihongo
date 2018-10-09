@@ -1,6 +1,7 @@
 package com.nihongo.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -38,7 +39,6 @@ public class ValidatorFilter extends GenericFilterBean {
 		StringBuilder requestBody = new StringBuilder((String) request.getAttribute(REQUEST_PROPERTIES.REQUEST_BODY));
 		String requestURI = httpServletRequest.getRequestURI();
 		String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
-		response.setContentType(CONTENT_TYPE.APPLICATION_JSON);
 		
 		boolean isPreFlightRequest = isPreFlightRequest(httpServletRequest);
 		AbstractNihongoResponse validateResponse = new AbstractNihongoResponse();
@@ -50,7 +50,12 @@ public class ValidatorFilter extends GenericFilterBean {
 		if(validateResponse.getCode() == ResponseCode.SUCCESS) {
 			chain.doFilter(httpServletRequest, httpServletResponse);
 		} else {
-			response.getWriter().write(validateResponse.toJson().toJSONString());
+			PrintWriter writer = httpServletResponse.getWriter();
+			httpServletResponse.setContentType(CONTENT_TYPE.APPLICATION_JSON);
+			httpServletResponse.setCharacterEncoding(Constant.ENCODING.UTF_8);
+			writer.write(validateResponse.toJson().toJSONString());
+			//writer.print(validateResponse.toJson().toJSONString());
+			writer.flush();
 		}
 	}
 	

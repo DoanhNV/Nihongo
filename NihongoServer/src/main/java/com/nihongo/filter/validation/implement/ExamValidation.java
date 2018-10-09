@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nihongo.dto.httpdto.request.ListExamRequest;
@@ -21,7 +22,7 @@ import static com.nihongo.support.util.ValidatorUtil.*;
  */
 public class ExamValidation implements Validation {
 	
-	private ObjectMapper jsonMapper = new ObjectMapper();
+	private ObjectMapper jsonMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 	@Override
 	public AbstractNihongoResponse validate(String requestUri, String requestBody) throws JsonParseException, JsonMappingException, IOException {
