@@ -60,6 +60,7 @@ public class TokenUtil {
 				.requireIssuer(Constant.TOKEN.ISSUER)
 				.parseClaimsJws(jwt);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 		return true;

@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import com.nihongo.controller.function.UserConnection;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.filter.validation.Validation;
 import com.nihongo.filter.validation.implement.DocumentValidation;
@@ -66,9 +65,11 @@ public class APIManager {
 		tokenAPIs.put(EXAM.ROOT + EXAM.DETAIL_ALIAS, true);
 		tokenAPIs.put(EXAM.ROOT + EXAM.UPDATE_BY_ID, true);
 		tokenAPIs.put(EXAM.ROOT + EXAM.LIST, true);
+		tokenAPIs.put(EXAM.ROOT + EXAM.LIST_FAVORITE, true);
 		
 		tokenAPIs.put(USER.ROOT + USER.REGISTER, false);
 		tokenAPIs.put(USER.ROOT + USER.LOGIN, false);
+		tokenAPIs.put(USER.ROOT + USER.LOGOUT, true);
 		
 		tokenAPIs.put(USER_CONNECTION.ROOT + USER_CONNECTION.LIKE, true);
 		tokenAPIs.put(USER_CONNECTION.ROOT + USER_CONNECTION.FAVORITE, true);
@@ -78,6 +79,7 @@ public class APIManager {
 		transferHeaderParamAPIMap.put(USER_CONNECTION.ROOT + USER_CONNECTION.LIKE, true);
 		transferHeaderParamAPIMap.put(USER_CONNECTION.ROOT + USER_CONNECTION.FAVORITE, true);
 		transferHeaderParamAPIMap.put(EXAM.ROOT + EXAM.LIST_FAVORITE, true);
+		transferHeaderParamAPIMap.put(USER.ROOT + USER.LOGOUT, true);
 	}
 	
 	private static void initBackendAPIMap() {

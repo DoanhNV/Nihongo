@@ -22,16 +22,18 @@ public class HeaderTransfer {
 	
 	private static JsonParser jsonParser = JsonParserFactory.getJsonParser();
 	
-	public static String tranferParamToBody(String reuqestURI, String accessToken, String requestBody) {
-		if(reuqestURI.equals(USER_CONNECTION.ROOT + USER_CONNECTION.LIKE)
-				|| reuqestURI.equals(USER_CONNECTION.ROOT + USER_CONNECTION.FAVORITE)
-				|| reuqestURI.equals(EXAM.ROOT + EXAM.LIST_FAVORITE)) {
+	public static String tranferParamToBody(String requestURI, String accessToken, String requestBody) {
+		if(requestURI.equals(USER_CONNECTION.ROOT + USER_CONNECTION.LIKE)
+				|| requestURI.equals(USER_CONNECTION.ROOT + USER_CONNECTION.FAVORITE)
+				|| requestURI.equals(EXAM.ROOT + EXAM.LIST_FAVORITE)) {
 			requestBody = tranferUserIdToBody(accessToken, requestBody);
+		} else if (requestURI.equals(USER.ROOT + USER.LOGOUT)) {
+			requestBody = transferTokenToBody(accessToken);
 		}
 		return requestBody;
 	}
 	
-	public static String tranferUserIdToBody(String accessToken, String requestBody) {
+	private static String tranferUserIdToBody(String accessToken, String requestBody) {
 		Map<String, Object> requestBodyAttribuetMap = jsonParser.parseMap(requestBody);
 		Claims tokenClaim = TokenUtil.parseToken(accessToken);
 		
@@ -41,4 +43,11 @@ public class HeaderTransfer {
 		JSONObject jsonBody = new JSONObject(requestBodyAttribuetMap);
 		return jsonBody.toJSONString();
 	}
+	
+	@SuppressWarnings("unchecked")
+	private static String transferTokenToBody(String accessToken) {
+		JSONObject jsonRequest = new JSONObject();
+		jsonRequest.put(FilterTransferParam.TOKEN, accessToken);
+		return jsonRequest.toJSONString();
+	} 
 }

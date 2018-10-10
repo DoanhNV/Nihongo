@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nihongo.dto.httpdto.LoginResponse;
 import com.nihongo.dto.httpdto.entity.BasicLoginUser;
 import com.nihongo.dto.httpdto.request.LoginRequest;
+import com.nihongo.dto.httpdto.request.LogoutRequest;
 import com.nihongo.dto.httpdto.request.RegisterRequest;
+import com.nihongo.dto.httpdto.response.LogoutResponse;
 import com.nihongo.dto.httpdto.response.RegisterResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.UserService;
@@ -60,5 +62,20 @@ public class UserController {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
 		}
 		return response;
-	} 
+	}
+	
+	@PostMapping(value = API.USER.LOGOUT)
+	@ResponseBody
+	public LogoutResponse logout(@RequestBody LogoutRequest request) {
+		LogoutResponse response = new LogoutResponse();
+		try {
+			userService.logout(request.getToken());
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
 }

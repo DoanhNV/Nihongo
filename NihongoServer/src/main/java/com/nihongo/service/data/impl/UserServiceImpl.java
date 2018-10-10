@@ -73,6 +73,9 @@ public class UserServiceImpl implements UserService {
 																				user.isAdmin());
 		return basicUser;
 	}
-	
-	
+
+	@Override
+	public void logout(String token) {
+		TokenManager.removeToken(token);
+	}
 }

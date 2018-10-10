@@ -2,6 +2,10 @@ package com.nihongo.filter.validation.implement;
 
 import java.io.IOException;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -12,7 +16,9 @@ import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.filter.validation.Validation;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.support.constant.API.*;
+import com.nihongo.support.util.TokenUtil;
 import com.nihongo.support.constant.Constant;
+import com.nihongo.support.constant.FilterTransferParam;
 
 /**
  * 
@@ -24,7 +30,7 @@ public class UserValidation implements Validation {
 	private ObjectMapper jsonMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 	@Override
-	public AbstractNihongoResponse validate(String requestUri, String requestBody) throws JsonParseException, JsonMappingException, IOException {
+	public AbstractNihongoResponse validate(String requestUri, String requestBody) throws JsonParseException, JsonMappingException, IOException, ParseException {
 		AbstractNihongoResponse validateResponse = new AbstractNihongoResponse();
 
 		switch (requestUri) {
@@ -33,6 +39,9 @@ public class UserValidation implements Validation {
 				break;
 			case USER.ROOT + USER.LOGIN:
 				validateResponse = validateLogin(requestBody);
+				break;
+			case USER.ROOT + USER.LOGOUT:
+				validateResponse = validateLogout(requestBody);
 				break;
 		}
 		return validateResponse;
@@ -65,6 +74,16 @@ public class UserValidation implements Validation {
 			code = ResponseCode.OUT_OF_LEVEL_RANGE;
 		} else if(request.getLoginType() < Constant.LOGIN_TYPE.BY_USER_NAME || Constant.LOGIN_TYPE.BY_FACEBOOK < request.getLoginType()) {
 			code = ResponseCode.OUT_OF_LOGIN_TYPE_RANGE;
+		}
+		return new AbstractNihongoResponse(code);
+	}
+	
+	public AbstractNihongoResponse validateLogout(String requestBody) throws JsonParseException, JsonMappingException, java.io.IOException, ParseException {
+		float code = ResponseCode.SUCCESS;
+		JSONObject jsonRequest = (JSONObject) new JSONParser().parse(requestBody);
+		String token = (String) jsonRequest.get(FilterTransferParam.TOKEN);
+		if (!TokenUtil.isValidToken(token)) {
+			code = ResponseCode.INVALID_TOKEN;
 		}
 		return new AbstractNihongoResponse(code);
 	}

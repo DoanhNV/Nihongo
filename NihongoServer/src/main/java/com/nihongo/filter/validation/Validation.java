@@ -2,6 +2,8 @@ package com.nihongo.filter.validation;
 
 import java.io.IOException;
 
+import org.json.simple.parser.ParseException;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
@@ -12,5 +14,5 @@ import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
  */
 public interface Validation {
 	
-	public AbstractNihongoResponse validate(String requestUri, String requestBody)  throws JsonParseException, JsonMappingException, IOException;
+	public AbstractNihongoResponse validate(String requestUri, String requestBody)  throws JsonParseException, JsonMappingException, IOException, ParseException;
 }

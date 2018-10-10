@@ -13,7 +13,6 @@ import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.ResponseCode;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
 
 /**
  * 
