@@ -26,6 +26,8 @@ public class ResponseCode {
 	public static final float OUT_OF_LOGIN_TYPE_RANGE = 2.8f;
 	public static final float OUT_OF_EXAM_TYPE_RANGE = 2.9f;
 	public static final float INVALID_CLIENT_QUERY_MODE = 2.11f;
+	public static final float INVALID_USER_ID = 2.12f;
+	public static final float INVALID_EXAM_ID = 2.13f;
 	
 	/**
 	 * File code

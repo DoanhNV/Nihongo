@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import com.nihongo.controller.function.UserConnection;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.filter.validation.Validation;
 import com.nihongo.filter.validation.implement.DocumentValidation;
@@ -12,6 +13,7 @@ import com.nihongo.filter.validation.implement.ExamValidation;
 import com.nihongo.filter.validation.implement.FileValidation;
 import com.nihongo.filter.validation.implement.MCQQuestionValidation;
 import com.nihongo.filter.validation.implement.SettingValidation;
+import com.nihongo.filter.validation.implement.UserConnectionValidation;
 import com.nihongo.filter.validation.implement.UserValidation;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.API.DOCUMENT;
@@ -111,9 +113,11 @@ public class APIManager {
 				validateAPIMap.put(MCQ_QUESTION.ROOT, new MCQQuestionValidation());
 			}  else if (uri.contains(EXAM.ROOT)) {
 				validateAPIMap.put(EXAM.ROOT, new ExamValidation());
+			} else if (uri.contains(USER_CONNECTION.ROOT)) {
+				validateAPIMap.put(USER_CONNECTION.ROOT, new UserConnectionValidation());
 			}  else if (uri.contains(USER.ROOT)) {
 				validateAPIMap.put(USER.ROOT, new UserValidation());
-			}
+			} 
 		}
 	}
 
@@ -178,6 +182,8 @@ public class APIManager {
 			validation = validateAPIMap.get(MCQ_QUESTION.ROOT);
 		}  else if (uri.contains(EXAM.ROOT)) {
 			validation = validateAPIMap.get(EXAM.ROOT);
+		}  else if (uri.contains(USER_CONNECTION.ROOT)) {
+			validation = validateAPIMap.get(USER_CONNECTION.ROOT);
 		}  else if (uri.contains(USER.ROOT)) {
 			validation = validateAPIMap.get(USER.ROOT);
 		}

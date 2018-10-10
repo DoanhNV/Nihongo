@@ -8,11 +8,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nihongo.dto.httpdto.request.ListExamRequest;
+import com.nihongo.dto.httpdto.request.ListFavoriteExamRequest;
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.filter.validation.Validation;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.ResponseCode;
+import com.nihongo.support.util.ValidatorUtil;
+
 import static com.nihongo.support.util.ValidatorUtil.*;
 
 /**
@@ -22,7 +25,7 @@ import static com.nihongo.support.util.ValidatorUtil.*;
  */
 public class ExamValidation implements Validation {
 	
-	private ObjectMapper jsonMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	private ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 	@Override
 	public AbstractNihongoResponse validate(String requestUri, String requestBody) throws JsonParseException, JsonMappingException, IOException {
@@ -33,6 +36,7 @@ public class ExamValidation implements Validation {
 				validateResponse = validateListForClient(requestBody);
 				break;
 			case API.EXAM.ROOT + API.EXAM.LIST_FAVORITE:
+				validateListFavoriteRequest(requestBody);
 				break;
 			case API.EXAM.ROOT + API.EXAM.SEARCH:
 				break;
@@ -46,7 +50,7 @@ public class ExamValidation implements Validation {
 	}
 
 	private AbstractNihongoResponse validateListForClient(String requestBody) throws JsonParseException, JsonMappingException, IOException {
-		ListExamRequest request = jsonMapper.readValue(requestBody, ListExamRequest.class);
+		ListExamRequest request = objectMapper.readValue(requestBody, ListExamRequest.class);
 		float code = ResponseCode.SUCCESS;
 		final int queryAll = Constant.QUERY_PROPERTIES.QUERY_ALL;
 		final boolean isOutOfExamTypeRange = request.getExamType() != null 
@@ -81,10 +85,22 @@ public class ExamValidation implements Validation {
 		return new AbstractNihongoResponse(code);
 	}
 	
-	public AbstractNihongoResponse validateGetRequest (String requestUri) throws JsonParseException, JsonMappingException, IOException {
+	private AbstractNihongoResponse validateGetRequest (String requestUri) throws JsonParseException, JsonMappingException, IOException {
 		AbstractNihongoResponse response = new AbstractNihongoResponse();
 		if(requestUri.contains(API.EXAM.ROOT + API.EXAM.DETAIL_ALIAS)) {
 			response = validateGetDetail(requestUri);
+		}
+		return response;
+	}
+	
+	private AbstractNihongoResponse validateListFavoriteRequest( String requestBody) throws JsonParseException, JsonMappingException, IOException {
+		AbstractNihongoResponse response = new AbstractNihongoResponse();
+		ListFavoriteExamRequest listFavoriteExamRequest = objectMapper.readValue(requestBody, ListFavoriteExamRequest.class);
+		
+		if (listFavoriteExamRequest.getUserId() == null 
+				|| listFavoriteExamRequest.getUserId().isEmpty() 
+					|| !ValidatorUtil.isValidObjectId(listFavoriteExamRequest.getUserId())) {
+			response.setCode(ResponseCode.INVALID_USER_ID);
 		}
 		return response;
 	}
