@@ -158,11 +158,9 @@ public class APIManager {
 	
 	public static boolean isBackendAPI(String uri) {
 		final String EXAM_UPDATE_BY_ID_ALIAS = EXAM.ROOT + EXAM.UPDATE_BY_ID_ALIAS;
-		final String EXAM_DETAIL_ALIAS = EXAM.ROOT + EXAM.DETAIL_ALIAS;
 		final String DOCUMENT_GET_BY_ID_ALIAS = DOCUMENT.ROOT + DOCUMENT.GET_BY_ID_ALIAS;
 		
 		if(uri.contains(EXAM_UPDATE_BY_ID_ALIAS) 
-				|| uri.contains(EXAM_DETAIL_ALIAS)
 				|| uri.contains(DOCUMENT_GET_BY_ID_ALIAS)) {
 			return true;
 		}
