@@ -5,6 +5,8 @@ import static com.nihongo.support.constant.Constant.MAX_TOPIC_NUMBER;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.data.entity.other.transfer.SearchResult;
 import com.nihongo.dto.httpdto.entity.BasicExam;
+import com.nihongo.dto.httpdto.entity.DetailEndUserExam;
 import com.nihongo.dto.httpdto.entity.DetailExam;
 import com.nihongo.dto.httpdto.entity.RandomExamDTO;
 import com.nihongo.dto.httpdto.request.ListExamRequest;
@@ -32,8 +35,11 @@ import com.nihongo.dto.httpdto.response.DetailExamResponse;
 import com.nihongo.dto.httpdto.response.RandomCreateExamResponse;
 import com.nihongo.dto.httpdto.response.RandomExamResponse;
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.service.data.ExamFavoriteService;
+import com.nihongo.service.data.ExamLikeService;
 import com.nihongo.service.data.ExamService;
 import com.nihongo.support.constant.API;
+import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.support.util.EntityUtil;
 import com.nihongo.support.util.NihongoUtil;
@@ -49,6 +55,10 @@ public class ExamController {
 	
 	@Autowired
 	private ExamService examService;
+	@Autowired
+	private ExamLikeService examLikeService;
+	@Autowired
+	private ExamFavoriteService examFavoriteService;
 	
 	@GetMapping(value = API.EXAM.GET_RANDOM_EXAM)
 	@ResponseBody
@@ -99,10 +109,18 @@ public class ExamController {
 	
 	@GetMapping(value = API.EXAM.DETAIL)
 	@ResponseBody
-	public DetailExamResponse getDetail(@PathVariable String id, @PathVariable int clientQueryMode) {
+	public DetailExamResponse getDetail(@PathVariable String id, @PathVariable int clientQueryMode, HttpServletRequest request) {
 		DetailExamResponse response = new DetailExamResponse();
 		try {
 			DetailExam detailExam = examService.getDetail(id, clientQueryMode);
+			boolean isNormalUserRequest = clientQueryMode != Constant.CLIENT_QUERY_MODE.BACKEND_MODE;
+			
+			if (isNormalUserRequest) {
+				String userId = (String) request.getAttribute("userId");
+				DetailEndUserExam  endUserDetailExam = (DetailEndUserExam) detailExam;
+				examLikeService.processLikeStatus(userId, endUserDetailExam);
+				examFavoriteService.processFavoriteStatus(userId, endUserDetailExam);
+			}
 			response.setResponseData(ResponseCode.SUCCESS, detailExam);
 		}  catch (AbstractNihongoException e) {
 			e.printStackTrace();
@@ -140,6 +158,7 @@ public class ExamController {
 															request.getExamType(), 
 																request.getSkip(), 
 																	request.getTake());
+			examLikeService.processLikeStatus(request.getUserId(), exams.getDatas());
 			response.setDatas(exams.getDatas());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
@@ -157,6 +176,7 @@ public class ExamController {
 		ListExamResponse response = new ListExamResponse();
 		try {
 			SearchResult exams = examService.listFavoriteExam(request.getUserId(), request.getSkip(), request.getTake());
+			examLikeService.processLikeStatus(request.getUserId(), exams.getDatas());
 			response.setDatas(exams.getDatas());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());

@@ -8,6 +8,7 @@ package com.nihongo.dto.httpdto.entity;
 public class DetailEndUserExam extends DetailExam {
 	
 	private boolean isFavrited;
+	private boolean isLiked;
 	
 	public boolean getIsFavrited() {
 		return isFavrited;
@@ -15,5 +16,13 @@ public class DetailEndUserExam extends DetailExam {
 
 	public void setFavrited(boolean isFavrited) {
 		this.isFavrited = isFavrited;
+	}
+
+	public boolean getIsLiked() {
+		return isLiked;
+	}
+
+	public void setLiked(boolean isLiked) {
+		this.isLiked = isLiked;
 	}
 }

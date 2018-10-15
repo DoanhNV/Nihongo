@@ -80,6 +80,8 @@ public class APIManager {
 		transferHeaderParamAPIMap.put(USER_CONNECTION.ROOT + USER_CONNECTION.FAVORITE, true);
 		transferHeaderParamAPIMap.put(EXAM.ROOT + EXAM.LIST_FAVORITE, true);
 		transferHeaderParamAPIMap.put(USER.ROOT + USER.LOGOUT, true);
+		transferHeaderParamAPIMap.put(EXAM.ROOT + EXAM.LIST, true);
+		transferHeaderParamAPIMap.put(EXAM.ROOT + EXAM.DETAIL_ALIAS, true);
 	}
 	
 	private static void initBackendAPIMap() {
@@ -149,6 +151,11 @@ public class APIManager {
 	}
 	
 	public static boolean isHeaderTransferParamAPI(String uri) {
+		final String DETAIL_ALIAS = API.EXAM.ROOT + API.EXAM.DETAIL_ALIAS;
+		if(uri.contains(DETAIL_ALIAS)) {
+			uri = DETAIL_ALIAS;
+		}
+		
 		Boolean isHeaderTransferParamAPI = transferHeaderParamAPIMap.get(uri);
 		if (isHeaderTransferParamAPI == null) {
 			return false;

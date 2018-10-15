@@ -25,7 +25,8 @@ public class HeaderTransfer {
 	public static String tranferParamToBody(String requestURI, String accessToken, String requestBody) {
 		if(requestURI.equals(USER_CONNECTION.ROOT + USER_CONNECTION.LIKE)
 				|| requestURI.equals(USER_CONNECTION.ROOT + USER_CONNECTION.FAVORITE)
-				|| requestURI.equals(EXAM.ROOT + EXAM.LIST_FAVORITE)) {
+				|| requestURI.equals(EXAM.ROOT + EXAM.LIST_FAVORITE)
+				|| requestURI.equals(EXAM.ROOT + EXAM.LIST)) {
 			requestBody = tranferUserIdToBody(accessToken, requestBody);
 		} else if (requestURI.equals(USER.ROOT + USER.LOGOUT)) {
 			requestBody = transferTokenToBody(accessToken);

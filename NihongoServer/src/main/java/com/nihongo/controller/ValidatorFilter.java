@@ -16,9 +16,12 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.filter.validation.NihongoFilter;
+import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.Constant;
+import com.nihongo.support.constant.FilterTransferParam;
 import com.nihongo.support.constant.Constant.CONTENT_TYPE;
 import com.nihongo.support.constant.Constant.REQUEST_PROPERTIES;
+import com.nihongo.support.util.TokenUtil;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.techhelper.MultiReadHttpServletRequest;
 
@@ -44,7 +47,10 @@ public class ValidatorFilter extends GenericFilterBean {
 		AbstractNihongoResponse validateResponse = new AbstractNihongoResponse();
 		if (!isPreFlightRequest) {
 			validateResponse = NihongoFilter.validate(token, requestBody, requestURI);
-			changeBodyAfterTransferFromHeader(httpServletRequest, requestBody.toString());
+			if (validateResponse.getCode() == ResponseCode.SUCCESS) {
+				transferParamForGetRequest(httpServletRequest);
+				changeBodyAfterTransferFromHeader(httpServletRequest, requestBody.toString());
+			}
 		}
 		
 		if(validateResponse.getCode() == ResponseCode.SUCCESS) {
@@ -68,5 +74,15 @@ public class ValidatorFilter extends GenericFilterBean {
 		String method = httpServletRequest.getMethod();
 		String contentType = httpServletRequest.getContentType();
 		return method.equals(PREFLIGHT_METHOD) && contentType == null;
+	}
+	
+	private void transferParamForGetRequest(MultiReadHttpServletRequest httpServletRequest) {
+		String requestURI = httpServletRequest.getRequestURI();
+		final String DETAIL_ALIAS = API.EXAM.ROOT + API.EXAM.DETAIL_ALIAS;
+		if(requestURI.contains(DETAIL_ALIAS)) {
+			String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
+			String userId = TokenUtil.getUserId(token);
+			httpServletRequest.setAttribute(FilterTransferParam.USER_ID, userId);
+		}
 	}
 }

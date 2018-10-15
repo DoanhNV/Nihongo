@@ -1,13 +1,10 @@
 package com.nihongo.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +37,5 @@ public class SuperFilter extends GenericFilterBean {
 		multipleRequest.setAttribute(Constant.REQUEST_PROPERTIES.REQUEST_BODY, requestBody);
 		
 		chain.doFilter(multipleRequest, httpServletResponse);
-		
-		ServletOutputStream outputStream = httpServletResponse.getOutputStream();
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 	}
 }

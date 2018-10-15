@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nihongo.data.dao.ExamFavoriteDAO;
+import com.nihongo.dto.httpdto.entity.DetailEndUserExam;
 import com.nihongo.service.data.ExamFavoriteService;
 
 /**
@@ -24,6 +25,14 @@ public class ExamFavoriteServiceImpl implements ExamFavoriteService {
 			examFavoriteDAO.removeExamFromFavoriteList(userId, examId);
 		} else {
 			examFavoriteDAO.addExamToFavoriteList(userId, examId);
+		}
+	}
+
+	@Override
+	public void processFavoriteStatus(String userId, DetailEndUserExam exam) {
+		boolean isFavorited = examFavoriteDAO.isFavorited(userId, exam.getId());
+		if (isFavorited) {
+			exam.setFavrited(true);
 		}
 	}
 }

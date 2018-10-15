@@ -6,11 +6,20 @@ package com.nihongo.dto.httpdto.request;
  *
  */
 public class ListExamRequest extends AbstractNihongoRequest {
-
+	
+	private String userId;
 	private Integer level;
 	private Integer examType;
 	private int skip;
 	private int take;
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public Integer getLevel() {
 		return level;
