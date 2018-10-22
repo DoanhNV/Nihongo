@@ -30,6 +30,8 @@ public class HeaderTransfer {
 			requestBody = tranferUserIdToBody(accessToken, requestBody);
 		} else if (requestURI.equals(USER.ROOT + USER.LOGOUT)) {
 			requestBody = transferTokenToBody(accessToken);
+		} else if (requestURI.equals(USER.ROOT + USER.INFO)) {
+			requestBody = tranferRequestUserIdToBody(accessToken, requestBody);
 		}
 		return requestBody;
 	}
@@ -40,6 +42,21 @@ public class HeaderTransfer {
 		
 		String userId = tokenClaim.getId();
 		requestBodyAttribuetMap.put(FilterTransferParam.USER_ID, userId);
+		
+		JSONObject jsonBody = new JSONObject(requestBodyAttribuetMap);
+		return jsonBody.toJSONString();
+	}
+	
+	private static String tranferRequestUserIdToBody(String accessToken, String requestBody) {
+		Map<String, Object> requestBodyAttribuetMap = jsonParser.parseMap(requestBody);
+		String requestUserId = (String) requestBodyAttribuetMap.get(FilterTransferParam.REQUEST_USER_ID);
+		boolean isGetMyInfo = requestUserId == null || requestUserId.isEmpty();
+		
+		if (isGetMyInfo) {
+			Claims tokenClaim = TokenUtil.parseToken(accessToken);
+			String userId = tokenClaim.getId();
+			requestBodyAttribuetMap.put(FilterTransferParam.REQUEST_USER_ID, userId);
+		}
 		
 		JSONObject jsonBody = new JSONObject(requestBodyAttribuetMap);
 		return jsonBody.toJSONString();

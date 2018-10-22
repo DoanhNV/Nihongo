@@ -8,5 +8,6 @@ package com.nihongo.support.constant;
 public class FilterTransferParam {
 	
 	public static final String USER_ID = "userId";
+	public static final String REQUEST_USER_ID = "requestUserId";
 	public static final String TOKEN = "token";
 }

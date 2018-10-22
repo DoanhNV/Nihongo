@@ -78,4 +78,17 @@ public class UserServiceImpl implements UserService {
 	public void logout(String token) {
 		TokenManager.removeToken(token);
 	}
+
+	@Override
+	public BasicLoginUser getBasicUserInfo(String requestUserId) {
+		User user = userDAO.getBasicUserInfo(requestUserId);
+		BasicLoginUser basicUser = new BasicLoginUser(user.getId(),
+														null, 
+															user.getFullName(),
+																user.getAvatarURL(), 
+																	user.getLevel(),
+																		user.getPoint(),
+																			user.isAdmin());
+		return basicUser;
+	}
 }

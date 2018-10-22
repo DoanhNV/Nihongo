@@ -20,7 +20,7 @@ public class BasicLoginUser {
 		this.id = id;
 		this.accessToken = accessToken;
 		this.fullName = fullName;
-		this.avatarURL = avatarURL;
+		this.setAvatarURL(avatarURL);
 		this.level = level;
 		this.point = point;
 		this.userType = isAdmin ? Constant.USER_TYPE.ADMIN : Constant.USER_TYPE.NORMAL_USER;
@@ -55,7 +55,8 @@ public class BasicLoginUser {
 	}
 
 	public void setAvatarURL(String avatarURL) {
-		this.avatarURL = avatarURL;
+		boolean isUpdatedAvatar = avatarURL != null && !avatarURL.isEmpty(); 
+		this.avatarURL = isUpdatedAvatar ? avatarURL : Constant.USER.DEFAULT_AVATAR_URL;
 	}
 
 	public int getLevel() {

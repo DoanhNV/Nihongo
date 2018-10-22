@@ -112,7 +112,7 @@ public class Constant {
 	}
 	
 	public class USER {
-		public static final String DEFAULT_AVATAR_URL = "";
+		public static final String DEFAULT_AVATAR_URL = "/opt/image/default/avatar/nihongouser.png";
 	}
 	
 	public class USER_TYPE {

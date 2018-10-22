@@ -17,6 +17,7 @@ import com.nihongo.filter.validation.Validation;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.support.constant.API.*;
 import com.nihongo.support.util.TokenUtil;
+import com.nihongo.support.util.ValidatorUtil;
 import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.FilterTransferParam;
 
@@ -42,6 +43,9 @@ public class UserValidation implements Validation {
 				break;
 			case USER.ROOT + USER.LOGOUT:
 				validateResponse = validateLogout(requestBody);
+				break;
+			case USER.ROOT + USER.INFO:
+				validateResponse = validateGetUserInfo(requestBody);
 				break;
 		}
 		return validateResponse;
@@ -84,6 +88,16 @@ public class UserValidation implements Validation {
 		String token = (String) jsonRequest.get(FilterTransferParam.TOKEN);
 		if (!TokenUtil.isValidToken(token)) {
 			code = ResponseCode.INVALID_TOKEN;
+		}
+		return new AbstractNihongoResponse(code);
+	}
+	
+	public AbstractNihongoResponse validateGetUserInfo(String requestBody) throws JsonParseException, JsonMappingException, java.io.IOException, ParseException {
+		float code = ResponseCode.SUCCESS;
+		JSONObject jsonRequest = (JSONObject) new JSONParser().parse(requestBody);
+		String requestUserId = (String) jsonRequest.get(FilterTransferParam.REQUEST_USER_ID);
+		if (!ValidatorUtil.isValidObjectId(requestUserId)) {
+			code = ResponseCode.INVALID_USER_ID;
 		}
 		return new AbstractNihongoResponse(code);
 	}

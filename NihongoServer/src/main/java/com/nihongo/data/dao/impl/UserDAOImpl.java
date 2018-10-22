@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
 	public User createUser(User user) {
 		DBObject insertUserObject = UserConverter.prepareCreateUserObject(user);
 		userCollection.insert(insertUserObject);
-		return UserConverter.toBasicLoginUser(insertUserObject);
+		return UserConverter.toBasicUser(insertUserObject);
 	}
 
 	@Override
@@ -40,7 +40,18 @@ public class UserDAOImpl implements UserDAO {
 		DBCursor cursor = userCollection.find(loginObject);
 		if (cursor.hasNext()) {
 			DBObject loginDBOjbect = cursor.next();
-			return UserConverter.toBasicLoginUser(loginDBOjbect);
+			return UserConverter.toBasicUser(loginDBOjbect);
+		}
+		return null;
+	}
+
+	@Override
+	public User getBasicUserInfo(String requestUserId) {
+		final DBObject query = UserConverter.prepareObjectId(requestUserId);
+		DBCursor cursor = userCollection.find(query);
+		if (cursor.hasNext()) {
+			DBObject loginDBOjbect = cursor.next();
+			return UserConverter.toBasicUser(loginDBOjbect);
 		}
 		return null;
 	}

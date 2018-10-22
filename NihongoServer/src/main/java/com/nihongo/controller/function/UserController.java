@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.dto.httpdto.LoginResponse;
 import com.nihongo.dto.httpdto.entity.BasicLoginUser;
+import com.nihongo.dto.httpdto.request.GetUserInfoRequest;
 import com.nihongo.dto.httpdto.request.LoginRequest;
 import com.nihongo.dto.httpdto.request.LogoutRequest;
 import com.nihongo.dto.httpdto.request.RegisterRequest;
+import com.nihongo.dto.httpdto.response.GetUserInfoResponse;
 import com.nihongo.dto.httpdto.response.LogoutResponse;
 import com.nihongo.dto.httpdto.response.RegisterResponse;
 import com.nihongo.exception.AbstractNihongoException;
@@ -70,6 +72,22 @@ public class UserController {
 		LogoutResponse response = new LogoutResponse();
 		try {
 			userService.logout(request.getToken());
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@PostMapping(value = API.USER.INFO)
+	@ResponseBody
+	public GetUserInfoResponse getUserInfo(@RequestBody GetUserInfoRequest request) {
+		GetUserInfoResponse response = new GetUserInfoResponse();
+		try {
+			BasicLoginUser basicUser = userService.getBasicUserInfo(request.getRequestUserId());
+			response.setUser(basicUser);
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {

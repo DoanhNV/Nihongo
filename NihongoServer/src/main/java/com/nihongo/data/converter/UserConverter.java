@@ -9,6 +9,8 @@ import com.nihongo.support.constant.mongo.MongoOperator;
 
 import static com.nihongo.support.constant.mongo.MongoDBKey.USER.*;
 
+import org.bson.types.ObjectId;
+
 /**
  * 
  * @author DoanhNV Sep 23, 2018 - 5:06:17 PM
@@ -63,8 +65,13 @@ public class UserConverter {
 		BasicDBObject queryObject = new BasicDBObject(LOGIN_ALIAS_FIELD, loginAlias).append(PASSWORD, password);
 		return queryObject;
 	}
+	
+	public static DBObject prepareObjectId(String userId) {
+		ObjectId objectId = new ObjectId(userId);
+		return new BasicDBObject(ID, objectId);
+	}
 
-	public static User toBasicLoginUser(DBObject userObject) {
+	public static User toBasicUser(DBObject userObject) {
 		String userId = userObject.get(ID).toString();
 		String fullName = (String) userObject.get(FULL_NAME);
 		Integer level = (Integer) userObject.get(LEVEL);

@@ -13,5 +13,7 @@ public interface UserService {
 	
 	public BasicLoginUser login(String loginAlias, String password, int loginType, String fullName, int level);
 	
+	public BasicLoginUser getBasicUserInfo(String requestUserId);
+	
 	public void logout(String token);
 }

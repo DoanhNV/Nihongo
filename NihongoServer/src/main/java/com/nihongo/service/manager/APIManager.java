@@ -70,6 +70,7 @@ public class APIManager {
 		tokenAPIs.put(USER.ROOT + USER.REGISTER, false);
 		tokenAPIs.put(USER.ROOT + USER.LOGIN, false);
 		tokenAPIs.put(USER.ROOT + USER.LOGOUT, true);
+		tokenAPIs.put(USER.ROOT + USER.INFO, true);
 		
 		tokenAPIs.put(USER_CONNECTION.ROOT + USER_CONNECTION.LIKE, true);
 		tokenAPIs.put(USER_CONNECTION.ROOT + USER_CONNECTION.FAVORITE, true);
@@ -82,6 +83,7 @@ public class APIManager {
 		transferHeaderParamAPIMap.put(USER.ROOT + USER.LOGOUT, true);
 		transferHeaderParamAPIMap.put(EXAM.ROOT + EXAM.LIST, true);
 		transferHeaderParamAPIMap.put(EXAM.ROOT + EXAM.DETAIL_ALIAS, true);
+		transferHeaderParamAPIMap.put(USER.ROOT + USER.INFO, true);
 	}
 	
 	private static void initBackendAPIMap() {
