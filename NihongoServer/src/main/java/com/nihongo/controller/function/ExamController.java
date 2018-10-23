@@ -32,14 +32,17 @@ import com.nihongo.dto.httpdto.request.UpdateExamRequest;
 import com.nihongo.dto.httpdto.response.SearchExamResponse;
 import com.nihongo.dto.httpdto.response.UpdateExamResponse;
 import com.nihongo.dto.httpdto.response.DetailExamResponse;
+import com.nihongo.dto.httpdto.response.HistoryExamResponse;
 import com.nihongo.dto.httpdto.response.RandomCreateExamResponse;
 import com.nihongo.dto.httpdto.response.RandomExamResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.ExamFavoriteService;
+import com.nihongo.service.data.ExamHistoryService;
 import com.nihongo.service.data.ExamLikeService;
 import com.nihongo.service.data.ExamService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.Constant;
+import com.nihongo.support.constant.FilterTransferParam;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.support.util.EntityUtil;
 import com.nihongo.support.util.NihongoUtil;
@@ -59,6 +62,8 @@ public class ExamController {
 	private ExamLikeService examLikeService;
 	@Autowired
 	private ExamFavoriteService examFavoriteService;
+	@Autowired
+	private ExamHistoryService examHistoryService;
 	
 	@GetMapping(value = API.EXAM.GET_RANDOM_EXAM)
 	@ResponseBody
@@ -115,11 +120,12 @@ public class ExamController {
 			DetailExam detailExam = examService.getDetail(id, clientQueryMode);
 			boolean isNormalUserRequest = clientQueryMode != Constant.CLIENT_QUERY_MODE.BACKEND_MODE;
 			
-			if (isNormalUserRequest) {
+			if (isNormalUserRequest) {	
 				String userId = (String) request.getAttribute("userId");
 				DetailEndUserExam  endUserDetailExam = (DetailEndUserExam) detailExam;
 				examLikeService.processLikeStatus(userId, endUserDetailExam);
 				examFavoriteService.processFavoriteStatus(userId, endUserDetailExam);
+				examHistoryService.addHistoryExam(userId, endUserDetailExam.getId());
 			}
 			response.setResponseData(ResponseCode.SUCCESS, detailExam);
 		}  catch (AbstractNihongoException e) {
@@ -158,7 +164,7 @@ public class ExamController {
 															request.getExamType(), 
 																request.getSkip(), 
 																	request.getTake());
-			examLikeService.processLikeStatus(request.getUserId(), exams.getDatas());
+			examLikeService.processResponseLikeStatus(request.getUserId(), exams.getDatas());
 			response.setDatas(exams.getDatas());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
@@ -176,7 +182,7 @@ public class ExamController {
 		ListExamResponse response = new ListExamResponse();
 		try {
 			SearchResult exams = examService.listFavoriteExam(request.getUserId(), request.getSkip(), request.getTake());
-			examLikeService.processLikeStatus(request.getUserId(), exams.getDatas());
+			examLikeService.processResponseLikeStatus(request.getUserId(), exams.getDatas());
 			response.setDatas(exams.getDatas());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
@@ -187,4 +193,25 @@ public class ExamController {
 		}
 		return response;
 	} 
+	
+	@GetMapping(value = API.EXAM.LIST_HISTORY)
+	@ResponseBody
+	public HistoryExamResponse listHistoryExam(HttpServletRequest request) {
+		HistoryExamResponse response = new HistoryExamResponse();
+		try {
+			String userId = (String) request.getAttribute(FilterTransferParam.USER_ID);
+			if(userId != null) {
+				SearchResult exams = examService.listHistoryExam(userId);
+				examLikeService.processResponseLikeStatus(userId, exams.getDatas());
+				response.setDatas(exams.getDatas());
+			} 
+		}  catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+			e.printStackTrace();
+		}  catch (Exception e) {
+			e.printStackTrace();
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
 }

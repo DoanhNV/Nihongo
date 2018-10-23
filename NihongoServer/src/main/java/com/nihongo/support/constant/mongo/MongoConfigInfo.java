@@ -31,5 +31,6 @@ public class MongoConfigInfo {
 	public class USER_CONNECTION {
 		public static final String EXAM_LIKE_COLLECTION = "exam_like";
 		public static final String EXAM_FAVORITE_COLLECTION = "exam_favorite";
+		public static final String EXAM_HISTORY = "exam_history";
 	}
 }

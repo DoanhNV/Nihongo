@@ -79,8 +79,9 @@ public class ValidatorFilter extends GenericFilterBean {
 	private void transferParamForGetRequest(MultiReadHttpServletRequest httpServletRequest) {
 		String requestURI = httpServletRequest.getRequestURI();
 		final String DETAIL_ALIAS = API.EXAM.ROOT + API.EXAM.DETAIL_ALIAS;
+		final String EXAM_HISTORY_API = API.EXAM.ROOT + API.EXAM.LIST_HISTORY;
 		
-		if(requestURI.contains(DETAIL_ALIAS)) {
+		if(requestURI.contains(DETAIL_ALIAS) || requestURI.contains(EXAM_HISTORY_API)) {
 			String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
 			String userId = TokenUtil.getUserId(token);
 			httpServletRequest.setAttribute(FilterTransferParam.USER_ID, userId);

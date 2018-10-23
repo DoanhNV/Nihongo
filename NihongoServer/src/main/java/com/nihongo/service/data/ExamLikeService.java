@@ -14,7 +14,7 @@ public interface ExamLikeService {
 	
 	public boolean doLikeExamAction(String userId, String examId);
 	
-	public void processLikeStatus(String userId, List<AbstractDTO> endUserExams);
+	public void processResponseLikeStatus(String userId, List<AbstractDTO> endUserExams);
 	
 	public void processLikeStatus(String userId, DetailEndUserExam exam);
 }

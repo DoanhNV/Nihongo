@@ -66,6 +66,7 @@ public class APIManager {
 		tokenAPIs.put(EXAM.ROOT + EXAM.UPDATE_BY_ID, true);
 		tokenAPIs.put(EXAM.ROOT + EXAM.LIST, true);
 		tokenAPIs.put(EXAM.ROOT + EXAM.LIST_FAVORITE, true);
+		tokenAPIs.put(EXAM.ROOT + EXAM.LIST_HISTORY, true);
 		
 		tokenAPIs.put(USER.ROOT + USER.REGISTER, false);
 		tokenAPIs.put(USER.ROOT + USER.LOGIN, false);

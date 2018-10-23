@@ -25,6 +25,8 @@ public interface ExamDAO {
 	
 	public SearchResult listFavoriteExam(List<String> examIds);
 	
+	public SearchResult listHistoryExam(List<String> examIds);
+	
 	public SearchResult search(SearchExamRequest request);
 	
 	public void encreaseLikeNumber(String examId);

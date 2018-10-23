@@ -104,5 +104,4 @@ public class ExamValidation implements Validation {
 		}
 		return response;
 	}
-	
 }

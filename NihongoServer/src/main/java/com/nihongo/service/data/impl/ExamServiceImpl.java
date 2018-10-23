@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.nihongo.data.dao.DocumentDAO;
 import com.nihongo.data.dao.ExamDAO;
 import com.nihongo.data.dao.ExamFavoriteDAO;
+import com.nihongo.data.dao.ExamHistoryDAO;
 import com.nihongo.data.dao.MCQQuestionDAO;
 import com.nihongo.data.dao.SettingDAO;
 import com.nihongo.data.entity.AbstractEntity;
@@ -53,6 +54,8 @@ public class ExamServiceImpl implements ExamService {
 	private DocumentDAO documentDAO;
 	@Autowired
 	private ExamFavoriteDAO examFavoriteDAO;
+	@Autowired
+	private ExamHistoryDAO examHistoryDAO;
 	
 	@Override
 	public List<RandomExamDTO> getRandomExam(int level, List<Integer> topics) {
@@ -173,6 +176,13 @@ public class ExamServiceImpl implements ExamService {
 		List<String> favoriteExamIds = examFavoriteDAO.listFavoriteExam(userId, skip, take);
 		SearchResult favoritesExamResult = examDAO.listFavoriteExam(favoriteExamIds);
 		return favoritesExamResult;
+	}
+	
+	@Override
+	public SearchResult listHistoryExam(String userId) {
+		List<String> historyExamIds = examHistoryDAO.getHistoryExams(userId);
+		SearchResult historyExam = examDAO.listHistoryExam(historyExamIds);
+		return historyExam;
 	}
 
 	@Override

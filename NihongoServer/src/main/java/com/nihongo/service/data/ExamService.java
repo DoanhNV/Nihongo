@@ -27,5 +27,7 @@ public interface ExamService {
 	
 	public SearchResult listFavoriteExam(String userId, int skip, int take);
 	
+	public SearchResult listHistoryExam(String userId);
+	
 	public void changeLikeNumber (String examId, boolean isLikedBefore);
 }

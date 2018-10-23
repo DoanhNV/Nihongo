@@ -35,7 +35,7 @@ public class ExamLikeServiceImpl implements ExamLikeService {
 	}
 
 	@Override
-	public void processLikeStatus(String userId, List<AbstractDTO> endUserExams) {
+	public void processResponseLikeStatus(String userId, List<AbstractDTO> endUserExams) {
 		final List<String> likeExamIds = examLikeDAO.listLikeExam(userId);
 		
 		for (AbstractDTO endUserExam : endUserExams) {

@@ -1,6 +1,5 @@
 package com.nihongo.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;

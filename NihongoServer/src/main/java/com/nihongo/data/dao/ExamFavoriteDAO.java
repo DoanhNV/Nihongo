@@ -11,7 +11,7 @@ import com.mongodb.DB;
  */
 public interface ExamFavoriteDAO {
 	
-	public static final DB USER_CONNECTION_DB = ExamLikeDAO.EXAM_DB;
+	public static final DB USER_CONNECTION_DB = ExamLikeDAO.USER_CONNECTION_DB;
 	
 	public boolean isFavorited(String userId, String examId);
 

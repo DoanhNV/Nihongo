@@ -22,7 +22,7 @@ import com.nihongo.support.constant.mongo.MongoDBKey;
 @Repository
 public class ExamLikeDAOImpl implements ExamLikeDAO {
 	
-	private static DBCollection examLikecollection = EXAM_DB.getCollection(MongoConfigInfo.USER_CONNECTION.EXAM_LIKE_COLLECTION);
+	private static DBCollection examLikecollection = USER_CONNECTION_DB.getCollection(MongoConfigInfo.USER_CONNECTION.EXAM_LIKE_COLLECTION);
 	
 	@Override
 	public boolean addExamToLikeList(String userId, String examId) {

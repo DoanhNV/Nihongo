@@ -13,7 +13,7 @@ import com.nihongo.support.constant.mongo.MongoConfigInfo;
  */
 public interface ExamLikeDAO {
 	
-	public static final DB EXAM_DB = MongoDBConnection.getDatabase(MongoConfigInfo.USER_CONNECTION_DB);
+	public static final DB USER_CONNECTION_DB = MongoDBConnection.getDatabase(MongoConfigInfo.USER_CONNECTION_DB);
 	
 	public boolean isLiked(String userId, String examId);
 	

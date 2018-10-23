@@ -3,7 +3,9 @@ package com.nihongo.data.dao.impl;
 import static com.nihongo.support.constant.mongo.MongoConfigInfo.EXAM_DB.EXAM_COLLECTION;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -140,6 +142,24 @@ public class ExamDAOImpl implements ExamDAO {
 			datas.add(endUserBasicExam);
 		}
 		
+		return new SearchResult(datas);
+	}
+
+	@Override
+	public SearchResult listHistoryExam(List<String> examIds) {
+		List<AbstractDTO> datas = new ArrayList<>();
+		BasicDBObject queryObject = ExamConverter.prepareListFavoriteExamObject(examIds);
+		DBCursor cursor = examCollection.find(queryObject);
+		Map<String, EndUserBasicExam> exams = new HashMap<>();
+		
+		while(cursor.hasNext()) {
+			EndUserBasicExam endUserBasicExam = ExamConverter.toEndUserBasicExam(cursor.next());
+			exams.put(endUserBasicExam.getId(), endUserBasicExam);
+		}
+		
+		for (String examId : examIds) {
+			datas.add(exams.get(examId));
+		}
 		return new SearchResult(datas);
 	}
 }

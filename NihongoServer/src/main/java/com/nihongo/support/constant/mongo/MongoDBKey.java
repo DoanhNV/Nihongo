@@ -63,4 +63,8 @@ public class MongoDBKey {
 	public class EXAM_FAVORITE extends MongoDBKey {
 		public static final String EXAMS = "exams";
 	}
+	
+	public class EXAM_HISTORY extends MongoDBKey {
+		public static final String EXAMS = "exams";
+	}
 }

@@ -12,6 +12,7 @@ public class Constant {
 	public static final int TOPIC_NUMBER = 7;
 	public static final int MAX_TOPIC_PER_EXAM = 4;
 	public static final int MAX_TOPIC_NUMBER = 7;
+	public static final int MAX_HISTORY_EXAM_NUMBER = 10;
 	
 	
 	public class TOPIC {

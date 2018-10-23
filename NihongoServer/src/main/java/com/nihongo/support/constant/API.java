@@ -45,6 +45,7 @@ public class API {
 		public static final String UPDATE_BY_ID_ALIAS = "/update";
 		public static final String LIST = "/list"; 
 		public static final String LIST_FAVORITE = "/listFavorite";
+		public static final String LIST_HISTORY = "/listHistory";
 	}
 	
 	
