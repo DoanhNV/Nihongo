@@ -15,6 +15,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.nihongo.support.constant.Constant;
 import com.nihongo.techhelper.MultiReadHttpServletRequest;
+import com.nihongo.techhelper.ReadableHttpServletResponse;
 
 /**
  * 
@@ -31,10 +32,10 @@ public class SuperFilter extends GenericFilterBean {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		MultiReadHttpServletRequest multipleRequest = new MultiReadHttpServletRequest(httpServletRequest);
-		
+		ReadableHttpServletResponse readableHttpServletResponse = new ReadableHttpServletResponse(httpServletResponse);
 		String requestBody = multipleRequest.getBody();
 		multipleRequest.setAttribute(Constant.REQUEST_PROPERTIES.REQUEST_BODY, requestBody);
 		
-		chain.doFilter(multipleRequest, httpServletResponse);
+		chain.doFilter(multipleRequest, readableHttpServletResponse);
 	}
 }

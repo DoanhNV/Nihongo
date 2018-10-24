@@ -8,8 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -23,7 +23,9 @@ import com.nihongo.support.constant.Constant.CONTENT_TYPE;
 import com.nihongo.support.constant.Constant.REQUEST_PROPERTIES;
 import com.nihongo.support.util.TokenUtil;
 import com.nihongo.support.constant.ResponseCode;
+import com.nihongo.techhelper.CachedServletOutputStream;
 import com.nihongo.techhelper.MultiReadHttpServletRequest;
+import com.nihongo.techhelper.ReadableHttpServletResponse;
 
 /**
  * 
@@ -36,7 +38,7 @@ public class ValidatorFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+		ReadableHttpServletResponse readableHttpServletResponse = (ReadableHttpServletResponse) response;
 		MultiReadHttpServletRequest httpServletRequest = (MultiReadHttpServletRequest) request;
 		
 		StringBuilder requestBody = new StringBuilder((String) request.getAttribute(REQUEST_PROPERTIES.REQUEST_BODY));
@@ -53,16 +55,23 @@ public class ValidatorFilter extends GenericFilterBean {
 			}
 		}
 		
+		String responseBody = "";
 		if(validateResponse.getCode() == ResponseCode.SUCCESS) {
-			chain.doFilter(httpServletRequest, httpServletResponse);
+			chain.doFilter(httpServletRequest, readableHttpServletResponse);
+			CachedServletOutputStream outputStream = (CachedServletOutputStream) readableHttpServletResponse.getOutputStream();
+			responseBody = outputStream.getBody();
+			JSONObject jsonResponse = new JSONObject();
+			jsonResponse.put("data", "123123");
+			responseBody = jsonResponse.toJSONString();
+			System.out.println(responseBody);
 		} else {
-			PrintWriter writer = httpServletResponse.getWriter();
-			httpServletResponse.setContentType(CONTENT_TYPE.APPLICATION_JSON);
-			httpServletResponse.setCharacterEncoding(Constant.ENCODING.UTF_8);
-			writer.write(validateResponse.toJson().toJSONString());
-			//writer.print(validateResponse.toJson().toJSONString());
-			writer.flush();
+			responseBody = validateResponse.toJson().toJSONString();
 		}
+		
+		PrintWriter writer = readableHttpServletResponse.getWriter();
+		readableHttpServletResponse.setContentType(CONTENT_TYPE.APPLICATION_JSON);
+		readableHttpServletResponse.setCharacterEncoding(Constant.ENCODING.UTF_8);
+		writer.write(responseBody);
 	}
 	
 	private void changeBodyAfterTransferFromHeader(MultiReadHttpServletRequest httpServletRequest, String requestBody) throws IOException {
