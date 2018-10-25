@@ -4,11 +4,11 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.security.TokenUtil;
 import com.nihongo.service.pojo.TokenKey;
 import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.support.constant.mongo.MongoDBKey;
-import com.nihongo.support.util.TokenUtil;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.MalformedJwtException;

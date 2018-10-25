@@ -16,12 +16,12 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.filter.validation.NihongoFilter;
+import com.nihongo.security.TokenUtil;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.FilterTransferParam;
 import com.nihongo.support.constant.Constant.CONTENT_TYPE;
 import com.nihongo.support.constant.Constant.REQUEST_PROPERTIES;
-import com.nihongo.support.util.TokenUtil;
 import com.nihongo.support.constant.ResponseCode;
 import com.nihongo.techhelper.CachedServletOutputStream;
 import com.nihongo.techhelper.MultiReadHttpServletRequest;

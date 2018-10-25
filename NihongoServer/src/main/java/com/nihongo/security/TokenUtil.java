@@ -1,4 +1,4 @@
-package com.nihongo.support.util;
+package com.nihongo.security;
 
 import java.security.Key;
 import java.util.Date;

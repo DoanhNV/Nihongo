@@ -7,8 +7,8 @@ import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
 
 import com.nihongo.support.constant.API.*;
+import com.nihongo.security.TokenUtil;
 import com.nihongo.support.constant.FilterTransferParam;
-import com.nihongo.support.util.TokenUtil;
 
 import io.jsonwebtoken.Claims;
 
