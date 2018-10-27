@@ -72,6 +72,7 @@ public class ValidatorFilter extends GenericFilterBean {
 				
 				JSONObject jsonResponse = new JSONObject();
 				jsonResponse.put(Constant.RESPONSE_PARAM.DATA, responseBody);
+				responseBody = jsonResponse.toJSONString();
 			} else {
 				responseBody = validateResponse.toJson().toJSONString();
 			}
