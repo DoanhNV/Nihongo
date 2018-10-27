@@ -127,4 +127,7 @@ public class Constant {
 		public static final int BY_FACEBOOK = 2;
 	}
 	
+	public class RESPONSE_PARAM {
+		public static final String DATA = "data";
+	}
 }

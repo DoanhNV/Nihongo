@@ -16,6 +16,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.filter.validation.NihongoFilter;
+import com.nihongo.security.AesUtil;
 import com.nihongo.security.TokenUtil;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.Constant;
@@ -36,42 +37,50 @@ import com.nihongo.techhelper.ReadableHttpServletResponse;
 @Order(Constant.FILTER_ORDER.SECOND)
 public class ValidatorFilter extends GenericFilterBean {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		ReadableHttpServletResponse readableHttpServletResponse = (ReadableHttpServletResponse) response;
-		MultiReadHttpServletRequest httpServletRequest = (MultiReadHttpServletRequest) request;
 		
-		StringBuilder requestBody = new StringBuilder((String) request.getAttribute(REQUEST_PROPERTIES.REQUEST_BODY));
-		String requestURI = httpServletRequest.getRequestURI();
-		String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
-		
-		boolean isPreFlightRequest = isPreFlightRequest(httpServletRequest);
-		AbstractNihongoResponse validateResponse = new AbstractNihongoResponse();
-		if (!isPreFlightRequest) {
-			validateResponse = NihongoFilter.validate(token, requestBody, requestURI);
-			if (validateResponse.getCode() == ResponseCode.SUCCESS) {
-				transferParamForGetRequest(httpServletRequest);
-				changeBodyAfterTransferFromHeader(httpServletRequest, requestBody.toString());
+		try {
+			ReadableHttpServletResponse readableHttpServletResponse = (ReadableHttpServletResponse) response;
+			MultiReadHttpServletRequest httpServletRequest = (MultiReadHttpServletRequest) request;
+			
+			
+			readableHttpServletResponse.setContentType(CONTENT_TYPE.APPLICATION_JSON);
+			readableHttpServletResponse.setCharacterEncoding(Constant.ENCODING.UTF_8);
+			
+			StringBuilder requestBody = new StringBuilder((String) request.getAttribute(REQUEST_PROPERTIES.REQUEST_BODY));
+			String requestURI = httpServletRequest.getRequestURI();
+			String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
+			
+			boolean isPreFlightRequest = isPreFlightRequest(httpServletRequest);
+			AbstractNihongoResponse validateResponse = new AbstractNihongoResponse();
+			if (!isPreFlightRequest) {
+				validateResponse = NihongoFilter.validate(token, requestBody, requestURI);
+				if (validateResponse.getCode() == ResponseCode.SUCCESS) {
+					transferParamForGetRequest(httpServletRequest);
+					changeBodyAfterTransferFromHeader(httpServletRequest, requestBody.toString());
+				}
 			}
+			
+			String responseBody = "{}";
+			if(validateResponse.getCode() == ResponseCode.SUCCESS) {
+				chain.doFilter(httpServletRequest, readableHttpServletResponse);
+				
+				CachedServletOutputStream outputStream = (CachedServletOutputStream) readableHttpServletResponse.getOutputStream();
+				responseBody = AesUtil.getInstance().encrypt(outputStream.getBody());
+				
+				JSONObject jsonResponse = new JSONObject();
+				jsonResponse.put(Constant.RESPONSE_PARAM.DATA, responseBody);
+			} else {
+				responseBody = validateResponse.toJson().toJSONString();
+			}
+			
+			PrintWriter writer = readableHttpServletResponse.getWriter();
+			writer.write(responseBody);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		String responseBody = "";
-		if(validateResponse.getCode() == ResponseCode.SUCCESS) {
-			chain.doFilter(httpServletRequest, readableHttpServletResponse);
-			CachedServletOutputStream outputStream = (CachedServletOutputStream) readableHttpServletResponse.getOutputStream();
-			responseBody = outputStream.getBody();
-			JSONObject jsonResponse = new JSONObject();
-			jsonResponse.put("data", "123123");
-			responseBody = jsonResponse.toJSONString();
-			System.out.println(responseBody);
-		} else {
-			responseBody = validateResponse.toJson().toJSONString();
-		}
-		
-		PrintWriter writer = readableHttpServletResponse.getWriter();
-		readableHttpServletResponse.setContentType(CONTENT_TYPE.APPLICATION_JSON);
-		readableHttpServletResponse.setCharacterEncoding(Constant.ENCODING.UTF_8);
-		writer.write(responseBody);
 	}
 	
 	private void changeBodyAfterTransferFromHeader(MultiReadHttpServletRequest httpServletRequest, String requestBody) throws IOException {
