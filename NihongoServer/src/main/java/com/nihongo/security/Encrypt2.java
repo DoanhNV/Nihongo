@@ -39,13 +39,4 @@ public class Encrypt2 {
 		Key key = new SecretKeySpec(keyValue, ALGO);
 		return key;
 	}
-	
-	public static void main(String[] args) throws Exception {
-		String name = "doanh";
-		
-		String encrypt = encrypt(name);
-		System.out.println(encrypt);
-		String decrypt = decrypt("U2FsdGVkX19tx5FE4lyRc7T/AjpHmVqIxnsydSkXrPQ=");
-		System.out.println(decrypt);
-	}
 }
