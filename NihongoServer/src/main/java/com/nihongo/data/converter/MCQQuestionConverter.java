@@ -60,6 +60,32 @@ public class MCQQuestionConverter {
 		desObject.append(ANSWERS, answerList);
 		return desObject;
 	}
+	
+	/*
+	 * Update 
+	 */
+	public static DBObject toUpdateDBObject(MCQQuestion question) {
+		BasicDBObject questionObject = new BasicDBObject();
+		questionObject.append(TITLE, question.getTitle());
+		String document = question.getDocument() == null ? EMPTY : question.getDocument();
+		questionObject.append(DOCUMENT, document);
+		questionObject.append(TOPIC, question.getTopic());
+		questionObject.append(LEVEL, question.getLevel());
+		questionObject.append(SUB_TITLE, question.getTitleSub());
+		List<Answer> answers = question.getAnswers();
+		BasicDBList answerList = new BasicDBList();
+		if(answers != null) {
+			for (Answer answer : answers) {
+				BasicDBObject answerObject = new BasicDBObject();
+				answerObject.append(CONTENT, answer.getContent());
+				answerObject.append(IS_CORRECT, answer.isIsCorrect());
+				answerList.add(answerObject);
+			}
+		}
+		questionObject.append(ANSWERS, answerList);
+		BasicDBObject updateObject = new BasicDBObject(MongoOperator.$SET, questionObject);
+		return updateObject;
+	}
 
 	public static MCQQuestion toMCQQuestion(DBObject dbObject) {
 		MCQQuestion question = new MCQQuestion();
@@ -126,4 +152,9 @@ public class MCQQuestionConverter {
 		return queryObject;
 	}
 	
+	
+	public static BasicDBObject prepareObjectId(String id) {
+		ObjectId objectId = new ObjectId(id);
+		return new BasicDBObject(ID, objectId);
+	}
 }

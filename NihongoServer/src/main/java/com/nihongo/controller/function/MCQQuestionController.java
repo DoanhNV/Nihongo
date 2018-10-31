@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,12 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.question.MCQQuestion;
+import com.nihongo.dto.httpdto.request.DeleteMCQQuestionRequest;
 import com.nihongo.dto.httpdto.request.InsertMCQQuestionRequest;
 import com.nihongo.dto.httpdto.request.MCQQuestionListByIdsRequest;
 import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
+import com.nihongo.dto.httpdto.request.UpdateMCQQuestionRequest;
+import com.nihongo.dto.httpdto.response.DeleteMCQQuestionResponse;
 import com.nihongo.dto.httpdto.response.InsertMCQQuestionResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionListByIdsResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionSearchResponse;
+import com.nihongo.dto.httpdto.response.UpdateMCQQuestionResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.MCQQuestionService;
 import com.nihongo.support.constant.API;
@@ -54,19 +60,48 @@ public class MCQQuestionController {
 		}
 		return response;
 	}
+	
+	@PutMapping (value = API.MCQ_QUESTION.UPDATE)
+	@ResponseBody
+	public UpdateMCQQuestionResponse update (@RequestBody UpdateMCQQuestionRequest request) {
+		UpdateMCQQuestionResponse response = new UpdateMCQQuestionResponse();
+		try {
+			MCQQuestion mcqQuestion = new MCQQuestion();
+			transferObjectTo(request, mcqQuestion);
+			mCQQuestionService.update(mcqQuestion);
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@DeleteMapping (value = API.MCQ_QUESTION.DELETE)
+	@ResponseBody
+	public DeleteMCQQuestionResponse delete(@RequestBody DeleteMCQQuestionRequest request) {
+		DeleteMCQQuestionResponse response = new DeleteMCQQuestionResponse();
+		try {
+			mCQQuestionService.delete(request.getId());
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
 
 	@PostMapping(value = API.MCQ_QUESTION.SEARCH)
 	@ResponseBody
 	public MCQQuestionSearchResponse listAll(@RequestBody MCQQuestionSearchRequest request) {
 		MCQQuestionSearchResponse response = new MCQQuestionSearchResponse(ResponseCode.SYSTEM_ERROR);
 		try {
-			 SearchData searchData = mCQQuestionService.search(request);
-			 List<MCQQuestion> questions = castToMCQQuestionObject(searchData.getDatas());
-			 response.setResponseData(ResponseCode.SUCCESS, questions, searchData.getTotal());
+			SearchData searchData = mCQQuestionService.search(request);
+			List<MCQQuestion> questions = castToMCQQuestionObject(searchData.getDatas());
+			response.setResponseData(ResponseCode.SUCCESS, questions, searchData.getTotal());
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
 		}
 		return response;

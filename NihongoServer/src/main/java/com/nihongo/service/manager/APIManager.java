@@ -56,6 +56,8 @@ public class APIManager {
 		tokenAPIs.put(DOCUMENT.ROOT + DOCUMENT.UPDATE, true);
 		
 		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.CREATE, true);
+		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.UPDATE, true);
+		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.DELETE, true);
 		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.SEARCH, true);
 		tokenAPIs.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.LIST, true);
 		
@@ -89,6 +91,8 @@ public class APIManager {
 	
 	private static void initBackendAPIMap() {
 		backendAPIMap.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.CREATE, true);
+		backendAPIMap.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.UPDATE, true);
+		backendAPIMap.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.DELETE, true);
 		backendAPIMap.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.LIST, true);
 		backendAPIMap.put(MCQ_QUESTION.ROOT + MCQ_QUESTION.SEARCH, true);
 		

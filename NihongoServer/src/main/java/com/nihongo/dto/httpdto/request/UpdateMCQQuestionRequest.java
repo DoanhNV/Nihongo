@@ -1,15 +1,12 @@
-package com.nihongo.data.entity.question;
+package com.nihongo.dto.httpdto.request;
 
 import java.util.List;
 
-import com.nihongo.dto.httpdto.entity.ExamElement;
+import com.nihongo.data.entity.question.Answer;
 
-/**
- * 
- * @author DoanhNV Jul 7, 2018 2:55:05 PM
- */
-public class MCQQuestion extends Question implements ExamElement {
-	
+public class UpdateMCQQuestionRequest extends AbstractNihongoRequest {
+
+	private String id;
 	private String title;
 	private String document;
 	private List<Answer> answers;
@@ -17,19 +14,27 @@ public class MCQQuestion extends Question implements ExamElement {
 	private int level;
 	private String titleSub;
 
-	public MCQQuestion() {
+	public UpdateMCQQuestionRequest() {
 
 	}
 
-	public MCQQuestion(String id) {
+	public UpdateMCQQuestionRequest(String id) {
 		this.id = id;
 	}
 
-	public MCQQuestion(String title, List<Answer> answers, int topic, int level) {
+	public UpdateMCQQuestionRequest(String title, List<Answer> answers, int topic, int level) {
 		this.title = title;
 		this.answers = answers;
 		this.topic = topic;
 		this.level = level;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -64,19 +69,19 @@ public class MCQQuestion extends Question implements ExamElement {
 		this.level = level;
 	}
 
-	public String getTitleSub() {
-		return titleSub;
-	}
-
-	public void setTitleSub(String titleSub) {
-		this.titleSub = titleSub;
-	}
-
 	public String getDocument() {
 		return document;
 	}
 
 	public void setDocument(String document) {
 		this.document = document;
+	}
+
+	public String getTitleSub() {
+		return titleSub;
+	}
+
+	public void setTitleSub(String titleSub) {
+		this.titleSub = titleSub;
 	}
 }

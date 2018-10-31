@@ -25,7 +25,7 @@ public class MCQQuestionServiceImpl implements MCQQuestionService {
 
 	@Override
 	public boolean update(AbstractEntity entity) {
-		return false;
+		return mCQQuestionDAO.update(entity);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class MCQQuestionServiceImpl implements MCQQuestionService {
 
 	@Override
 	public String delete(String id) {
-		return null;
+		return mCQQuestionDAO.delete(id);
 	}
 
 	@Override

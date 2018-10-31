@@ -51,7 +51,11 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 
 	@Override
 	public boolean update(AbstractEntity entity) {
-		return false;
+		MCQQuestion question = (MCQQuestion) entity;
+		BasicDBObject query = MCQQuestionConverter.prepareObjectId(question.getId());
+		DBObject updateObject = MCQQuestionConverter.toInsertDBObject(question);
+		mCQQuestionCollection.update(query, updateObject);
+		return true;
 	}
 
 	@Override
@@ -115,6 +119,8 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 	
 	@Override
 	public String delete(String id) {
+		BasicDBObject query = MCQQuestionConverter.prepareObjectId(id);
+		mCQQuestionCollection.remove(query);
 		return null;
 	}
 

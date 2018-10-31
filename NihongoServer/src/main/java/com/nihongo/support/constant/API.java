@@ -24,6 +24,8 @@ public class API {
 	public class MCQ_QUESTION {
 		public static final String ROOT = "/mvcquestion";
 		public static final String CREATE = "/create";
+		public static final String UPDATE = "/update";
+		public static final String DELETE = "/delete";
 		public static final String SEARCH = "/search";
 		public static final String LIST = "/list";
 	}
