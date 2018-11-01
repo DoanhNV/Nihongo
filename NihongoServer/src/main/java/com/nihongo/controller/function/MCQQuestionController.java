@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
 import com.nihongo.dto.httpdto.request.UpdateMCQQuestionRequest;
 import com.nihongo.dto.httpdto.response.DeleteMCQQuestionResponse;
 import com.nihongo.dto.httpdto.response.InsertMCQQuestionResponse;
+import com.nihongo.dto.httpdto.response.MCQQuestionDetailResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionListByIdsResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionSearchResponse;
 import com.nihongo.dto.httpdto.response.UpdateMCQQuestionResponse;
@@ -69,6 +72,21 @@ public class MCQQuestionController {
 			MCQQuestion mcqQuestion = new MCQQuestion();
 			transferObjectTo(request, mcqQuestion);
 			mCQQuestionService.update(mcqQuestion);
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@GetMapping (value = API.MCQ_QUESTION.DETAIL)
+	@ResponseBody
+	public MCQQuestionDetailResponse getDetail(@PathVariable String id) {
+		MCQQuestionDetailResponse response = new MCQQuestionDetailResponse();
+		try {
+			MCQQuestion question = (MCQQuestion) mCQQuestionService.getById(id);
+			response.setQuestion(question);
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {

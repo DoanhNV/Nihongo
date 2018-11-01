@@ -28,6 +28,7 @@ public class API {
 		public static final String DELETE = "/delete";
 		public static final String SEARCH = "/search";
 		public static final String LIST = "/list";
+		public static final String DETAIL = "/detail/{id}";
 	}
 	
 	public class SETTING {

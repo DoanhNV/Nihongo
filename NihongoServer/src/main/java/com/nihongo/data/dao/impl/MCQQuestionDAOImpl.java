@@ -60,7 +60,13 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 
 	@Override
 	public Question getById(String id) {
-		return null;
+		MCQQuestion mcqQuestion = new MCQQuestion();
+		BasicDBObject query = MCQQuestionConverter.prepareObjectId(id);
+		DBObject questionObject = mCQQuestionCollection.findOne(query);
+		if (questionObject != null) {
+			mcqQuestion = MCQQuestionConverter.toMCQQuestion(questionObject);
+		}
+		return mcqQuestion;
 	}
 
 	@Override

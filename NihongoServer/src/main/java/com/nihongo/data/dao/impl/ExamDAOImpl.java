@@ -162,4 +162,10 @@ public class ExamDAOImpl implements ExamDAO {
 		}
 		return new SearchResult(datas);
 	}
+
+	@Override
+	public boolean isExistsQuestion(String questionId) {
+		DBObject query = ExamConverter.prepareCheckExistQuestion(questionId);
+		return examCollection.count(query) > 0;
+	}
 }

@@ -47,4 +47,9 @@ public class ResponseCode {
 	 */
 	public static final float API_NOT_EXIST = 5.1f;
 	public static final float ACCESS_DENY = 5.2f;
+	
+	/**
+	 * 
+	 */
+	public static final float QUESTION_IS_IN_EXAM = 6.1f;
 }

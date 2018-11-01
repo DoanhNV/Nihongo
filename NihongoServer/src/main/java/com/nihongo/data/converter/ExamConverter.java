@@ -90,6 +90,12 @@ public class ExamConverter {
 		return new BasicDBObject(MongoOperator.$SET, fieldUpdateObject);
 	}
 	
+	public static DBObject prepareCheckExistQuestion(String questionId) {
+		BasicDBObject questionIds = new BasicDBObject(MongoDBKey.ExamKey.QUESTION_IDS, questionId);
+		BasicDBObject query = new BasicDBObject(MongoOperator.ELEMENT_MATCH, questionIds);
+		return new BasicDBObject(MongoDBKey.ExamKey.EMBED_TOPIC, query);
+	}
+	
 	public static DBObject prepareSortOject(Sort sort) {
 		BasicDBObject sortObject = new BasicDBObject(DEFAULT_SORT_FIELD, DEFAULT_SORT_VALUE);
 		if(RequestValidator.isValidSortRequest(sort)) {

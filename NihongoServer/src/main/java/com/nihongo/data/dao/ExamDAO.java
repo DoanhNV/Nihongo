@@ -18,6 +18,8 @@ public interface ExamDAO {
 	public static final DB EXAM_DATABASE = MongoDBConnection.getDatabase(MongoConfigInfo.EXAM_DB);
 	
 	public boolean insert(Exam exam);
+	
+	public boolean isExistsQuestion(String questionId);
 
 	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes);
 	
