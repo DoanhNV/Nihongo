@@ -52,4 +52,5 @@ public class ResponseCode {
 	 * 
 	 */
 	public static final float QUESTION_IS_IN_EXAM = 6.1f;
+	public static final float DOCUMENT_IS_IN_EXAM = 6.2f;
 }

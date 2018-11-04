@@ -8,6 +8,7 @@ package com.nihongo.dto.httpdto.request;
 public class DeleteMCQQuestionRequest extends AbstractNihongoRequest {
 
 	private String id;
+	private String documentId;
 
 	public String getId() {
 		return id;
@@ -15,5 +16,13 @@ public class DeleteMCQQuestionRequest extends AbstractNihongoRequest {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getDocumentId() {
+		return documentId;
+	}
+
+	public void setDocumentId(String documentId) {
+		this.documentId = documentId;
 	}
 }

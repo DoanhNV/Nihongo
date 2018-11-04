@@ -54,12 +54,19 @@ public class TokenUtil {
 	}
 
 	public static boolean isValidToken(String jwt) {
+		
+		final int JWT_LENGTH = 20;
+		if (jwt == null || jwt.length() < JWT_LENGTH) {
+			return false;
+		}
+		
 		try {
 			Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(Constant.TOKEN.GENERATE_TOKEN_KEY))
 				.requireSubject(Constant.TOKEN.LOGIN_SUBJECT)
 				.requireIssuer(Constant.TOKEN.ISSUER)
 				.parseClaimsJws(jwt);
 		} catch (Exception e) {
+			System.out.println("jwt: " + jwt);
 			e.printStackTrace();
 			return false;
 		}

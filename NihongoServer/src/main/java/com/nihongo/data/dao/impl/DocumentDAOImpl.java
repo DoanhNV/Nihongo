@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -55,7 +56,7 @@ public class DocumentDAOImpl implements DocumentDAO {
 	@Override
 	public Document getById(String id) {
 		Document document = new Document();
-		DBObject queryObject = DocumentConverter.prepareGetDBObject(id);
+		DBObject queryObject = DocumentConverter.prepareGetDBObjectId(id);
 		DBObject documentObject = docCollection.findOne(queryObject);
 		if (documentObject != null) {
 			document = DocumentConverter.toDocument(documentObject);
@@ -70,6 +71,8 @@ public class DocumentDAOImpl implements DocumentDAO {
 
 	@Override
 	public String delete(String id) {
+		DBObject query = DocumentConverter.prepareGetDBObjectId(id);
+		docCollection.remove(query);
 		return null;
 	}
 
@@ -118,5 +121,31 @@ public class DocumentDAOImpl implements DocumentDAO {
 			mcqQuestionIds.add(questionId);
 		}
 		return mcqQuestionIds;
+	}
+
+	@Override
+	public void removeQuestion(String documentId, String questionId) {
+		
+		BasicDBObject removeQuestionAction = new BasicDBObject(MongoDBKey.DocumentKey.QUESTION_IDS, questionId);
+		BasicDBObject updateObject = new BasicDBObject(MongoOperator.PULL, removeQuestionAction);
+		DBObject query = DocumentConverter.prepareGetDBObjectId(documentId);
+		
+		docCollection.update(query, updateObject);
+	}
+
+	@Override
+	public List<String> listQuestionByExamId(String examId) {
+		List<String> listQuestionId = new ArrayList<>();
+		DBObject query = DocumentConverter.prepareGetDBObjectId(examId);
+		DBObject documentObject = docCollection.findOne(query);
+		
+		if (documentObject != null) {
+			BasicDBList questionIds = (BasicDBList) documentObject.get(MongoDBKey.DocumentKey.QUESTION_IDS);
+			for (Object id : questionIds) {
+				String questionId = (String) id;
+				listQuestionId.add(questionId);
+			}
+		}
+		return listQuestionId;
 	}
 }

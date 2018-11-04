@@ -20,6 +20,8 @@ public interface ExamDAO {
 	public boolean insert(Exam exam);
 	
 	public boolean isExistsQuestion(String questionId);
+	
+	public boolean isExistDocument(String documentId);
 
 	public boolean update(String id, Boolean isActive, Boolean isFree, Boolean isTrial, Integer point, Integer completedMinutes);
 	

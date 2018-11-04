@@ -21,5 +21,7 @@ public interface ExamLikeDAO {
 	
 	public boolean removeExamFromLikeList(String userId, String examId);
 	
+	public boolean removeExamFromLikeList(String examId);
+	
 	public List<String> listLikeExam(String userId);
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.AggregationOutput;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -166,5 +167,12 @@ public class MCQQuestionDAOImpl implements MCQQuestionDAO {
 			mcqQuestionIds.add(questionId);
 		}
 		return mcqQuestionIds;
+	}
+
+	@Override
+	public boolean removeQuestionByIds(List<String> questionIds) {
+		BasicDBObject query = MCQQuestionConverter.prepareDeleteByIds(questionIds);
+		mCQQuestionCollection.remove(query);
+		return true;
 	}
 }

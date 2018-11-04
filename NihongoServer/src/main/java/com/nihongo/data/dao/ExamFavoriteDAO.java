@@ -19,5 +19,7 @@ public interface ExamFavoriteDAO {
 	
 	public void removeExamFromFavoriteList(String userId, String examId);
 	
+	public void removeExamFromFavoriteList(String examId); 
+	
 	public List<String> listFavoriteExam(String userId, int skip, int take);
 }

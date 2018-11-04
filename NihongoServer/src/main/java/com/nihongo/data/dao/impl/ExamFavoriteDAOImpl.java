@@ -37,6 +37,13 @@ public class ExamFavoriteDAOImpl implements ExamFavoriteDAO {
 		BasicDBObject removeFavoriteExamObject = ExamFavoriteConverter.prepareRemoveFavoriteExamObject(examId);
 		examFavoriteCollection.update(query, removeFavoriteExamObject);
 	}
+	
+	@Override
+	public void removeExamFromFavoriteList(String examId) {
+		BasicDBObject queryAll = new BasicDBObject();
+		BasicDBObject removeFavoriteExamObject = ExamFavoriteConverter.prepareRemoveFavoriteExamObject(examId);
+		examFavoriteCollection.update(queryAll, removeFavoriteExamObject, false, true);
+	}
 
 	@Override
 	public List<String> listFavoriteExam(String userId, int skip, int take) {

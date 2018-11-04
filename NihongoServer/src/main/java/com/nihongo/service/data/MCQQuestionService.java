@@ -11,4 +11,8 @@ import com.nihongo.data.entity.other.transfer.SearchData;
 public interface MCQQuestionService extends IService {
 	
 	public SearchData listByIds(List<String> questionIds);
+	
+	public boolean deleteDocumentQuestion(String documentId, String questionId);
+	
+	public boolean deleteQuestionByIds(List<String> questionIds);
 }

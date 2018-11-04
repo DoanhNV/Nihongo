@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,12 +94,26 @@ public class MCQQuestionController {
 		return response;
 	}
 	
-	@DeleteMapping (value = API.MCQ_QUESTION.DELETE)
+	@PutMapping (value = API.MCQ_QUESTION.DELETE)
 	@ResponseBody
 	public DeleteMCQQuestionResponse delete(@RequestBody DeleteMCQQuestionRequest request) {
 		DeleteMCQQuestionResponse response = new DeleteMCQQuestionResponse();
 		try {
 			mCQQuestionService.delete(request.getId());
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	}
+	
+	@PutMapping (value = API.MCQ_QUESTION.DELETE_DOCUMENT_QUESTION)
+	@ResponseBody
+	public DeleteMCQQuestionResponse deleteDocumentQuestion(@RequestBody DeleteMCQQuestionRequest request) {
+		DeleteMCQQuestionResponse response = new DeleteMCQQuestionResponse();
+		try {
+			mCQQuestionService.deleteDocumentQuestion(request.getDocumentId(), request.getId());
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {

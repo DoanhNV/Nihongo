@@ -67,18 +67,23 @@ public class ValidatorFilter extends GenericFilterBean {
 			if(validateResponse.getCode() == ResponseCode.SUCCESS) {
 				chain.doFilter(httpServletRequest, readableHttpServletResponse);
 				
-				CachedServletOutputStream outputStream = (CachedServletOutputStream) readableHttpServletResponse.getOutputStream();
-				responseBody = AesUtil.getInstance().encrypt(outputStream.getBody());
-				
-				JSONObject jsonResponse = new JSONObject();
-				jsonResponse.put(Constant.RESPONSE_PARAM.DATA, responseBody);
-				responseBody = jsonResponse.toJSONString();
+				if (!isPreFlightRequest) {
+					CachedServletOutputStream outputStream = (CachedServletOutputStream) readableHttpServletResponse.getOutputStream();
+					responseBody = AesUtil.getInstance().encrypt(outputStream.getBody());
+					
+					JSONObject jsonResponse = new JSONObject();
+					jsonResponse.put(Constant.RESPONSE_PARAM.DATA, responseBody);
+					responseBody = jsonResponse.toJSONString();
+				}
 			} else {
 				responseBody = validateResponse.toJson().toJSONString();
 			}
 			
-			PrintWriter writer = readableHttpServletResponse.getWriter();
-			writer.write(responseBody);
+			if (!isPreFlightRequest) { 
+				PrintWriter writer = readableHttpServletResponse.getWriter();
+				writer.write(responseBody);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

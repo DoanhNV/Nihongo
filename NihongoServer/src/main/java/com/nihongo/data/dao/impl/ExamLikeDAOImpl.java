@@ -41,6 +41,14 @@ public class ExamLikeDAOImpl implements ExamLikeDAO {
 		examLikecollection.update(query, prepateAddExamToLikeList, true, false);
 		return true;
 	}
+	
+	@Override
+	public boolean removeExamFromLikeList(String examId) {
+		BasicDBObject queryAll = new BasicDBObject();
+		DBObject prepateAddExamToLikeList = ExamLikeConverter.prepareRemoveExamFromLikeList(examId);
+		examLikecollection.update(queryAll, prepateAddExamToLikeList, false, true);
+		return true;
+	}
 
 	@Override
 	public boolean isLiked(String userId, String examId) {

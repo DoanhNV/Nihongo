@@ -19,6 +19,7 @@ public class API {
 		public static final String GET_BY_ID_ALIAS = "/get";
 		public static final String SEARCH = "/search";
 		public static final String UPDATE = "/update";
+		public static final String DELETE = "/delete";
 	}
 
 	public class MCQ_QUESTION {
@@ -26,6 +27,7 @@ public class API {
 		public static final String CREATE = "/create";
 		public static final String UPDATE = "/update";
 		public static final String DELETE = "/delete";
+		public static final String DELETE_DOCUMENT_QUESTION = "/deleteDQuestion";
 		public static final String SEARCH = "/search";
 		public static final String LIST = "/list";
 		public static final String DETAIL = "/detail/{id}";

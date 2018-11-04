@@ -157,4 +157,18 @@ public class MCQQuestionConverter {
 		ObjectId objectId = new ObjectId(id);
 		return new BasicDBObject(ID, objectId);
 	}
+	
+	public static BasicDBList prepareListObjectId (List<String> ids) {
+		BasicDBList questionIds = new BasicDBList();
+		for (String id : ids) {
+			questionIds.add(new ObjectId(id));
+		}
+		return questionIds;
+	}
+	
+	public static BasicDBObject prepareDeleteByIds (List<String> ids) {
+		BasicDBList listObjectIds = prepareListObjectId(ids);
+		BasicDBObject inObject = new BasicDBObject(MongoOperator.$IN, listObjectIds);
+		return new BasicDBObject(ID, inObject);
+	}
 }

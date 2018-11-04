@@ -18,14 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nihongo.data.entity.other.transfer.SearchData;
 import com.nihongo.data.entity.questiondocument.Document;
+import com.nihongo.dto.httpdto.request.DeleteDocumentRequest;
 import com.nihongo.dto.httpdto.request.DocumentSearchRequest;
 import com.nihongo.dto.httpdto.request.InsertDocumentRequest;
 import com.nihongo.dto.httpdto.request.UpdateDocumentRequest;
+import com.nihongo.dto.httpdto.response.DeleteDocumentResponse;
 import com.nihongo.dto.httpdto.response.GetDocumentResponse;
 import com.nihongo.dto.httpdto.response.InsertDocumentResponse;
 import com.nihongo.dto.httpdto.response.UpdateDocumentResponse;
 import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.DocumentService;
+import com.nihongo.service.data.MCQQuestionService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
 
@@ -40,6 +43,8 @@ public class DocumentController {
 	
 	@Autowired
 	private DocumentService documentService;
+	@Autowired
+	private MCQQuestionService questionService;
 
 	@PostMapping(value = API.DOCUMENT.CREATE)
 	@ResponseBody
@@ -107,4 +112,23 @@ public class DocumentController {
 		}
 		return response;
 	}
+	
+	
+	@PutMapping(value = API.DOCUMENT.DELETE)
+	@ResponseBody
+	public DeleteDocumentResponse delete(@RequestBody DeleteDocumentRequest request) {
+		DeleteDocumentResponse response = new DeleteDocumentResponse();
+		try {
+			List<String> questionIds = documentService.listQuestionByExamId(request.getId());
+			documentService.delete(request.getId());
+			questionService.deleteQuestionByIds(questionIds);
+			response.setCode(ResponseCode.SUCCESS);
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+		}
+		return response;
+	} 
 }

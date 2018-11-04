@@ -43,7 +43,7 @@ public class DocumentConverter {
 	 * GET
 	 */
 	
-	public static DBObject prepareGetDBObject(String id) {
+	public static DBObject prepareGetDBObjectId(String id) {
 		return new BasicDBObject(ID, new ObjectId(id));
 	}
 	

@@ -168,4 +168,9 @@ public class ExamDAOImpl implements ExamDAO {
 		DBObject query = ExamConverter.prepareCheckExistQuestion(questionId);
 		return examCollection.count(query) > 0;
 	}
+
+	@Override
+	public boolean isExistDocument(String documentId) {
+		return isExistsQuestion(documentId);
+	}
 }

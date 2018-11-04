@@ -9,4 +9,8 @@ import java.util.List;
 public interface DocumentDAO extends IDAO {
 	
 	public List<String> getRandomQuestions(int topic, int level, int size);
+	
+	public void removeQuestion(String documentId, String questionId);
+	
+	public List<String> listQuestionByExamId(String examId);
 }
