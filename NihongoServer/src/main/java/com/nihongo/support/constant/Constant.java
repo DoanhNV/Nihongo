@@ -130,4 +130,9 @@ public class Constant {
 	public class RESPONSE_PARAM {
 		public static final String DATA = "data";
 	}
+	
+	public class LOGGER {
+		public static final String REQUEST_PREFIX = "Request";
+		public static final String REPONSE_PREFIX = "Response";
+	}
 }

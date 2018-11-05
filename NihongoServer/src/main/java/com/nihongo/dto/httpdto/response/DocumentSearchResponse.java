@@ -1,9 +1,8 @@
-package com.nihongo.controller.function;
+package com.nihongo.dto.httpdto.response;
 
 import java.util.List;
 
 import com.nihongo.data.entity.questiondocument.Document;
-import com.nihongo.dto.httpdto.response.AbstractSearchResponse;
 
 /**
  * 

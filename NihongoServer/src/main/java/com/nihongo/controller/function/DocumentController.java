@@ -23,6 +23,7 @@ import com.nihongo.dto.httpdto.request.DocumentSearchRequest;
 import com.nihongo.dto.httpdto.request.InsertDocumentRequest;
 import com.nihongo.dto.httpdto.request.UpdateDocumentRequest;
 import com.nihongo.dto.httpdto.response.DeleteDocumentResponse;
+import com.nihongo.dto.httpdto.response.DocumentSearchResponse;
 import com.nihongo.dto.httpdto.response.GetDocumentResponse;
 import com.nihongo.dto.httpdto.response.InsertDocumentResponse;
 import com.nihongo.dto.httpdto.response.UpdateDocumentResponse;

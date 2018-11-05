@@ -16,6 +16,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.filter.validation.NihongoFilter;
+import com.nihongo.monitor.LogManager;
 import com.nihongo.security.AesUtil;
 import com.nihongo.security.TokenUtil;
 import com.nihongo.support.constant.API;
@@ -53,6 +54,9 @@ public class ValidatorFilter extends GenericFilterBean {
 			String requestURI = httpServletRequest.getRequestURI();
 			String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
 			
+			
+			LogManager.logDebug(Constant.LOGGER.REQUEST_PREFIX, requestBody.toString());
+			
 			boolean isPreFlightRequest = isPreFlightRequest(httpServletRequest);
 			AbstractNihongoResponse validateResponse = new AbstractNihongoResponse();
 			if (!isPreFlightRequest) {
@@ -69,7 +73,9 @@ public class ValidatorFilter extends GenericFilterBean {
 				
 				if (!isPreFlightRequest) {
 					CachedServletOutputStream outputStream = (CachedServletOutputStream) readableHttpServletResponse.getOutputStream();
-					responseBody = AesUtil.getInstance().encrypt(outputStream.getBody());
+					String body = outputStream.getBody();
+					LogManager.logDebug(Constant.LOGGER.REPONSE_PREFIX, body);
+					responseBody = AesUtil.getInstance().encrypt(body);
 					
 					JSONObject jsonResponse = new JSONObject();
 					jsonResponse.put(Constant.RESPONSE_PARAM.DATA, responseBody);
@@ -78,6 +84,7 @@ public class ValidatorFilter extends GenericFilterBean {
 			} else {
 				responseBody = validateResponse.toJson().toJSONString();
 			}
+			
 			
 			if (!isPreFlightRequest) { 
 				PrintWriter writer = readableHttpServletResponse.getWriter();
