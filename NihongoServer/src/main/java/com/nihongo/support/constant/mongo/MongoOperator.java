@@ -8,6 +8,7 @@ package com.nihongo.support.constant.mongo;
 public class MongoOperator {
 	
 	public static final String $IN = "$in";
+	public static final String NOT_IN = "$nin";
 	public static final String $SET = "$set";
 	public static final String $SAMPLE = "$sample";
 	public static final String $MATCH = "$match";

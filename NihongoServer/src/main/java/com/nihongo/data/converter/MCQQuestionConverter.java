@@ -28,6 +28,7 @@ import com.nihongo.data.entity.question.MCQQuestion;
 import com.nihongo.dto.httpdto.request.AbstractSearchRequest;
 import com.nihongo.dto.httpdto.request.MCQQuestionSearchRequest;
 import com.nihongo.support.RequestValidator;
+import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.mongo.MongoOperator;
 
 /**
@@ -121,12 +122,21 @@ public class MCQQuestionConverter {
 	public static DBObject toSearchObject(AbstractSearchRequest request) {
 		MCQQuestionSearchRequest searchRequest = (MCQQuestionSearchRequest) request;
 		BasicDBObject searchObject = new BasicDBObject();
+
 		if(searchRequest.getTopic() != QUERY_ALL) {
 			searchObject.append(TOPIC, searchRequest.getTopic());
+		} else {
+			BasicDBList paragraphs = new BasicDBList();
+			paragraphs.add(Constant.TOPIC.READING_UNDERSTANDING_PARAGRAPH);
+			paragraphs.add(Constant.TOPIC.FILL_INTO_PARAGRAPH);
+			
+			BasicDBObject notParaGraph = new BasicDBObject(MongoOperator.NOT_IN, paragraphs);
+			searchObject.append(TOPIC, notParaGraph);
 		}
 		if(searchRequest.getLevel() != QUERY_ALL) {
 			searchObject.append(LEVEL, searchRequest.getLevel());
 		}
+		
 		return searchObject;
 	}
 	
