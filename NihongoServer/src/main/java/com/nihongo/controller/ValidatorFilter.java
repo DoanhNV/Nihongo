@@ -83,6 +83,7 @@ public class ValidatorFilter extends GenericFilterBean {
 				}
 			} else {
 				responseBody = validateResponse.toJson().toJSONString();
+				LogManager.logDebug(Constant.LOGGER.REPONSE_PREFIX, responseBody);
 			}
 			
 			
