@@ -36,6 +36,7 @@ import com.nihongo.dto.httpdto.response.HistoryExamResponse;
 import com.nihongo.dto.httpdto.response.RandomCreateExamResponse;
 import com.nihongo.dto.httpdto.response.RandomExamResponse;
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.monitor.LogManager;
 import com.nihongo.service.data.ExamFavoriteService;
 import com.nihongo.service.data.ExamHistoryService;
 import com.nihongo.service.data.ExamLikeService;
@@ -92,6 +93,7 @@ public class ExamController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		}  catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -108,6 +110,7 @@ public class ExamController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		}  catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -129,11 +132,10 @@ public class ExamController {
 			}
 			response.setResponseData(ResponseCode.SUCCESS, detailExam);
 		}  catch (AbstractNihongoException e) {
-			e.printStackTrace();
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		}  catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -147,10 +149,9 @@ public class ExamController {
 									request.getIsTrial(), request.getPoint(), request.getCompletedMinutes());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
-			e.printStackTrace();
 		}  catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -168,10 +169,9 @@ public class ExamController {
 			response.setDatas(exams.getDatas());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
-			e.printStackTrace();
 		}  catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -186,10 +186,9 @@ public class ExamController {
 			response.setDatas(exams.getDatas());
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
-			e.printStackTrace();
 		}  catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	} 
@@ -207,10 +206,9 @@ public class ExamController {
 			} 
 		}  catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
-			e.printStackTrace();
 		}  catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}

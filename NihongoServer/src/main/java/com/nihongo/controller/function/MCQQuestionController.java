@@ -30,6 +30,7 @@ import com.nihongo.dto.httpdto.response.MCQQuestionListByIdsResponse;
 import com.nihongo.dto.httpdto.response.MCQQuestionSearchResponse;
 import com.nihongo.dto.httpdto.response.UpdateMCQQuestionResponse;
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.monitor.LogManager;
 import com.nihongo.service.data.MCQQuestionService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
@@ -59,6 +60,7 @@ public class MCQQuestionController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -75,6 +77,7 @@ public class MCQQuestionController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -90,6 +93,7 @@ public class MCQQuestionController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -104,6 +108,7 @@ public class MCQQuestionController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -118,6 +123,7 @@ public class MCQQuestionController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -134,6 +140,7 @@ public class MCQQuestionController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -149,8 +156,8 @@ public class MCQQuestionController {
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}

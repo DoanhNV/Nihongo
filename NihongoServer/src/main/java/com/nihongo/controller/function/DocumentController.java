@@ -28,6 +28,7 @@ import com.nihongo.dto.httpdto.response.GetDocumentResponse;
 import com.nihongo.dto.httpdto.response.InsertDocumentResponse;
 import com.nihongo.dto.httpdto.response.UpdateDocumentResponse;
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.monitor.LogManager;
 import com.nihongo.service.data.DocumentService;
 import com.nihongo.service.data.MCQQuestionService;
 import com.nihongo.support.constant.API;
@@ -60,6 +61,7 @@ public class DocumentController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -75,6 +77,7 @@ public class DocumentController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -90,8 +93,8 @@ public class DocumentController {
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -110,6 +113,7 @@ public class DocumentController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -129,6 +133,7 @@ public class DocumentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	} 

@@ -3,7 +3,6 @@ package com.nihongo.data.entity.other.transfer;
 import java.util.List;
 
 import com.nihongo.dto.httpdto.AbstractDTO;
-import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 
 /**
  * 

@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
+import com.nihongo.monitor.LogManager;
 import com.nihongo.support.constant.Constant;
 import com.nihongo.support.constant.mongo.MongoDBKey;
 
@@ -66,8 +67,9 @@ public class TokenUtil {
 				.requireIssuer(Constant.TOKEN.ISSUER)
 				.parseClaimsJws(jwt);
 		} catch (Exception e) {
-			System.out.println("jwt: " + jwt);
-			e.printStackTrace();
+			final String JWT_PREFIX = "JWT: ";
+			LogManager.logInfo(JWT_PREFIX + jwt);
+			LogManager.logError(e);
 			return false;
 		}
 		return true;

@@ -16,6 +16,7 @@ import com.nihongo.dto.httpdto.request.file.UploadStreamRequest;
 import com.nihongo.dto.httpdto.response.file.LoadBase64Response;
 import com.nihongo.dto.httpdto.response.file.UploadStreamResponse;
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.monitor.LogManager;
 import com.nihongo.service.data.FileService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
@@ -45,6 +46,7 @@ public class FileController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -60,6 +62,7 @@ public class FileController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}

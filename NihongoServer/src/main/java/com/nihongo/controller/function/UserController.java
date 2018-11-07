@@ -18,6 +18,7 @@ import com.nihongo.dto.httpdto.response.GetUserInfoResponse;
 import com.nihongo.dto.httpdto.response.LogoutResponse;
 import com.nihongo.dto.httpdto.response.RegisterResponse;
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.monitor.LogManager;
 import com.nihongo.service.data.UserService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
@@ -46,6 +47,7 @@ public class UserController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -60,8 +62,8 @@ public class UserController {
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -75,8 +77,8 @@ public class UserController {
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -91,8 +93,8 @@ public class UserController {
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}

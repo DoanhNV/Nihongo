@@ -9,7 +9,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -17,7 +16,6 @@ import org.springframework.web.filter.GenericFilterBean;
 import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.filter.validation.NihongoFilter;
 import com.nihongo.monitor.LogManager;
-import com.nihongo.security.AesUtil;
 import com.nihongo.security.TokenUtil;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.Constant;
@@ -38,7 +36,6 @@ import com.nihongo.techhelper.ReadableHttpServletResponse;
 @Order(Constant.FILTER_ORDER.SECOND)
 public class ValidatorFilter extends GenericFilterBean {
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
@@ -74,12 +71,16 @@ public class ValidatorFilter extends GenericFilterBean {
 				if (!isPreFlightRequest) {
 					CachedServletOutputStream outputStream = (CachedServletOutputStream) readableHttpServletResponse.getOutputStream();
 					String body = outputStream.getBody();
-					LogManager.logDebug(Constant.LOGGER.REPONSE_PREFIX, body);
-					responseBody = AesUtil.getInstance().encrypt(body);
+					responseBody = body;
+					LogManager.logDebug(Constant.LOGGER.REPONSE_PREFIX, responseBody);
+					
+					
+					// ENCRYPT
+					/*responseBody = AesUtil.getInstance().encrypt(body);
 					
 					JSONObject jsonResponse = new JSONObject();
 					jsonResponse.put(Constant.RESPONSE_PARAM.DATA, responseBody);
-					responseBody = jsonResponse.toJSONString();
+					responseBody = jsonResponse.toJSONString();*/
 				}
 			} else {
 				responseBody = validateResponse.toJson().toJSONString();
@@ -94,6 +95,7 @@ public class ValidatorFilter extends GenericFilterBean {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			LogManager.logError(e);
 		}
 	}
 	

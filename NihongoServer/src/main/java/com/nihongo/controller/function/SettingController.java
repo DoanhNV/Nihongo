@@ -16,6 +16,7 @@ import com.nihongo.dto.httpdto.request.ExamSettingRequest;
 import com.nihongo.dto.httpdto.response.ExamSettingResponse;
 import com.nihongo.dto.httpdto.response.ListExamSettingResponse;
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.monitor.LogManager;
 import com.nihongo.service.data.SettingService;
 import com.nihongo.support.constant.API;
 import com.nihongo.support.constant.ResponseCode;
@@ -46,6 +47,7 @@ public class SettingController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -61,6 +63,7 @@ public class SettingController {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}

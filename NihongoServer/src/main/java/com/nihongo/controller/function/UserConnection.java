@@ -13,6 +13,7 @@ import com.nihongo.dto.httpdto.request.ExamLikeRequest;
 import com.nihongo.dto.httpdto.response.ExamLikeResponse;
 import com.nihongo.dto.httpdto.response.ExamFavoriteResponse;
 import com.nihongo.exception.AbstractNihongoException;
+import com.nihongo.monitor.LogManager;
 import com.nihongo.service.data.ExamFavoriteService;
 import com.nihongo.service.data.ExamLikeService;
 import com.nihongo.service.data.ExamService;
@@ -47,8 +48,8 @@ public class UserConnection {
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
@@ -63,6 +64,7 @@ public class UserConnection {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
 		}
 		return response;
 	}
