@@ -51,9 +51,6 @@ public class ValidatorFilter extends GenericFilterBean {
 			String requestURI = httpServletRequest.getRequestURI();
 			String token = httpServletRequest.getHeader(REQUEST_PROPERTIES.ACCESS_TOKEN);
 			
-			
-			LogManager.logDebug(Constant.LOGGER.REQUEST_PREFIX, requestBody.toString());
-			
 			boolean isPreFlightRequest = isPreFlightRequest(httpServletRequest);
 			AbstractNihongoResponse validateResponse = new AbstractNihongoResponse();
 			if (!isPreFlightRequest) {
@@ -64,6 +61,8 @@ public class ValidatorFilter extends GenericFilterBean {
 				}
 			}
 			
+			LogManager.logDebug(Constant.LOGGER.REQUEST_PREFIX, requestURI, requestBody.toString());
+			
 			String responseBody = "{}";
 			if(validateResponse.getCode() == ResponseCode.SUCCESS) {
 				chain.doFilter(httpServletRequest, readableHttpServletResponse);
@@ -72,7 +71,7 @@ public class ValidatorFilter extends GenericFilterBean {
 					CachedServletOutputStream outputStream = (CachedServletOutputStream) readableHttpServletResponse.getOutputStream();
 					String body = outputStream.getBody();
 					responseBody = body;
-					LogManager.logDebug(Constant.LOGGER.REPONSE_PREFIX, responseBody);
+					LogManager.logDebug(Constant.LOGGER.REPONSE_PREFIX, requestURI, responseBody);
 					
 					
 					// ENCRYPT
@@ -84,7 +83,7 @@ public class ValidatorFilter extends GenericFilterBean {
 				}
 			} else {
 				responseBody = validateResponse.toJson().toJSONString();
-				LogManager.logDebug(Constant.LOGGER.REPONSE_PREFIX, responseBody);
+				LogManager.logDebug(Constant.LOGGER.REPONSE_PREFIX, requestURI, responseBody);
 			}
 			
 			

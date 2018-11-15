@@ -17,9 +17,9 @@ public class LogManager {
 		logger.info(message);
 	}
 	
-	public static void logDebug(String prefix, String message) {
+	public static void logDebug(String prefix, String api, String message) {
 		final String SEPARATOR = " : ";
-		logger.debug(prefix + SEPARATOR + message);
+		logger.debug(prefix + SEPARATOR + api + SEPARATOR + message);
 	}
 	
 	public static void logError(Throwable t) {
