@@ -10,6 +10,7 @@ import com.nihongo.exception.AbstractNihongoException;
 import com.nihongo.service.data.UserService;
 import com.nihongo.service.manager.TokenManager;
 import com.nihongo.support.constant.Constant;
+import com.nihongo.support.constant.LoginSystemUserTemplate;
 import com.nihongo.support.constant.ResponseCode;
 
 /**
@@ -90,5 +91,23 @@ public class UserServiceImpl implements UserService {
 																		user.getPoint(),
 																			user.isAdmin());
 		return basicUser;
+	}
+
+	@Override
+	public boolean isExistLoginSystemUser() {
+		return userDAO.isExistLoginSystemUser();
+	}
+
+	@Override
+	public BasicLoginUser loginWithSystemUser() {
+		LoginSystemUserTemplate loginSystemUser = new LoginSystemUserTemplate();
+		userDAO.createUser(loginSystemUser);
+		return login(
+						loginSystemUser.getUserName(), 
+						loginSystemUser.getPassword(), 
+						Constant.LOGIN_TYPE.BY_USER_NAME, 
+						loginSystemUser.getFullName(), 
+						loginSystemUser.getLevel()
+					);
 	}
 }

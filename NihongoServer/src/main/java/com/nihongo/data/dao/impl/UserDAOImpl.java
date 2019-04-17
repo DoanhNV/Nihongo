@@ -56,4 +56,9 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
+	@Override
+	public boolean isExistLoginSystemUser() {
+		final DBObject query = UserConverter.existLoginSystemUserRequest();
+		return userCollection.findOne(query) != null;
+	}
 }

@@ -1,5 +1,6 @@
 package com.nihongo.service.data;
 
+import com.nihongo.data.entity.user.User;
 import com.nihongo.dto.httpdto.entity.BasicLoginUser;
 
 /**
@@ -16,4 +17,8 @@ public interface UserService {
 	public BasicLoginUser getBasicUserInfo(String requestUserId);
 	
 	public void logout(String token);
+	
+	public boolean isExistLoginSystemUser();
+	
+	public BasicLoginUser loginWithSystemUser();
 }

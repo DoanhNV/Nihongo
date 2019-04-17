@@ -5,6 +5,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.nihongo.data.entity.user.User;
 import com.nihongo.support.constant.Constant;
+import com.nihongo.support.constant.LoginSystemUserTemplate;
 import com.nihongo.support.constant.mongo.MongoOperator;
 
 import static com.nihongo.support.constant.mongo.MongoDBKey.USER.*;
@@ -29,6 +30,11 @@ public class UserConverter {
 		insertObject.append(GMAIL, user.getGmail());
 		insertObject.append(FACEBOOK_ID, user.getFacebookId());
 		insertObject.append(BIRTHDAY, user.getBirthday());
+		
+		if (user instanceof LoginSystemUserTemplate) {
+			LoginSystemUserTemplate systemUser = (LoginSystemUserTemplate) user;
+			insertObject.append(IS_SYSTEM_USER, systemUser.isSystemUser());
+		}
 		long currentTimeMillis = System.currentTimeMillis();
 		insertObject.append(CREATE_TIME, currentTimeMillis);
 		return insertObject;
@@ -69,6 +75,10 @@ public class UserConverter {
 	public static DBObject prepareObjectId(String userId) {
 		ObjectId objectId = new ObjectId(userId);
 		return new BasicDBObject(ID, objectId);
+	}
+	
+	public static DBObject existLoginSystemUserRequest() {
+		return new BasicDBObject(IS_SYSTEM_USER, true);
 	}
 
 	public static User toBasicUser(DBObject userObject) {

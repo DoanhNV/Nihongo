@@ -17,6 +17,7 @@ public class MongoDBKey {
 	public static final String IS_ACTIVE = "is_active";
 	public static final String POINT = "point";
 	public static final String CREATE_TIME = "create_time";
+	public static final String IS_SYSTEM_USER = "is_system_user";
 	
 	public class MCQQuestionKey extends MongoDBKey {
 		public static final String TITLE = "title";

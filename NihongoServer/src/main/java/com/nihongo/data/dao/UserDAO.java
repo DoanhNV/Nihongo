@@ -21,4 +21,6 @@ public interface UserDAO {
 	public User getBasicUserInfo(String requestUserId);
 	
 	public boolean existUser(String userName,  String gmail, String facebookId);
+	
+	public boolean isExistLoginSystemUser();
 }

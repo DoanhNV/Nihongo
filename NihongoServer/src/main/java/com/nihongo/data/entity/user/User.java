@@ -20,6 +20,7 @@ public class User extends AbstractEntity {
 	private int point;
 	private long createTime;
 	private boolean isAdmin;
+	private boolean isSystemUser;
 	
 	public User() {
 
@@ -128,5 +129,13 @@ public class User extends AbstractEntity {
 
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	public boolean isSystemUser() {
+		return isSystemUser;
+	}
+
+	public void setSystemUser(boolean isSystemUser) {
+		this.isSystemUser = isSystemUser;
 	}
 }

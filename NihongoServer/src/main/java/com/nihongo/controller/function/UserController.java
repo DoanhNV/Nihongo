@@ -12,9 +12,12 @@ import com.nihongo.dto.httpdto.LoginResponse;
 import com.nihongo.dto.httpdto.entity.BasicLoginUser;
 import com.nihongo.dto.httpdto.request.GetUserInfoRequest;
 import com.nihongo.dto.httpdto.request.LoginRequest;
+import com.nihongo.dto.httpdto.request.LoginWithSystemUserRequest;
 import com.nihongo.dto.httpdto.request.LogoutRequest;
 import com.nihongo.dto.httpdto.request.RegisterRequest;
+import com.nihongo.dto.httpdto.response.AbstractNihongoResponse;
 import com.nihongo.dto.httpdto.response.GetUserInfoResponse;
+import com.nihongo.dto.httpdto.response.LoginWithSystemUserResponse;
 import com.nihongo.dto.httpdto.response.LogoutResponse;
 import com.nihongo.dto.httpdto.response.RegisterResponse;
 import com.nihongo.exception.AbstractNihongoException;
@@ -35,6 +38,23 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@PostMapping(value = API.USER.LOGIN_WITH_SYSTEM_USER)
+	@ResponseBody
+	public AbstractNihongoResponse loginWithSystemUser(@RequestBody LoginWithSystemUserRequest request) {
+		LoginWithSystemUserResponse response = new LoginWithSystemUserResponse();
+		try {
+			if (!userService.isExistLoginSystemUser()) {
+				
+			}
+		} catch (AbstractNihongoException e) {
+			response.setCodeAndMessage(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			response.setCode(ResponseCode.SYSTEM_ERROR);
+			LogManager.logError(e);
+		}
+		return response;
+	}
 	
 	@PostMapping(value = API.USER.REGISTER)
 	@ResponseBody

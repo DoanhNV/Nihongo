@@ -57,6 +57,7 @@ public class API {
 	public class USER {
 		public static final String ROOT = "/user";
 		public static final String REGISTER =  "/register";
+		public static final String LOGIN_WITH_SYSTEM_USER =  "/log_with_system_user";
 		public static final String LOGIN = "/login";
 		public static final String LOGOUT = "/logout";
 		public static final String INFO = "/info";
