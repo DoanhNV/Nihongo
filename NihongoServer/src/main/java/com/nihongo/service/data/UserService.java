@@ -1,6 +1,5 @@
 package com.nihongo.service.data;
 
-import com.nihongo.data.entity.user.User;
 import com.nihongo.dto.httpdto.entity.BasicLoginUser;
 
 /**

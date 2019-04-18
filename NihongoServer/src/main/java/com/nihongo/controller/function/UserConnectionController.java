@@ -29,7 +29,7 @@ import com.nihongo.support.constant.ResponseCode;
 @CrossOrigin
 @RestController
 @RequestMapping(value = API.USER_CONNECTION.ROOT)
-public class UserConnection {
+public class UserConnectionController {
 
 	@Autowired
 	private ExamLikeService examLikeService;

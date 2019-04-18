@@ -94,14 +94,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean isExistLoginSystemUser() {
-		return userDAO.isExistLoginSystemUser();
-	}
-
-	@Override
 	public BasicLoginUser loginWithSystemUser() {
 		LoginSystemUserTemplate loginSystemUser = new LoginSystemUserTemplate();
-		userDAO.createUser(loginSystemUser);
+		if (!isExistLoginSystemUser()) {
+			createSystemUser(loginSystemUser);
+		}
 		return login(
 						loginSystemUser.getUserName(), 
 						loginSystemUser.getPassword(), 
@@ -109,5 +106,14 @@ public class UserServiceImpl implements UserService {
 						loginSystemUser.getFullName(), 
 						loginSystemUser.getLevel()
 					);
+	}
+	
+	@Override
+	public boolean isExistLoginSystemUser() {
+		return userDAO.isExistLoginSystemUser();
+	}
+	
+	private void createSystemUser(LoginSystemUserTemplate loginSystemUser) {
+		userDAO.createUser(loginSystemUser);
 	}
 }

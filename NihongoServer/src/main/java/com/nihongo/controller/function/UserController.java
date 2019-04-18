@@ -2,6 +2,7 @@ package com.nihongo.controller.function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,14 +40,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping(value = API.USER.LOGIN_WITH_SYSTEM_USER)
+	@GetMapping(value = API.USER.LOGIN_WITH_SYSTEM_USER)
 	@ResponseBody
-	public AbstractNihongoResponse loginWithSystemUser(@RequestBody LoginWithSystemUserRequest request) {
+	public AbstractNihongoResponse loginWithSystemUser() {
 		LoginWithSystemUserResponse response = new LoginWithSystemUserResponse();
 		try {
-			if (!userService.isExistLoginSystemUser()) {
-				
-			}
+			response.setUser(userService.loginWithSystemUser());
 		} catch (AbstractNihongoException e) {
 			response.setCodeAndMessage(e.getCode(), e.getMessage());
 		} catch (Exception e) {
